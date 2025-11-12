@@ -1,6 +1,6 @@
 /*
  * File: API_vga.h
- * Author: Jeremy,Victor
+ * Authors: Jeremy, Victor en Robin
  * Brief: Basic header voor VGA API 
  */
 

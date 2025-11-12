@@ -1,5 +1,5 @@
 /*
  * File: main.c
- * Author: Jeremy, Victor
+ * Authors: Jeremy, Victor en Robin
  * Brief: De hoofd code om de VGA API te testen
  */

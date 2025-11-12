@@ -1,6 +1,6 @@
 /*
  * File: API_vga.c
- * Author: Jeremy,Victor
+ * Authors: Jeremy, Victor en Robin
  * Brief: Hoofdbestand voor de VGA API implementatie
  */
 
