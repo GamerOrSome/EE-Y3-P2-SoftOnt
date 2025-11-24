@@ -62,6 +62,6 @@ dkms.conf
 *.dwo
 
 #build directory
-*/build/*
-*/Build/*
-*/BUILD/*
+*build*
+*Build*
+*BUILD*
