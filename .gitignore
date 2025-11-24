@@ -1,3 +1,10 @@
+# VS code settings
+.vscode/
+*/.settings/
+
+# Clang
+*.clangd
+
 # Prerequisites
 *.d
 
@@ -53,3 +60,8 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+#build directory
+*/build/*
+*/Build/*
+*/BUILD/*
