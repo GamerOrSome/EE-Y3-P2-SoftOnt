@@ -5,6 +5,14 @@
  *      Author: jerem
  */
 
+/*
+
+TODO:
+Add error check to all functions
+completer functions
+
+*/
+
 #ifndef API_API_FUNC_H_
 #define API_API_FUNC_H_
 

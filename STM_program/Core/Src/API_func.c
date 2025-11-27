@@ -7,7 +7,62 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, i
 
 int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved)
 {
-    return -ENOTSUP;
+    int dx = x_2 - x_1;
+    int dy = y_2 - y_1;
+    
+    int neg_x = 1;
+    int neg_y = 1;
+
+    if(dx<0)
+    {
+        dx = -dx;
+        neg_x = -1;
+    }
+    if(dy<0)
+    {
+        dy = -dy;
+        neg_y = -1;
+    }
+
+
+    float dir = dx/dy;
+    int drawing = 1;
+    float step = dir;
+    int step_taken = 0;
+
+    int x = x_1;
+    int y = y_1;
+    while(drawing)
+    {
+        if(step<1)
+        {
+            y = y + neg_y;
+            step+=dir;
+            step_taken++;
+        }
+        else
+        {
+            x = x + neg_x;
+            step--;
+        }
+
+        for(int yw=0; yw<weight; yw++)
+        {
+            int oy = y + yw - (weight/2);
+            for (int xw=0; xw<weight-yw; xw++)
+            {
+                int ox = x + xw - (weight/2);
+                UB_VGA_SetPixel(ox, oy, color);
+            }
+        }
+        
+        if(step_taken >= dy)
+        {
+            drawing = 0;
+        }
+    }
+
+    return 0;
 }
 
 int API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2)
