@@ -1,4 +1,4 @@
-#include <API/API_func.h>
+#include <API_func.h>
 
 int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved)
 {
