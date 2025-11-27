@@ -6,12 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -31,7 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+ 
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -55,9 +56,11 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
+extern DMA_HandleTypeDef hdma_tim1_up;
+extern TIM_HandleTypeDef htim2;
+extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
-
+extern TIM_HandleTypeDef htim1;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -72,9 +75,7 @@ void NMI_Handler(void)
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-   while (1)
-  {
-  }
+
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
@@ -199,19 +200,111 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles USB On The Go FS global interrupt.
+  * @brief This function handles TIM2 global interrupt.
   */
-void OTG_FS_IRQHandler(void)
+void TIM2_IRQHandler(void)
 {
-  /* USER CODE BEGIN OTG_FS_IRQn 0 */
+  /* USER CODE BEGIN TIM2_IRQn 0 */
 
-  /* USER CODE END OTG_FS_IRQn 0 */
-  HAL_HCD_IRQHandler(&hhcd_USB_OTG_FS);
-  /* USER CODE BEGIN OTG_FS_IRQn 1 */
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+  __HAL_TIM_CLEAR_IT(&htim2, TIM_IT_CC3); // uncomment HAL_TIM_IRQHandler(&htim2); ^^
 
-  /* USER CODE END OTG_FS_IRQn 1 */
+  VGA.hsync_cnt++;
+  if (VGA.hsync_cnt >= VGA_VSYNC_PERIODE)
+  {
+    // -----------
+    VGA.hsync_cnt = 0;
+    // Adresspointer first dot
+    VGA.start_adr = (uint32_t)(&VGA_RAM1[0]);
+  }
+
+  // HSync-Pixel
+  GPIOB->BSRR = (VGA.hsync_cnt < VGA_VSYNC_IMP) ? VGA_VSYNC_Pin << 16u: VGA_VSYNC_Pin;
+
+  // Test for DMA start
+  if((VGA.hsync_cnt >= VGA_VSYNC_BILD_START) && (VGA.hsync_cnt <= VGA_VSYNC_BILD_STOP))
+  {
+    // after FP start => DMA Transfer
+
+    // DMA2 init
+	  DMA2_Stream5->CR = VGA.dma2_cr_reg;
+    // set adress
+    DMA2_Stream5->M0AR = VGA.start_adr;
+    // Timer1 start
+    TIM1->CR1 |= TIM_CR1_CEN; // __HAL_TIM_ENABLE(&htim1); // too slow?
+    // DMA2 enable
+    __HAL_DMA_ENABLE(&hdma_tim1_up);
+    // Test Adrespointer for high
+    if(VGA.hsync_cnt & 0x01)
+      VGA.start_adr += (VGA_DISPLAY_X + 1); // inc after Hsync
+  }
+  /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART2 global interrupt.
+  */
+void USART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_IRQn 0 */
+
+	// Store the byte we received on the UART
+	char uart_char = USART2->DR;
+
+	//Ignore the '\n' character
+	if(uart_char != LINE_FEED)
+	{
+		//Check for CR or a dot
+		// There was a small bug in the terminal program.
+		// By terminating your message with a dot you can ignore the CR (Enter) character
+		if((uart_char == CARRIAGE_RETURN) || (uart_char == '.'))
+		{
+			input.command_execute_flag = TRUE;
+			// Store the message length for processing
+			input.msglen = input.char_counter;
+			// Reset the counter for the next line
+			input.char_counter = 0;
+			//Gently exit interrupt
+		}
+		else
+		{
+			input.command_execute_flag = FALSE;
+			input.line_rx_buffer[input.char_counter] = uart_char;
+			input.char_counter++;
+		}
+	}
+
+  /* USER CODE END USART2_IRQn 0 */
+  HAL_UART_IRQHandler(&huart2);
+  /* USER CODE BEGIN USART2_IRQn 1 */
+
+  /* USER CODE END USART2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA2 stream5 global interrupt.
+  */
+void DMA2_Stream5_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2_Stream5_IRQn 0 */
+
+    // Timer1 stop
+    __HAL_TIM_DISABLE(&htim1);
+    // DMA2 disable
+    // __HAL_DMA_DISABLE(&hdma_tim1_up); // not needed?
+    // switch on black
+    GPIOE->BSRR = VGA_GPIO_HINIBBLE << 16u;
+
+  /* USER CODE END DMA2_Stream5_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_tim1_up);
+  /* USER CODE BEGIN DMA2_Stream5_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream5_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
