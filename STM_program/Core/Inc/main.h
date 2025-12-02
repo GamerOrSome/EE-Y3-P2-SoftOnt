@@ -7,12 +7,13 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -31,6 +32,13 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdint.h"
+
+#include "stdio.h"
+#include "string.h"
+#include <stdlib.h>
+
+#include "stm32_ub_vga_screen.h"
 
 /* USER CODE END Includes */
 
@@ -57,74 +65,52 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define CS_I2C_SPI_Pin GPIO_PIN_3
-#define CS_I2C_SPI_GPIO_Port GPIOE
-#define PC14_OSC32_IN_Pin GPIO_PIN_14
-#define PC14_OSC32_IN_GPIO_Port GPIOC
-#define PC15_OSC32_OUT_Pin GPIO_PIN_15
-#define PC15_OSC32_OUT_GPIO_Port GPIOC
-#define PH0_OSC_IN_Pin GPIO_PIN_0
-#define PH0_OSC_IN_GPIO_Port GPIOH
-#define PH1_OSC_OUT_Pin GPIO_PIN_1
-#define PH1_OSC_OUT_GPIO_Port GPIOH
-#define OTG_FS_PowerSwitchOn_Pin GPIO_PIN_0
-#define OTG_FS_PowerSwitchOn_GPIO_Port GPIOC
-#define PDM_OUT_Pin GPIO_PIN_3
-#define PDM_OUT_GPIO_Port GPIOC
-#define B1_Pin GPIO_PIN_0
-#define B1_GPIO_Port GPIOA
-#define I2S3_WS_Pin GPIO_PIN_4
-#define I2S3_WS_GPIO_Port GPIOA
-#define SPI1_SCK_Pin GPIO_PIN_5
-#define SPI1_SCK_GPIO_Port GPIOA
-#define SPI1_MISO_Pin GPIO_PIN_6
-#define SPI1_MISO_GPIO_Port GPIOA
-#define SPI1_MOSI_Pin GPIO_PIN_7
-#define SPI1_MOSI_GPIO_Port GPIOA
-#define BOOT1_Pin GPIO_PIN_2
-#define BOOT1_GPIO_Port GPIOB
-#define CLK_IN_Pin GPIO_PIN_10
-#define CLK_IN_GPIO_Port GPIOB
-#define LD4_Pin GPIO_PIN_12
-#define LD4_GPIO_Port GPIOD
-#define LD3_Pin GPIO_PIN_13
-#define LD3_GPIO_Port GPIOD
-#define LD5_Pin GPIO_PIN_14
-#define LD5_GPIO_Port GPIOD
-#define LD6_Pin GPIO_PIN_15
-#define LD6_GPIO_Port GPIOD
-#define I2S3_MCK_Pin GPIO_PIN_7
-#define I2S3_MCK_GPIO_Port GPIOC
-#define VBUS_FS_Pin GPIO_PIN_9
-#define VBUS_FS_GPIO_Port GPIOA
-#define OTG_FS_ID_Pin GPIO_PIN_10
-#define OTG_FS_ID_GPIO_Port GPIOA
-#define OTG_FS_DM_Pin GPIO_PIN_11
-#define OTG_FS_DM_GPIO_Port GPIOA
-#define OTG_FS_DP_Pin GPIO_PIN_12
-#define OTG_FS_DP_GPIO_Port GPIOA
-#define SWDIO_Pin GPIO_PIN_13
-#define SWDIO_GPIO_Port GPIOA
-#define SWCLK_Pin GPIO_PIN_14
-#define SWCLK_GPIO_Port GPIOA
-#define I2S3_SCK_Pin GPIO_PIN_10
-#define I2S3_SCK_GPIO_Port GPIOC
-#define I2S3_SD_Pin GPIO_PIN_12
-#define I2S3_SD_GPIO_Port GPIOC
-#define Audio_RST_Pin GPIO_PIN_4
-#define Audio_RST_GPIO_Port GPIOD
-#define OTG_FS_OverCurrent_Pin GPIO_PIN_5
-#define OTG_FS_OverCurrent_GPIO_Port GPIOD
-#define SWO_Pin GPIO_PIN_3
-#define SWO_GPIO_Port GPIOB
-#define Audio_SCL_Pin GPIO_PIN_6
-#define Audio_SCL_GPIO_Port GPIOB
-#define Audio_SDA_Pin GPIO_PIN_9
-#define Audio_SDA_GPIO_Port GPIOB
-#define MEMS_INT2_Pin GPIO_PIN_1
-#define MEMS_INT2_GPIO_Port GPIOE
-
+#define VGA_BLUE0_Pin GPIO_PIN_8
+#define VGA_BLUE0_GPIO_Port GPIOE
+#define VGA_BLUE1_Pin GPIO_PIN_9
+#define VGA_BLUE1_GPIO_Port GPIOE
+#define VGA_GREEN0_Pin GPIO_PIN_10
+#define VGA_GREEN0_GPIO_Port GPIOE
+#define VGA_GREEN1_Pin GPIO_PIN_11
+#define VGA_GREEN1_GPIO_Port GPIOE
+#define VGA_GREEN2_Pin GPIO_PIN_12
+#define VGA_GREEN2_GPIO_Port GPIOE
+#define VGA_RED0_Pin GPIO_PIN_13
+#define VGA_RED0_GPIO_Port GPIOE
+#define VGA_RED1_Pin GPIO_PIN_14
+#define VGA_RED1_GPIO_Port GPIOE
+#define VGA_RED2_Pin GPIO_PIN_15
+#define VGA_RED2_GPIO_Port GPIOE
+#define VGA_HSYNC_Pin GPIO_PIN_11
+#define VGA_HSYNC_GPIO_Port GPIOB
+#define VGA_VSYNC_Pin GPIO_PIN_12
+#define VGA_VSYNC_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
+
+#define BYTE_BUFLEN 	 1
+#define LINE_BUFLEN 	 1024
+#define CARRIAGE_RETURN  13 /* carriage return char \r */
+#define LINE_FEED 		 10 /* linefeed char \n		   */
+
+#define FALSE 	0x00
+#define TRUE 	0xFF
+
+/* Struct's ------------------------------------------------------------------*/
+typedef struct
+{
+	uint8_t byte_buffer_rx[BYTE_BUFLEN];	// Store the rx byte from the USART2
+	char line_rx_buffer[LINE_BUFLEN];		// Buffer to hold all the bytes from rx USART2
+	int msglen;
+	volatile int char_counter;				// Counter for line_rx_buffer
+	char command_execute_flag;				/* Set = whole transmission is received, ready for processing \
+											   Reset = still receiving*/
+}input_vars;
+extern input_vars input;
+
+/* Globals -------------------------------------------------------------------*/
+extern volatile char container[1024];
+extern volatile int temp;
+extern volatile int key;
 
 /* USER CODE END Private defines */
 
@@ -133,3 +119,5 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
