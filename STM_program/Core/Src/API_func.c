@@ -1,4 +1,5 @@
 #include <API_func.h>
+#include <Bitmaps.h>
 
 int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved)
 {
@@ -72,7 +73,34 @@ int API_draw_rectangle(int x, int y, int width, int height, int color, int fille
 
 int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 {
-    return -ENOTSUP;
+
+	API_draw_line(10, 10, 100, 10,  VGA_COL_GREEN, 4, 0);
+
+    uint8_t *bitmap_data;
+    switch (bm_nr)
+    {
+    case 1:
+        bitmap_data = hu_bitmap_data;
+        break;
+    case 2:
+        bitmap_data = wolf_bitmap_data;
+        break;    
+    default:
+        return -EINVAL;
+        break;
+    }
+
+    int bitmap_height = bitmap_data[1];
+    int bitmap_width = bitmap_data[0];
+
+    for (int y = 0; y < bitmap_height; y++) {
+        for (int x = 0; x < bitmap_width; x++) {
+            int pixel_index = y * bitmap_width + x + 2;
+            uint8_t color = bitmap_data[pixel_index];
+            UB_VGA_SetPixel(x_lup + x, y_lup + y, color);
+        }
+    }
+    return 0;
 }
 
 int API_clearscreen(int color)

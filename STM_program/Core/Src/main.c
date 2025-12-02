@@ -101,11 +101,6 @@ int main(void)
 
   UB_VGA_Screen_Init(); // Init VGA-Screen
 
-  API_clearscreen(VGA_COL_WHITE);
-  UB_VGA_SetPixel(10,10,10);
-  UB_VGA_SetPixel(0,0,0x00);
-  UB_VGA_SetPixel(319,0,0x00);
-
   int i;
 
   for(i = 0; i < LINE_BUFLEN; i++)
@@ -130,16 +125,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(input.command_execute_flag == TRUE)
-	  {
-		  // Do some stuff
-		  printf("yes\n");
-		  colorTest = ~colorTest; // Toggle screen color
-		  UB_VGA_FillScreen(colorTest);
+    API_clearscreen(VGA_COL_WHITE);
+    API_draw_line(10, 10, 100, 100, VGA_COL_BLACK, 1, 0);
+    API_draw_line(50, 10, 140, 100, VGA_COL_RED, 3, 0);
+    API_draw_line(90, 50, 20, 60, VGA_COL_MAGENTA, 5, 0);
+    API_draw_line(120, 30, 250, 10, VGA_COL_GREEN, 7, 0);
 
-		  // When finished reset the flag
-		  input.command_execute_flag = FALSE;
-	  }
+    HAL_Delay(2000);
+
+    API_clearscreen(VGA_COL_WHITE);
+//    API_draw_bitmap(0, 0, 1);
+    API_draw_bitmap(0, 0, 2);
+
+    HAL_Delay(2000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
