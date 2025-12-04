@@ -35,6 +35,8 @@ completer functions
  * @return             Statuscode (0 = succes, anders fout).
  */
 
+int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved);
+
 /**
  * Tekent een rechte lijn tussen twee punten met aangegeven kleur en lijngewicht.
  *
@@ -48,6 +50,8 @@ completer functions
  *
  * @return             Statuscode (0 = succes, anders fout).
  */
+
+int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved);
 
 /**
  * Tekent een rechthoek op de gegeven positie met breedte, hoogte en kleur. Kan gevuld of slechts omtrek zijn.
@@ -64,6 +68,8 @@ completer functions
  * @return             Statuscode (0 = succes, anders fout).
  */
 
+int API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2);
+
 /**
  * Tekent een eerder geladen bitmap (resource) met gegeven nummer op de opgegeven linkerbovenhoek-coördinaten.
  *
@@ -74,6 +80,8 @@ completer functions
  * @return             Statuscode (0 = succes, anders fout).
  */
 
+int API_draw_bitmap(int x_lup, int y_lup, int bm_nr);
+
 /**
  * Maakt het scherm vrij en vult het met de opgegeven kleur.
  *
@@ -82,6 +90,8 @@ completer functions
  * @return             Statuscode (0 = succes, anders fout).
  */
 
+int API_clearscreen(int color);
+
 /**
  * Pauzeert de uitvoering gedurende het opgegeven aantal milliseconden.
  *
@@ -89,6 +99,8 @@ completer functions
  *
  * @return             Statuscode (0 = succes, anders fout).
  */
+
+int API_wait(int msecs);
 
 /**
  * Herhaalt een reeks eerder uitgevoerde tekencommando's een aantal keren.
@@ -99,6 +111,8 @@ completer functions
  *
  * @return                      Statuscode (0 = succes, anders fout).
  */
+
+int API_repeat_commands(int nr_previous_commands, int iterations, int reserved);
 
 /**
  * Tekent een cirkel met middelpunt en straal in de opgegeven kleur.
@@ -111,6 +125,8 @@ completer functions
  *
  * @return             Statuscode (0 = succes, anders fout).
  */
+
+int API_draw_circle(int x, int y, int radius, int color, int reserved);
 
 /**
  * Tekent een figuur gedefinieerd door maximaal vijf punten (veelhoek/figuur) met de opgegeven kleur.
@@ -133,17 +149,6 @@ completer functions
  * @return         Statuscode (0 = succes, anders fout).
  */
 
-int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved);
-
-int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved);
-int API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2);
-int API_draw_bitmap(int x_lup, int y_lup, int bm_nr);
-int API_clearscreen(int color);
-
-// Optional functions
-int API_wait(int msecs);
-int API_repeat_commands(int nr_previous_commands, int iterations, int reserved);
-int API_draw_circle(int x, int y, int radius, int color, int reserved);
 int API_draw_figure(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3, int x_4, int y_4, int x_5, int y_5, int color, int reserved);
 
 #endif /* API_API_FUNC_H_ */
