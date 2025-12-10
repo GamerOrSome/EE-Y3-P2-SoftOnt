@@ -8,59 +8,48 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, i
 
 int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved)
 {
+    if(x_1 < 0 || x_1 >= VGA_DISPLAY_X || x_2 < 0 || x_2 >= VGA_DISPLAY_X ||
+       y_1 < 0 || y_1 >= VGA_DISPLAY_Y || y_2 < 0 || y_2 >= VGA_DISPLAY_Y ||
+       weight <= 0 || color < 0 || color > 255)
+    {
+        return -EINVAL;
+    }
+
     int dx = x_2 - x_1;
     int dy = y_2 - y_1;
     
-    int neg_x = 1;
-    int neg_y = 1;
+    int steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
+    if(steps == 0) steps = 1;
 
-    if(dx<0)
-    {
-        dx = -dx;
-        neg_x = -1;
+    float x_inc = (float)dx / steps;
+    float y_inc = (float)dy / steps;
+    
+    float x = x_1;
+    float y = y_1;
+
+    int even = 0;
+    if (weight % 2 == 1)
+    {   
+        even++;
+        weight += 1;
     }
-    if(dy<0)
+    
+    for(int i = 0; i <= steps; i++)
     {
-        dy = -dy;
-        neg_y = -1;
-    }
+        int curr_x = (int)x;
+        int curr_y = (int)y;
 
-
-    float dir = dx/dy;
-    int drawing = 1;
-    float step = dir;
-    int step_taken = 0;
-
-    int x = x_1;
-    int y = y_1;
-    while(drawing)
-    {
-        if(step<1)
+        for(int yw=-(weight/2); yw<(weight/2); yw++)
         {
-            y = y + neg_y;
-            step+=dir;
-            step_taken++;
-        }
-        else
-        {
-            x = x + neg_x;
-            step--;
-        }
-
-        for(int yw=0; yw<weight; yw++)
-        {
-            int oy = y + yw - (weight/2);
-            for (int xw=0; xw<weight-yw; xw++)
+            int oy = curr_y + yw;
+            for (int xw=-(weight/2)+abs(yw)+even; xw<(weight/2)-abs(yw); xw++)
             {
-                int ox = x + xw - (weight/2);
+                int ox = curr_x + xw;
                 UB_VGA_SetPixel(ox, oy, color);
             }
         }
-        
-        if(step_taken >= dy)
-        {
-            drawing = 0;
-        }
+        x += x_inc;
+        y += y_inc;
     }
 
     return 0;
