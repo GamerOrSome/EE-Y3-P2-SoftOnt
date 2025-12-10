@@ -125,19 +125,70 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    API_clearscreen(VGA_COL_BLACK);
+
+    for(int i = 10; i < 240; i++)
+    {
+      API_draw_line(1, i, 319, i, i, 1, 0);
+    }
+    API_draw_bitmap(130, 90, 1);
+    HAL_Delay(5000);
+
     API_clearscreen(VGA_COL_WHITE);
+
+    API_draw_line(5, 5, 5, 100, VGA_COL_BLUE, 1, 0);
+    UB_VGA_SetPixel(5, 5, VGA_COL_BLACK);
+    UB_VGA_SetPixel(5, 100, VGA_COL_BLACK);
+
+    API_draw_line(5, 5, 100, 5, VGA_COL_BLUE, 1, 0);
+    UB_VGA_SetPixel(5, 5, VGA_COL_BLACK);
+    UB_VGA_SetPixel(100, 5, VGA_COL_BLACK);
+
     API_draw_line(10, 10, 100, 100, VGA_COL_BLACK, 1, 0);
-    API_draw_line(50, 10, 140, 100, VGA_COL_RED, 3, 0);
-    API_draw_line(90, 50, 20, 60, VGA_COL_MAGENTA, 5, 0);
-    API_draw_line(120, 30, 250, 10, VGA_COL_GREEN, 7, 0);
+    UB_VGA_SetPixel(10, 10, VGA_COL_RED);
+    UB_VGA_SetPixel(100, 100, VGA_COL_RED);
 
-    HAL_Delay(2000);
+    API_draw_line(50, 10, 140, 100, VGA_COL_RED, 3, 0);
+    UB_VGA_SetPixel(50, 10, VGA_COL_BLACK);
+    UB_VGA_SetPixel(140, 100, VGA_COL_BLACK);
+
+    API_draw_line(90, 50, 20, 60, VGA_COL_MAGENTA, 5, 0);
+    UB_VGA_SetPixel(90, 50, VGA_COL_BLACK);
+    UB_VGA_SetPixel(20, 60, VGA_COL_BLACK);
+
+    API_draw_line(120, 30, 250, 10, VGA_COL_GREEN, 7, 0);
+    UB_VGA_SetPixel(120, 30, VGA_COL_BLACK);
+    UB_VGA_SetPixel(250, 10, VGA_COL_BLACK);
+
+    API_draw_line(200, 200, 200, 200, VGA_COL_GREEN, 7, 0);
+    UB_VGA_SetPixel(200, 200, VGA_COL_BLACK);
+
+    HAL_Delay(5000);
 
     API_clearscreen(VGA_COL_WHITE);
-//    API_draw_bitmap(0, 0, 1);
-    API_draw_bitmap(0, 0, 2);
+    API_draw_bitmap(0, 0, 1);
+    API_draw_bitmap(70, 0, 2);
 
-    HAL_Delay(2000);
+    HAL_Delay(5000);
+
+    API_clearscreen(VGA_COL_WHITE);
+
+
+    API_draw_rectangle(50, 50, 150, 90, VGA_COL_BLUE, 0, 0, 0 );
+
+    UB_VGA_SetPixel(50, 50, VGA_COL_BLACK);
+    UB_VGA_SetPixel(200, 50, VGA_COL_BLACK);
+    UB_VGA_SetPixel(200, 140, VGA_COL_BLACK);
+    UB_VGA_SetPixel(50, 140, VGA_COL_BLACK);
+
+    API_draw_rectangle(50, 150, 130, 80, VGA_COL_RED, 1, 0, 0 );
+
+    UB_VGA_SetPixel(50, 150, VGA_COL_BLACK);
+    UB_VGA_SetPixel(180, 150, VGA_COL_BLACK);
+    UB_VGA_SetPixel(180, 230, VGA_COL_BLACK);
+    UB_VGA_SetPixel(50, 230, VGA_COL_BLACK);
+
+    HAL_Delay(5000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
