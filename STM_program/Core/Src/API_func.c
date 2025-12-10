@@ -57,14 +57,25 @@ int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int
 
 int API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2)
 {
-    return -ENOTSUP;
+    if (filled) {
+        // Fill the rectangle
+        for (int row = 0; row <= height; row++) {
+            for (int col = 0; col <= width; col++) {
+                UB_VGA_SetPixel(x + col, y + row, color);
+            }
+        }
+    } else {
+        // Draw outline using lines
+        API_draw_line(x, y, x + width, y, color, 1, 0);                    // Top
+        API_draw_line(x + width, y, x + width, y + height, color, 1, 0);   // Right
+        API_draw_line(x + width, y + height, x, y + height, color, 1, 0);  // Bottom
+        API_draw_line(x, y + height, x, y, color, 1, 0);                   // Left
+    }
+    return 0;
 }
 
 int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 {
-
-	API_draw_line(10, 10, 100, 10,  VGA_COL_GREEN, 4, 0);
-
     uint8_t *bitmap_data;
     switch (bm_nr)
     {
