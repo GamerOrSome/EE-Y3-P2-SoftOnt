@@ -133,7 +133,26 @@ int main(void)
     }
     API_draw_bitmap(130, 90, 1);
     HAL_Delay(5000);
-
+  
+//    for(int j = 0; j < 1000; j++)
+//    {
+//      API_clearscreen(VGA_COL_BLACK);
+//      for(int i = 0; i < 14; i++)
+//      {
+//        API_draw_bitmap(0, 0, i+3);
+//        HAL_Delay(100);
+//      }
+//      API_clearscreen(VGA_COL_BLACK);
+//      for(int i = 0; i < 42; i++)
+//      {
+//        API_draw_bitmap(0, 0, i+17);
+//        HAL_Delay(100);
+//      }
+//      API_clearscreen(VGA_COL_BLACK);
+//      HAL_Delay(100);
+//      API_draw_bitmap(70, 20, 59);
+//      HAL_Delay(100);
+//    }
     API_clearscreen(VGA_COL_WHITE);
 
     API_draw_line(5, 5, 5, 100, VGA_COL_BLUE, 1, 0);
