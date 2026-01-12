@@ -12,6 +12,7 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, i
             return -EINVAL;
         }
     }
+
     uint16_t (*ascii_char_index)[4];
     uint8_t *ascii_bitmap_data;
 
@@ -71,6 +72,10 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, i
             break; // Stop on unsupported characters
         }
 
+        // Calculate baseline offset for this character
+        // Align all characters to the bottom (baseline) of the max text height
+        int y_baseline_offset = max_text_height - height;
+
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -80,11 +85,11 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, i
                 uint8_t pixel_bit = 7 - (x % 8);
                 if (pixel_byte & (1 << pixel_bit))
                 {
-                    UB_VGA_SetPixel(x_lup + x + i + offset, y_lup + y, color);
+                    UB_VGA_SetPixel(x_lup + x + offset, y_lup + y + y_baseline_offset, color);
                 }
             }
         }
-        offset += width - 1;
+        offset += width;
     }
     
     return 0;
@@ -341,6 +346,9 @@ int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
         break;
     case 59:
         bitmap_data = plank_bitmap_data;
+        break;
+    case 60:
+        bitmap_data = Chick_bitmap_data;
         break;
     default:
         return -EINVAL;

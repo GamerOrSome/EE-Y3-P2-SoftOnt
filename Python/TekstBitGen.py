@@ -124,11 +124,19 @@ def show_error_dialog(parent, title, message):
     
     dlg.exec()
 
-def text_to_bitmap(text, font_size=20, font_name=None, padding=10):
+def text_to_bitmap(text, font_size=20, font_name=None, padding=10, fixed_width=None, fixed_height=None):
     """Convert text to a monochrome bitmap array (1 bit per pixel).
     
     Returns (text_sanitized, width, height, bitmap_data)
     Each byte contains 8 pixels (MSB to LSB)
+    
+    Args:
+        text: Text to convert
+        font_size: Font size in pixels
+        font_name: Path to font file or None for default
+        padding: Padding around text
+        fixed_width: If set, force this width (centers text)
+        fixed_height: If set, force this height (centers text vertically)
     """
     
     # Try to load system font, fallback to default
@@ -152,16 +160,33 @@ def text_to_bitmap(text, font_size=20, font_name=None, padding=10):
     bbox_left = bbox[0]
     bbox_top = bbox[1]
     
-    # Add padding
-    width = text_width + (padding * 2)
-    height = text_height + (padding * 2)
+    # Use fixed dimensions if provided, otherwise calculate from text
+    if fixed_width is not None:
+        width = fixed_width
+    else:
+        width = text_width + (padding * 2)
+    
+    if fixed_height is not None:
+        height = fixed_height
+    else:
+        height = text_height + (padding * 2)
     
     # Create actual image with black background (0)
     img = Image.new('1', (width, height), 0)  # 1-bit image, black background
     draw = ImageDraw.Draw(img)
     
+    # Calculate text position
+    if fixed_width is not None or fixed_height is not None:
+        # For fixed dimensions, horizontally center but align to baseline (bottom)
+        x_pos = (width - text_width) // 2 - bbox_left
+        # Align to bottom (baseline alignment) instead of vertical centering
+        y_pos = height - text_height - bbox_top - 1  # -1 to move down by one pixel
+    else:
+        x_pos = padding - bbox_left
+        y_pos = padding - bbox_top
+    
     # Draw text in white (1), compensating for bbox offset
-    draw.text((padding - bbox_left, padding - bbox_top), text, font=font, fill=1)
+    draw.text((x_pos, y_pos), text, font=font, fill=1)
     
     # Convert to bitmap data (1 bit per pixel, packed into bytes)
     bitmap_data = [width & 0xFF, height & 0xFF]
@@ -267,7 +292,7 @@ def generate_ascii_charset(parent=None):
     """Generate all printable ASCII characters as individual bitmaps."""
     dlg = QDialog(parent)
     dlg.setWindowTitle("Generate ASCII Character Set")
-    dlg.resize(400, 180)
+    dlg.resize(400, 240)
     layout = QFormLayout(dlg)
     
     # Font size
@@ -283,6 +308,16 @@ def generate_ascii_charset(parent=None):
     padding_spinner.setMaximum(50)
     padding_spinner.setValue(5)
     layout.addRow("Padding:", padding_spinner)
+    
+    # Uniform height checkbox
+    uniform_height_check = QCheckBox("Uniform Height (recommended)", dlg)
+    uniform_height_check.setChecked(True)
+    layout.addRow("", uniform_height_check)
+    
+    # Monospace checkbox
+    monospace_check = QCheckBox("Monospace (uniform width)", dlg)
+    monospace_check.setChecked(False)
+    layout.addRow("", monospace_check)
     
     # Buttons
     button_layout = QHBoxLayout()
@@ -303,6 +338,23 @@ def generate_ascii_charset(parent=None):
         try:
             font_size = size_spinner.value()
             padding = padding_spinner.value()
+            use_uniform_height = uniform_height_check.isChecked()
+            use_monospace = monospace_check.isChecked()
+            
+            # First pass: determine maximum dimensions if uniform sizing is requested
+            max_width = 0
+            max_height = 0
+            
+            if use_uniform_height or use_monospace:
+                for ascii_code in range(32, 127):
+                    char = chr(ascii_code)
+                    _, w, h, _ = text_to_bitmap(char, font_size, padding=padding)
+                    max_width = max(max_width, w)
+                    max_height = max(max_height, h)
+            
+            # Determine fixed dimensions
+            fixed_width = max_width if use_monospace else None
+            fixed_height = max_height if use_uniform_height else None
             
             # Generate all printable ASCII characters (32-126)
             all_bitmaps = []
@@ -313,7 +365,8 @@ def generate_ascii_charset(parent=None):
             for ascii_code in range(32, 127):
                 char = chr(ascii_code)
                 text_sanitized, width, height, bitmap_data = text_to_bitmap(
-                    char, font_size, padding=padding
+                    char, font_size, padding=padding, 
+                    fixed_width=fixed_width, fixed_height=fixed_height
                 )
                 all_bitmaps.append((char, ascii_code, text_sanitized, width, height, bitmap_data))
                 
@@ -441,6 +494,117 @@ def view_charset_file(parent=None, file_path=None):
             dlg
         )
         layout.addWidget(info_label)
+        
+        # Sample text preview section
+        sample_section = QVBoxLayout()
+        sample_label = QLabel("<b>Sample Text Preview:</b>", dlg)
+        sample_section.addWidget(sample_label)
+        
+        sample_input_layout = QHBoxLayout()
+        sample_input = QTextEdit(dlg)
+        sample_input.setMaximumHeight(30)
+        sample_input.setPlaceholderText("Enter sample text to preview...")
+        sample_input.setText("Hello World!")
+        sample_input_layout.addWidget(sample_input)
+        
+        btn_preview = QPushButton("Update Preview", dlg)
+        sample_input_layout.addWidget(btn_preview)
+        sample_section.addLayout(sample_input_layout)
+        
+        # Preview display area
+        sample_preview_label = QLabel(dlg)
+        sample_preview_label.setStyleSheet("background-color: white; border: 1px solid gray;")
+        sample_preview_label.setMinimumHeight(100)
+        sample_section.addWidget(sample_preview_label)
+        
+        layout.addLayout(sample_section)
+        
+        def render_sample_text():
+            """Render sample text using the charset."""
+            text = sample_input.toPlainText()
+            if not text:
+                sample_preview_label.clear()
+                return
+            
+            # Create a lookup dictionary for quick character access
+            char_lookup = {}
+            for ascii_code, width, height, offset in char_specs:
+                char_lookup[ascii_code] = (width, height, offset)
+            
+            # Calculate total width and max height
+            total_width = 0
+            max_height = 0
+            char_images = []
+            
+            for char in text:
+                ascii_code = ord(char)
+                if ascii_code in char_lookup:
+                    width, height, offset = char_lookup[ascii_code]
+                    
+                    # Extract character bitmap
+                    bytes_per_row = (width + 7) // 8
+                    data_size = bytes_per_row * height
+                    char_bitmap_data = bitmap_data[offset:offset + data_size]
+                    
+                    # Create image for this character
+                    img = Image.new('RGB', (width, height))
+                    pixels = img.load()
+                    
+                    for y in range(height):
+                        row_start = y * bytes_per_row
+                        for byte_in_row in range(bytes_per_row):
+                            byte_index = row_start + byte_in_row
+                            if byte_index >= len(char_bitmap_data):
+                                break
+                            
+                            byte = char_bitmap_data[byte_index]
+                            
+                            for bit in range(8):
+                                x = byte_in_row * 8 + bit
+                                if x < width:
+                                    if byte & (1 << (7 - bit)):
+                                        pixels[x, y] = (0, 0, 0)  # Black text
+                                    else:
+                                        pixels[x, y] = (255, 255, 255)  # White background
+                    
+                    char_images.append(img)
+                    total_width += width
+                    max_height = max(max_height, height)
+                else:
+                    # Character not found, add placeholder
+                    placeholder_width = max_height // 2 if max_height > 0 else 8
+                    img = Image.new('RGB', (placeholder_width, max_height if max_height > 0 else 16), (255, 200, 200))
+                    char_images.append(img)
+                    total_width += placeholder_width
+            
+            if not char_images:
+                sample_preview_label.setText("No valid characters to display")
+                return
+            
+            # Combine all character images
+            combined = Image.new('RGB', (total_width, max_height), (255, 255, 255))
+            x_offset = 0
+            for img in char_images:
+                # Align to baseline (bottom of image)
+                y_offset = max_height - img.height
+                combined.paste(img, (x_offset, y_offset))
+                x_offset += img.width
+            
+            # Scale up for better visibility
+            scale = min(4, 800 // max(1, total_width))
+            if scale > 1:
+                combined = combined.resize((total_width * scale, max_height * scale), Image.NEAREST)
+            
+            # Convert to QPixmap and display
+            b = combined.tobytes()
+            bytes_per_line = combined.width * 3
+            qimg = QImage(b, combined.width, combined.height, bytes_per_line, QImage.Format.Format_RGB888)
+            sample_preview_label.setPixmap(QPixmap.fromImage(qimg))
+        
+        btn_preview.clicked.connect(render_sample_text)
+        
+        # Initial preview
+        render_sample_text()
         
         # Create toolbar with editing options
         toolbar_layout = QHBoxLayout()
@@ -778,7 +942,7 @@ def convert_ttf_to_charset(parent=None):
     # Create dialog for font settings
     dlg = QDialog(parent)
     dlg.setWindowTitle("TTF to Charset Converter")
-    dlg.resize(400, 180)
+    dlg.resize(400, 240)
     layout = QVBoxLayout(dlg)
     
     # Font info
@@ -802,6 +966,16 @@ def convert_ttf_to_charset(parent=None):
     spin_padding.setValue(2)
     form_layout.addRow("Padding:", spin_padding)
     
+    # Uniform height checkbox
+    uniform_height_check = QCheckBox("Uniform Height (recommended)")
+    uniform_height_check.setChecked(True)
+    form_layout.addRow("", uniform_height_check)
+    
+    # Monospace checkbox
+    monospace_check = QCheckBox("Monospace (uniform width)")
+    monospace_check.setChecked(False)
+    form_layout.addRow("", monospace_check)
+    
     layout.addLayout(form_layout)
     
     # Buttons
@@ -815,6 +989,8 @@ def convert_ttf_to_charset(parent=None):
     def on_generate():
         font_size = spin_size.value()
         padding = spin_padding.value()
+        use_uniform_height = uniform_height_check.isChecked()
+        use_monospace = monospace_check.isChecked()
         
         try:
             # Get output directory
@@ -826,6 +1002,21 @@ def convert_ttf_to_charset(parent=None):
             if not output_dir:
                 return
             
+            # First pass: determine maximum dimensions if uniform sizing is requested
+            max_width = 0
+            max_height = 0
+            
+            if use_uniform_height or use_monospace:
+                for ascii_code in range(32, 127):
+                    char = chr(ascii_code)
+                    _, w, h, _ = text_to_bitmap(char, font_size, ttf_path, padding=padding)
+                    max_width = max(max_width, w)
+                    max_height = max(max_height, h)
+            
+            # Determine fixed dimensions
+            fixed_width = max_width if use_monospace else None
+            fixed_height = max_height if use_uniform_height else None
+            
             # Generate all ASCII characters using the TTF font
             all_bitmaps = []
             all_data = []
@@ -835,7 +1026,8 @@ def convert_ttf_to_charset(parent=None):
             for ascii_code in range(32, 127):
                 char = chr(ascii_code)
                 text_sanitized, width, height, bitmap_data = text_to_bitmap(
-                    char, font_size, ttf_path, padding=padding
+                    char, font_size, ttf_path, padding=padding,
+                    fixed_width=fixed_width, fixed_height=fixed_height
                 )
                 all_bitmaps.append((char, ascii_code, text_sanitized, width, height, bitmap_data))
                 
@@ -923,7 +1115,7 @@ def convert_ttf_folder_to_charset(parent=None):
     # Create dialog for batch settings
     dlg = QDialog(parent)
     dlg.setWindowTitle("Batch TTF to Charset Converter")
-    dlg.resize(450, 220)
+    dlg.resize(450, 260)
     layout = QVBoxLayout(dlg)
     
     # Info label
@@ -955,6 +1147,16 @@ def convert_ttf_folder_to_charset(parent=None):
     spin_padding.setValue(2)
     form_layout.addRow("Padding:", spin_padding)
     
+    # Uniform height checkbox
+    uniform_height_check = QCheckBox("Uniform Height (recommended)")
+    uniform_height_check.setChecked(True)
+    form_layout.addRow("", uniform_height_check)
+    
+    # Monospace checkbox
+    monospace_check = QCheckBox("Monospace (uniform width)")
+    monospace_check.setChecked(False)
+    form_layout.addRow("", monospace_check)
+    
     layout.addLayout(form_layout)
     
     # Buttons
@@ -968,6 +1170,8 @@ def convert_ttf_folder_to_charset(parent=None):
     def on_generate_all():
         font_size = spin_size.value()
         padding = spin_padding.value()
+        use_uniform_height = uniform_height_check.isChecked()
+        use_monospace = monospace_check.isChecked()
         
         # Get output directory
         output_dir = QFileDialog.getExistingDirectory(
@@ -989,6 +1193,21 @@ def convert_ttf_folder_to_charset(parent=None):
                     # Load font
                     font = ImageFont.truetype(ttf_path, font_size)
                     
+                    # First pass: determine maximum dimensions if uniform sizing is requested
+                    max_width = 0
+                    max_height = 0
+                    
+                    if use_uniform_height or use_monospace:
+                        for ascii_code in range(32, 127):
+                            char = chr(ascii_code)
+                            _, w, h, _ = text_to_bitmap(char, font_size, ttf_path, padding=padding)
+                            max_width = max(max_width, w)
+                            max_height = max(max_height, h)
+                    
+                    # Determine fixed dimensions
+                    fixed_width = max_width if use_monospace else None
+                    fixed_height = max_height if use_uniform_height else None
+                    
                     # Generate all ASCII characters
                     all_bitmaps = []
                     all_data = []
@@ -998,7 +1217,8 @@ def convert_ttf_folder_to_charset(parent=None):
                     for ascii_code in range(32, 127):
                         char = chr(ascii_code)
                         text_sanitized, width, height, bitmap_data = text_to_bitmap(
-                            char, font_size, ttf_path, padding=padding
+                            char, font_size, ttf_path, padding=padding,
+                            fixed_width=fixed_width, fixed_height=fixed_height
                         )
                         all_bitmaps.append((char, ascii_code, text_sanitized, width, height, bitmap_data))
                         
@@ -1443,12 +1663,489 @@ def combine_charset_files(parent=None):
     except Exception as e:
         show_error_dialog(parent, "Error", f"Failed to combine charset files:\n{e}")
 
+def view_multiple_charsets(parent=None):
+    """Load and display multiple fonts from a combined charset file."""
+    # Select a combined charset file
+    file_path, _ = QFileDialog.getOpenFileName(
+        parent,
+        "Select Combined Charset File",
+        "",
+        "C Header Files (*.h);;All Files (*)"
+    )
+    
+    if not file_path:
+        return
+    
+    try:
+        # Read the file
+        with open(file_path, 'r') as f:
+            content = f.read()
+        
+        # Check if this is a combined charset file by looking for available_fonts array
+        fonts_array_match = re.search(r'const\s+FontInfo\s+available_fonts\s*\[\s*(\d+)\s*\]\s*=\s*\{(.*?)\};', content, re.DOTALL)
+        
+        if not fonts_array_match:
+            QMessageBox.warning(parent, "Not a Combined File", 
+                              "This file does not appear to be a combined charset file.\n\n"
+                              "Please use 'View Charset File' for single font files, or\n"
+                              "use 'Combine Charset Files' to create a combined file first.")
+            return
+        
+        num_fonts = int(fonts_array_match.group(1))
+        fonts_array_data = fonts_array_match.group(2)
+        
+        # Parse the available_fonts array to get font names and references
+        font_entries = re.findall(r'\{"([^"]+)",\s*(\d+),\s*(\d+),\s*(\w+),\s*(\w+)\}', fonts_array_data)
+        
+        if not font_entries:
+            show_error_dialog(parent, "Error", "Could not parse font entries from combined file.")
+            return
+        
+        # Load all fonts from the combined file
+        charsets = []
+        for font_name, font_size, num_chars, index_name, data_name in font_entries:
+            # Extract the character index table for this font
+            index_pattern = rf'const\s+uint16_t\s+{re.escape(index_name)}\s*\[\s*(\d+)\s*\]\s*\[\s*4\s*\]\s*=\s*\{{(.*?)\}};'
+            index_match = re.search(index_pattern, content, re.DOTALL)
+            
+            if not index_match:
+                show_error_dialog(parent, "Error", f"Could not find index table '{index_name}' for font '{font_name}'")
+                continue
+            
+            index_data = index_match.group(2)
+            
+            # Parse the index table
+            char_specs = []
+            lines = index_data.split('\n')
+            for line in lines:
+                match = re.search(r'\{(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\}', line)
+                if match:
+                    ascii_code = int(match.group(1))
+                    width = int(match.group(2))
+                    height = int(match.group(3))
+                    offset = int(match.group(4))
+                    char_specs.append((ascii_code, width, height, offset))
+            
+            # Extract bitmap data for this font
+            data_pattern = rf'const\s+uint8_t\s+{re.escape(data_name)}\s*\[\s*(\d+)\s*\]\s*=\s*\{{(.*?)\}};'
+            bitmap_match = re.search(data_pattern, content, re.DOTALL)
+            
+            if not bitmap_match:
+                show_error_dialog(parent, "Error", f"Could not find bitmap data '{data_name}' for font '{font_name}'")
+                continue
+            
+            hex_values = re.findall(r'0x([0-9A-Fa-f]{2})', bitmap_match.group(2))
+            bitmap_data = [int(h, 16) for h in hex_values]
+            
+            charsets.append({
+                'filename': font_name,
+                'path': file_path,
+                'size': int(font_size),
+                'num_chars': int(num_chars),
+                'char_specs': char_specs,
+                'bitmap_data': bitmap_data
+            })
+        
+        if not charsets:
+            QMessageBox.warning(parent, "No Valid Fonts", "No valid fonts could be loaded from the combined file.")
+            return
+        
+        # Create display window
+        dlg = QDialog(parent)
+        dlg.setWindowTitle(f"Combined Charset Viewer - {len(charsets)} Font(s) from {os.path.basename(file_path)}")
+        dlg.resize(1400, 900)
+        layout = QVBoxLayout(dlg)
+        
+        # Info label
+        info_text = f"File: {os.path.basename(file_path)}\n"
+        info_text += f"Viewing {len(charsets)} font(s):\n"
+        for i, charset in enumerate(charsets):
+            info_text += f"  {i+1}. {charset['filename']} (Size: {charset['size']}px, {charset['num_chars']} chars)\n"
+        
+        info_label = QLabel(info_text, dlg)
+        layout.addWidget(info_label)
+        
+        # Sample text preview section
+        sample_section = QVBoxLayout()
+        sample_header = QLabel("<b>Sample Text Preview:</b>", dlg)
+        sample_section.addWidget(sample_header)
+        
+        sample_input_layout = QHBoxLayout()
+        sample_input = QTextEdit(dlg)
+        sample_input.setMaximumHeight(30)
+        sample_input.setPlaceholderText("Enter sample text to preview with all fonts...")
+        sample_input.setText("Hello World!")
+        sample_input_layout.addWidget(sample_input)
+        
+        btn_preview_sample = QPushButton("Update Preview", dlg)
+        sample_input_layout.addWidget(btn_preview_sample)
+        sample_section.addLayout(sample_input_layout)
+        
+        # Preview display area (scrollable)
+        sample_scroll = QScrollArea(dlg)
+        sample_scroll.setWidgetResizable(True)
+        sample_scroll.setMinimumHeight(200)
+        sample_scroll.setMaximumHeight(400)
+        
+        sample_container = QDialog()
+        sample_container_layout = QVBoxLayout(sample_container)
+        
+        def render_all_sample_text():
+            """Render sample text using all selected fonts."""
+            # Clear existing layout
+            while sample_container_layout.count() > 0:
+                child = sample_container_layout.takeAt(0)
+                if child.widget():
+                    child.widget().deleteLater()
+            
+            text = sample_input.toPlainText()
+            if not text:
+                no_text_label = QLabel("Enter text to preview", sample_container)
+                sample_container_layout.addWidget(no_text_label)
+                return
+            
+            # Get selected charsets
+            selected_charsets = [charset for i, charset in enumerate(charsets) if font_checkboxes[i].isChecked()]
+            
+            if not selected_charsets:
+                no_selection_label = QLabel("No fonts selected. Please select at least one font.", sample_container)
+                sample_container_layout.addWidget(no_selection_label)
+                return
+            
+            # Render text with each font
+            for charset in selected_charsets:
+                # Create a lookup dictionary for quick character access
+                char_lookup = {}
+                for ascii_code, width, height, offset in charset['char_specs']:
+                    char_lookup[ascii_code] = (width, height, offset)
+                
+                # Calculate total width and max height
+                total_width = 0
+                max_height = 0
+                char_images = []
+                missing_chars = []
+                
+                for char in text:
+                    ascii_code = ord(char)
+                    if ascii_code in char_lookup:
+                        width, height, offset = char_lookup[ascii_code]
+                        
+                        # Extract character bitmap
+                        bytes_per_row = (width + 7) // 8
+                        data_size = bytes_per_row * height
+                        char_bitmap_data = charset['bitmap_data'][offset:offset + data_size]
+                        
+                        # Create image for this character
+                        img = Image.new('RGB', (width, height))
+                        pixels = img.load()
+                        
+                        for y in range(height):
+                            row_start = y * bytes_per_row
+                            for byte_in_row in range(bytes_per_row):
+                                byte_index = row_start + byte_in_row
+                                if byte_index >= len(char_bitmap_data):
+                                    break
+                                
+                                byte = char_bitmap_data[byte_index]
+                                
+                                for bit in range(8):
+                                    x = byte_in_row * 8 + bit
+                                    if x < width:
+                                        if byte & (1 << (7 - bit)):
+                                            pixels[x, y] = (0, 0, 0)  # Black text
+                                        else:
+                                            pixels[x, y] = (255, 255, 255)  # White background
+                        
+                        char_images.append(img)
+                        total_width += width
+                        max_height = max(max_height, height)
+                    else:
+                        # Character not found
+                        missing_chars.append(char)
+                        placeholder_width = max_height // 2 if max_height > 0 else 8
+                        img = Image.new('RGB', (placeholder_width, max_height if max_height > 0 else 16), (255, 200, 200))
+                        char_images.append(img)
+                        total_width += placeholder_width
+                
+                if not char_images:
+                    continue
+                
+                # Combine all character images
+                combined = Image.new('RGB', (total_width, max_height), (255, 255, 255))
+                x_offset = 0
+                for img in char_images:
+                    # Align to baseline (bottom of image)
+                    y_offset = max_height - img.height
+                    combined.paste(img, (x_offset, y_offset))
+                    x_offset += img.width
+                
+                # Scale up for better visibility
+                scale = min(3, 600 // max(1, total_width))
+                if scale > 1:
+                    combined = combined.resize((total_width * scale, max_height * scale), Image.NEAREST)
+                
+                # Font name label
+                font_label = QLabel(f"<b>{charset['filename']} ({charset['size']}px)</b>", sample_container)
+                sample_container_layout.addWidget(font_label)
+                
+                # Convert to QPixmap and display
+                b = combined.tobytes()
+                bytes_per_line = combined.width * 3
+                qimg = QImage(b, combined.width, combined.height, bytes_per_line, QImage.Format.Format_RGB888)
+                
+                preview_label = QLabel(sample_container)
+                preview_label.setPixmap(QPixmap.fromImage(qimg))
+                preview_label.setStyleSheet("background-color: white; border: 1px solid gray; padding: 5px;")
+                sample_container_layout.addWidget(preview_label)
+                
+                # Show missing characters if any
+                if missing_chars:
+                    missing_label = QLabel(f"<i>Missing characters: {', '.join(set(missing_chars))}</i>", sample_container)
+                    missing_label.setStyleSheet("color: red;")
+                    sample_container_layout.addWidget(missing_label)
+            
+            sample_container_layout.addStretch()
+        
+        btn_preview_sample.clicked.connect(render_all_sample_text)
+        
+        sample_scroll.setWidget(sample_container)
+        sample_section.addWidget(sample_scroll)
+        layout.addLayout(sample_section)
+        
+        # Separator
+        separator = QLabel("─" * 100, dlg)
+        separator.setStyleSheet("color: gray;")
+        layout.addWidget(separator)
+        
+        # Font selector dropdown
+        selector_layout = QHBoxLayout()
+        selector_label = QLabel("Select fonts to display:", dlg)
+        selector_layout.addWidget(selector_label)
+        
+        # Checkboxes for each font
+        font_checkboxes = []
+        for i, charset in enumerate(charsets):
+            checkbox = QCheckBox(f"{charset['filename']} ({charset['size']}px)", dlg)
+            checkbox.setChecked(True)
+            font_checkboxes.append(checkbox)
+            selector_layout.addWidget(checkbox)
+        
+        selector_layout.addStretch()
+        layout.addLayout(selector_layout)
+        
+        # Character filter
+        filter_layout = QHBoxLayout()
+        filter_label = QLabel("Filter Characters:", dlg)
+        filter_input = QTextEdit(dlg)
+        filter_input.setMaximumHeight(30)
+        filter_input.setPlaceholderText("Enter characters or ASCII codes (e.g., 'ABC' or '65-70')")
+        
+        filter_layout.addWidget(filter_label)
+        filter_layout.addWidget(filter_input)
+        
+        btn_filter = QPushButton("Apply Filter", dlg)
+        btn_show_all = QPushButton("Show All", dlg)
+        
+        filter_layout.addWidget(btn_filter)
+        filter_layout.addWidget(btn_show_all)
+        layout.addLayout(filter_layout)
+        
+        # Create scrollable area
+        scroll = QScrollArea(dlg)
+        scroll.setWidgetResizable(True)
+        
+        container = QDialog()
+        container_layout = QVBoxLayout(container)
+        
+        def render_charsets():
+            """Render selected charsets with optional filter."""
+            # Clear existing layout
+            while container_layout.count() > 0:
+                child = container_layout.takeAt(0)
+                if child.widget():
+                    child.widget().deleteLater()
+            
+            # Get selected charsets
+            selected_charsets = [charset for i, charset in enumerate(charsets) if font_checkboxes[i].isChecked()]
+            
+            if not selected_charsets:
+                no_selection_label = QLabel("No fonts selected. Please select at least one font.", container)
+                container_layout.addWidget(no_selection_label)
+                return
+            
+            # Parse filter
+            filter_text = filter_input.toPlainText().strip()
+            filtered_codes = None
+            
+            if filter_text:
+                filtered_codes = set()
+                # Parse characters
+                for char in filter_text:
+                    if 32 <= ord(char) <= 126:
+                        filtered_codes.add(ord(char))
+                
+                # Parse ranges like "65-70"
+                for part in filter_text.split(','):
+                    part = part.strip()
+                    if '-' in part and len(part.split('-')) == 2:
+                        try:
+                            start, end = map(int, part.split('-'))
+                            for code in range(start, end + 1):
+                                if 32 <= code <= 126:
+                                    filtered_codes.add(code)
+                        except:
+                            pass
+                    elif part.isdigit():
+                        code = int(part)
+                        if 32 <= code <= 126:
+                            filtered_codes.add(code)
+            
+            # Get all ASCII codes to display
+            all_codes = set()
+            for charset in selected_charsets:
+                for ascii_code, _, _, _ in charset['char_specs']:
+                    if filtered_codes is None or ascii_code in filtered_codes:
+                        all_codes.add(ascii_code)
+            
+            all_codes = sorted(list(all_codes))
+            
+            if not all_codes:
+                no_chars_label = QLabel("No characters match the filter.", container)
+                container_layout.addWidget(no_chars_label)
+                return
+            
+            # Create comparison table
+            for ascii_code in all_codes:
+                # Character header
+                if ascii_code == 32:
+                    char_display = "[SPACE]"
+                elif ascii_code < 33 or ascii_code == 127:
+                    char_display = f"[{ascii_code}]"
+                else:
+                    char_display = f"'{chr(ascii_code)}'"
+                
+                char_header = QLabel(f"<b>ASCII {ascii_code}: {char_display}</b>", container)
+                container_layout.addWidget(char_header)
+                
+                # Row for all fonts showing this character
+                char_row = QHBoxLayout()
+                
+                for charset in selected_charsets:
+                    # Find character in this charset
+                    char_found = None
+                    for spec_ascii, width, height, offset in charset['char_specs']:
+                        if spec_ascii == ascii_code:
+                            char_found = (width, height, offset)
+                            break
+                    
+                    if char_found:
+                        width, height, offset = char_found
+                        
+                        # Extract bitmap data
+                        bytes_per_row = (width + 7) // 8
+                        data_size = bytes_per_row * height
+                        char_bitmap_data = charset['bitmap_data'][offset:offset + data_size]
+                        
+                        # Create image
+                        img = Image.new('RGB', (width, height))
+                        pixels = img.load()
+                        
+                        for y in range(height):
+                            row_start = y * bytes_per_row
+                            for byte_in_row in range(bytes_per_row):
+                                byte_index = row_start + byte_in_row
+                                if byte_index >= len(char_bitmap_data):
+                                    break
+                                
+                                byte = char_bitmap_data[byte_index]
+                                
+                                for bit in range(8):
+                                    x = byte_in_row * 8 + bit
+                                    if x < width:
+                                        if byte & (1 << (7 - bit)):
+                                            pixels[x, y] = (255, 255, 255)
+                                        else:
+                                            pixels[x, y] = (0, 0, 0)
+                        
+                        # Scale up for visibility
+                        scale = max(3, 30 // max(1, max(width, height)))
+                        img_scaled = img.resize((width * scale, height * scale), Image.NEAREST)
+                        
+                        # Convert to QImage
+                        b = img_scaled.tobytes()
+                        bytes_per_line = img_scaled.width * 3
+                        qimg = QImage(b, img_scaled.width, img_scaled.height, bytes_per_line, QImage.Format.Format_RGB888)
+                        
+                        # Create font column
+                        font_col = QVBoxLayout()
+                        
+                        font_name_label = QLabel(f"{charset['filename']}", container)
+                        font_name_label.setMaximumWidth(200)
+                        font_name_label.setWordWrap(True)
+                        font_col.addWidget(font_name_label)
+                        
+                        pixmap_label = QLabel(container)
+                        pixmap_label.setPixmap(QPixmap.fromImage(qimg))
+                        font_col.addWidget(pixmap_label)
+                        
+                        size_label = QLabel(f"{width}x{height}px", container)
+                        font_col.addWidget(size_label)
+                        
+                        char_row.addLayout(font_col)
+                    else:
+                        # Character not found in this charset
+                        font_col = QVBoxLayout()
+                        font_name_label = QLabel(f"{charset['filename']}", container)
+                        font_name_label.setMaximumWidth(200)
+                        font_col.addWidget(font_name_label)
+                        
+                        missing_label = QLabel("[Not Found]", container)
+                        missing_label.setStyleSheet("color: red;")
+                        font_col.addWidget(missing_label)
+                        
+                        char_row.addLayout(font_col)
+                
+                char_row.addStretch()
+                container_layout.addLayout(char_row)
+                
+                # Add separator
+                separator = QLabel("─" * 100, container)
+                separator.setStyleSheet("color: gray;")
+                container_layout.addWidget(separator)
+            
+            container_layout.addStretch()
+        
+        btn_filter.clicked.connect(render_charsets)
+        btn_show_all.clicked.connect(lambda: (filter_input.clear(), render_charsets()))
+        
+        # Connect checkboxes to re-render
+        for checkbox in font_checkboxes:
+            checkbox.stateChanged.connect(render_charsets)
+            checkbox.stateChanged.connect(render_all_sample_text)
+        
+        scroll.setWidget(container)
+        layout.addWidget(scroll)
+        
+        # Initial render
+        render_charsets()
+        render_all_sample_text()
+        
+        # Close button
+        btn_close = QPushButton("Close", dlg)
+        btn_close.clicked.connect(dlg.accept)
+        layout.addWidget(btn_close)
+        
+        dlg.exec()
+        
+    except Exception as e:
+        show_error_dialog(parent, "Error", f"Failed to load charset files:\n{e}")
+
 def main_menu():
     app = QApplication(sys.argv)
     
     dlg = QDialog()
     dlg.setWindowTitle("Text Bitmap Generator")
-    dlg.resize(350, 260)
+    dlg.resize(350, 290)
     layout = QVBoxLayout(dlg)
     
     btn_ascii = QPushButton("Generate ASCII Character Set", dlg)
@@ -1456,6 +2153,7 @@ def main_menu():
     btn_ttf_folder = QPushButton("Convert TTF Folder to Charset", dlg)
     btn_combine = QPushButton("Combine Charset Files", dlg)
     btn_view = QPushButton("View Charset File", dlg)
+    btn_view_multiple = QPushButton("View Combined Charset File", dlg)
     btn_exit = QPushButton("Exit", dlg)
     
     layout.addWidget(btn_ascii)
@@ -1463,6 +2161,7 @@ def main_menu():
     layout.addWidget(btn_ttf_folder)
     layout.addWidget(btn_combine)
     layout.addWidget(btn_view)
+    layout.addWidget(btn_view_multiple)
     layout.addWidget(btn_exit)
     
     btn_ascii.clicked.connect(lambda: generate_ascii_charset(dlg))
@@ -1470,6 +2169,7 @@ def main_menu():
     btn_ttf_folder.clicked.connect(lambda: convert_ttf_folder_to_charset(dlg))
     btn_combine.clicked.connect(lambda: combine_charset_files(dlg))
     btn_view.clicked.connect(lambda: view_charset_file(dlg))
+    btn_view_multiple.clicked.connect(lambda: view_multiple_charsets(dlg))
     btn_exit.clicked.connect(dlg.accept)
     
     dlg.exec()
