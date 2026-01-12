@@ -1,0 +1,90 @@
+\doxysection{C\+:/\+Git/\+EE-\/\+Y3-\/\+P2-\/\+Soft\+Ont/\+STM\+\_\+program/\+Core/ub\+\_\+lib/stm32\+\_\+ub\+\_\+vga\+\_\+screen.c File Reference}
+\hypertarget{stm32__ub__vga__screen_8c}{}\label{stm32__ub__vga__screen_8c}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/ub\_lib/stm32\_ub\_vga\_screen.c@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/ub\_lib/stm32\_ub\_vga\_screen.c}}
+{\ttfamily \#include "{}stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{stm32__ub__vga__screen_8c_aa63128722f952ece5176141e8a99b6c1}{UB\+\_\+\+VGA\+\_\+\+Screen\+\_\+\+Init}} (void)
+\item 
+void \mbox{\hyperlink{stm32__ub__vga__screen_8c_a8afc87fd0f1737d58c7ee92629be9c92}{UB\+\_\+\+VGA\+\_\+\+Fill\+Screen}} (uint8\+\_\+t color)
+\item 
+void \mbox{\hyperlink{stm32__ub__vga__screen_8c_a1fd52b52c87572b4bfad9637ec34e621}{UB\+\_\+\+VGA\+\_\+\+Set\+Pixel}} (uint16\+\_\+t xp, uint16\+\_\+t yp, uint8\+\_\+t color)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+TIM\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32__ub__vga__screen_8c_a25fc663547539bc49fecc0011bd76ab5}{htim1}}
+\item 
+TIM\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32__ub__vga__screen_8c_a2c80fd5510e2990a59a5c90d745c716c}{htim2}}
+\item 
+DMA\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32__ub__vga__screen_8c_a66e79e362967e621b35e4adc5a9239c1}{hdma\+\_\+tim1\+\_\+up}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8}{VGA\+\_\+\+RAM1}} \mbox{[}(\mbox{\hyperlink{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}{VGA\+\_\+\+DISPLAY\+\_\+X}}+1) \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{stm32__ub__vga__screen_8h_a9c3e46882b624fe1887d0ec6171d771b}{VGA\+\_\+\+DISPLAY\+\_\+Y}}\mbox{]}
+\item 
+\mbox{\hyperlink{struct_v_g_a__t}{VGA\+\_\+t}} \mbox{\hyperlink{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a}{VGA}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{stm32__ub__vga__screen_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{stm32__ub__vga__screen_8c_a8afc87fd0f1737d58c7ee92629be9c92}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_FillScreen@{UB\_VGA\_FillScreen}}
+\index{UB\_VGA\_FillScreen@{UB\_VGA\_FillScreen}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FillScreen()}{UB\_VGA\_FillScreen()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a8afc87fd0f1737d58c7ee92629be9c92} 
+void UB\+\_\+\+VGA\+\_\+\+Fill\+Screen (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_aa63128722f952ece5176141e8a99b6c1}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_Screen\_Init@{UB\_VGA\_Screen\_Init}}
+\index{UB\_VGA\_Screen\_Init@{UB\_VGA\_Screen\_Init}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_Screen\_Init()}{UB\_VGA\_Screen\_Init()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_aa63128722f952ece5176141e8a99b6c1} 
+void UB\+\_\+\+VGA\+\_\+\+Screen\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a1fd52b52c87572b4bfad9637ec34e621}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_SetPixel@{UB\_VGA\_SetPixel}}
+\index{UB\_VGA\_SetPixel@{UB\_VGA\_SetPixel}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_SetPixel()}{UB\_VGA\_SetPixel()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a1fd52b52c87572b4bfad9637ec34e621} 
+void UB\+\_\+\+VGA\+\_\+\+Set\+Pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{xp}{, }\item[{uint16\+\_\+t}]{yp}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{stm32__ub__vga__screen_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{stm32__ub__vga__screen_8c_a66e79e362967e621b35e4adc5a9239c1}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!hdma\_tim1\_up@{hdma\_tim1\_up}}
+\index{hdma\_tim1\_up@{hdma\_tim1\_up}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{hdma\_tim1\_up}{hdma\_tim1\_up}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a66e79e362967e621b35e4adc5a9239c1} 
+DMA\+\_\+\+Handle\+Type\+Def hdma\+\_\+tim1\+\_\+up\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a25fc663547539bc49fecc0011bd76ab5}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!htim1@{htim1}}
+\index{htim1@{htim1}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{htim1}{htim1}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a25fc663547539bc49fecc0011bd76ab5} 
+TIM\+\_\+\+Handle\+Type\+Def htim1\hspace{0.3cm}{\ttfamily [extern]}}
+
+File Name \+: \doxylink{tim_8c}{TIM.\+c} Description \+: This file provides code for the configuration of the TIM instances.
+
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+\doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2025 STMicroelectronics. All rights reserved.\end{center} }
+
+This software component is licensed by ST under BSD 3-\/Clause license, the "{}\+License"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+BSD-\/3-\/\+Clause \Hypertarget{stm32__ub__vga__screen_8c_a2c80fd5510e2990a59a5c90d745c716c}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!htim2@{htim2}}
+\index{htim2@{htim2}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{htim2}{htim2}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a2c80fd5510e2990a59a5c90d745c716c} 
+TIM\+\_\+\+Handle\+Type\+Def htim2\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!VGA@{VGA}}
+\index{VGA@{VGA}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{VGA}{VGA}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a} 
+\mbox{\hyperlink{struct_v_g_a__t}{VGA\+\_\+t}} VGA}
+
+\Hypertarget{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!VGA\_RAM1@{VGA\_RAM1}}
+\index{VGA\_RAM1@{VGA\_RAM1}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{VGA\_RAM1}{VGA\_RAM1}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8} 
+uint8\+\_\+t VGA\+\_\+\+RAM1\mbox{[}(\mbox{\hyperlink{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}{VGA\+\_\+\+DISPLAY\+\_\+X}}+1) \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{stm32__ub__vga__screen_8h_a9c3e46882b624fe1887d0ec6171d771b}{VGA\+\_\+\+DISPLAY\+\_\+Y}}\mbox{]}}
+
