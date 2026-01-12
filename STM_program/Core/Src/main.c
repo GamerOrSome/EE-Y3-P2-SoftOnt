@@ -126,7 +126,7 @@ int main(void)
   HAL_Delay(1501);
   while (1)
   {
-	HAL_Delay(1000);
+	HAL_Delay(1500);
     API_clearscreen(VGA_COL_BLACK);
 
     for(int i = 10; i < 240; i++)

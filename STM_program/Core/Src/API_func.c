@@ -147,6 +147,12 @@ int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int
 
 int API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2)
 {
+    if(x < 0 || x + width >= VGA_DISPLAY_X || y < 0 || y + height >= VGA_DISPLAY_Y ||
+       width <= 0 || height <= 0 || color < 0 || color > 255)
+    {
+        return -EINVAL;
+    }
+
     if (filled) {
         // Fill the rectangle
         for (int row = 0; row <= height; row++) {
@@ -358,6 +364,12 @@ int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
     int bitmap_height = bitmap_data[1];
     int bitmap_width = bitmap_data[0];
 
+    if (x_lup < 0 || x_lup + bitmap_width > VGA_DISPLAY_X ||
+        y_lup < 0 || y_lup + bitmap_height > VGA_DISPLAY_Y)
+    {
+        return -EINVAL;
+    }
+
     for (int y = 0; y < bitmap_height; y++) {
         for (int x = 0; x < bitmap_width; x++) {
             int pixel_index = y * bitmap_width + x + 2;
@@ -371,6 +383,11 @@ int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 
 int API_clearscreen(int color)
 {
+    if (color < 0 || color > 255)
+    {
+        return -EINVAL;
+    }
+
     UB_VGA_FillScreen(color);
     HAL_Delay(10);
     return 0;
@@ -379,7 +396,13 @@ int API_clearscreen(int color)
 // Optional functions
 int API_wait(int msecs)
 {
-    return -ENOTSUP;
+    if (msecs < 0)
+    {
+        return -EINVAL;
+    }
+    
+    HAL_Delay(msecs);
+    return 0;
 }
 
 int API_repeat_commands(int nr_previous_commands, int iterations, int reserved)
