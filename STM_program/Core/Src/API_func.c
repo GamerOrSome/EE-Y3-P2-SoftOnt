@@ -1,9 +1,93 @@
 #include <API_func.h>
 #include <Bitmaps.h>
+#include <combined_charsets.h>
 
-int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved)
-{
-    return -ENOTSUP;
+int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int text_length)
+{   
+    if(text_length <= 0)
+    {
+        text_length = strlen(text);
+        if(text_length <= 0)
+        {
+            return -EINVAL;
+        }
+    }
+    uint16_t (*ascii_char_index)[4];
+    uint8_t *ascii_bitmap_data;
+
+    // Find matching font
+    const FontInfo* selected_font = NULL;
+
+    for (int i = 0; i < NUM_FONTS; i++) {
+        if (strcmp(fontname, available_fonts[i].name) == 0 && fontsize == available_fonts[i].size) {
+            selected_font = &available_fonts[i];
+            break;
+        }
+    }
+
+    // Use default if no match found
+    if (selected_font == NULL) {
+        selected_font = &available_fonts[0]; // default font
+    }
+
+    ascii_char_index = selected_font->index;
+    ascii_bitmap_data = selected_font->data;
+
+    // Calculate max text dimensions
+    int max_text_width = 0;
+    int max_text_height = 0;
+
+    for (int i = 0; i < text_length; i++)
+    {
+        uint8_t cur_char = text[i];
+        if (cur_char < 32 || cur_char > 126)
+        {
+            break;
+        }
+        max_text_width += ascii_char_index[cur_char - 32][1];
+        uint16_t char_height = ascii_char_index[cur_char - 32][2];
+        if (char_height > max_text_height)
+        {
+            max_text_height = char_height;
+        }
+    }
+
+    // Check if text fits on screen
+    if (x_lup + max_text_width > VGA_DISPLAY_X || y_lup + max_text_height > VGA_DISPLAY_Y)
+    {
+        return -EINVAL;
+    }
+
+    int offset = 0;
+    for (int i = 0; i < text_length; i++)
+    {
+        uint8_t cur_char = text[i];
+        uint16_t width = ascii_char_index[cur_char - 32][1];
+        uint16_t height = ascii_char_index[cur_char - 32][2];
+        uint16_t char_offset = ascii_char_index[cur_char - 32][3];
+
+        if (cur_char < 32 || cur_char > 126)
+        {
+            break; // Stop on unsupported characters
+        }
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                uint16_t bytes_per_row = (width + 7) / 8;
+                uint8_t pixel_byte = ascii_bitmap_data[char_offset + y * bytes_per_row + (x / 8)];
+                uint8_t pixel_bit = 7 - (x % 8);
+                if (pixel_byte & (1 << pixel_bit))
+                {
+                    UB_VGA_SetPixel(x_lup + x + i + offset, y_lup + y, color);
+                }
+            }
+        }
+        offset += width - 1;
+    }
+    
+    return 0;
 }
 
 int API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved)

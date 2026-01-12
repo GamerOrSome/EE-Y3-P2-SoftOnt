@@ -123,6 +123,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_Delay(1501);
   while (1)
   {
     API_clearscreen(VGA_COL_BLACK);
@@ -132,27 +133,36 @@ int main(void)
       API_draw_line(1, i, 319, i, i, 1, 0);
     }
     API_draw_bitmap(130, 90, 1);
-    HAL_Delay(5000);
+    HAL_Delay(1000);
+
+    API_clearscreen(VGA_COL_WHITE);
+
+    API_draw_text(30, 60, VGA_COL_RED, "Test VoOr dEfAulT aA bB cC dD eE", "default", 1, 0, 32);
+    API_draw_text(30, 80, VGA_COL_BLUE, "Test VoOr minecraft aA bB cC dD eE", "Minecraft", 1, 1, 34);
+    API_draw_text(30, 100, VGA_COL_BLUE, "Test VoOr minecraft 2 aA bB cC dD eE", "Minecraft", 2, 1, 36);
+    API_draw_text(30, 120, VGA_COL_BLUE, "Test VoOr Arial aA bB cC dD eE", "Arial", 1, 1, 30);
+    API_draw_text(30, 140, VGA_COL_BLUE, "Test VoOr Arial 2 aA bB cC dD eE", "Arial", 2, 1, 32);
+    HAL_Delay(2000000);
   
-//    for(int j = 0; j < 1000; j++)
-//    {
-//      API_clearscreen(VGA_COL_BLACK);
-//      for(int i = 0; i < 14; i++)
-//      {
-//        API_draw_bitmap(0, 0, i+3);
-//        HAL_Delay(100);
-//      }
-//      API_clearscreen(VGA_COL_BLACK);
-//      for(int i = 0; i < 42; i++)
-//      {
-//        API_draw_bitmap(0, 0, i+17);
-//        HAL_Delay(100);
-//      }
-//      API_clearscreen(VGA_COL_BLACK);
-//      HAL_Delay(100);
-//      API_draw_bitmap(70, 20, 59);
-//      HAL_Delay(100);
-//    }
+   for(int j = 0; j < 1000; j++)
+   {
+     API_clearscreen(VGA_COL_BLACK);
+     for(int i = 0; i < 14; i++)
+     {
+       API_draw_bitmap(0, 0, i+3);
+       HAL_Delay(100);
+     }
+     API_clearscreen(VGA_COL_BLACK);
+     for(int i = 0; i < 42; i++)
+     {
+       API_draw_bitmap(0, 0, i+17);
+       HAL_Delay(100);
+     }
+     API_clearscreen(VGA_COL_BLACK);
+     HAL_Delay(100);
+     API_draw_bitmap(70, 20, 59);
+     HAL_Delay(100);
+   }
     API_clearscreen(VGA_COL_WHITE);
 
     API_draw_line(5, 5, 5, 100, VGA_COL_BLUE, 1, 0);
