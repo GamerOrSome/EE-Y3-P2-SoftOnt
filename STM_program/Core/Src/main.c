@@ -154,24 +154,46 @@ int main(void)
 
     // Check if we have a complete line to process
     if (input.command_execute_flag == TRUE) {
-      
       // Echo back the received line
       HAL_UART_Transmit(&huart2, (uint8_t*)input.line_rx_buffer, input.char_counter, HAL_MAX_DELAY);
       HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, HAL_MAX_DELAY);
       
       struct LogicInterface cmd;
       int postcmd = 0;
-      for (int j = 0; j < 15; j++) {
-        if (input.line_rx_buffer[j] == ',') {
-          postcmd = j + 1;
-          cmd.function_name[j] = '\n';
-          cmd.arguments_len = input.char_counter - postcmd;
-          cmd.arguments = &input.line_rx_buffer[postcmd];
-          break;
-        }
-          cmd.function_name[j] = input.line_rx_buffer[j];
+
+      uint32_t kommando = 0;
+      uint32_t strnglgth = 0;
+      uint32_t cmdlength = 0;
+
+      for (int j = 0; j < input.msglen+1; j++)
+      {
+    	if(input.line_rx_buffer[j] == '\0')
+    	{
+    		strnglgth = j;
+    	}
+      }
+      for(int j = 0; j < input.msglen; j++)
+      {
+    	if(input.line_rx_buffer[j] == ',')
+    	{
+    		kommando = j-1;
+    		for(int i = 0; i <= kommando; i++)
+    		{
+    			cmd.function_name[i] = input.line_rx_buffer[i];
+    		}
+    		cmd.function_name[kommando+1] = '\n';
+    		break;
+    	}
       }
 
+      cmd.arguments_len = strnglgth - kommando;
+      char arg[128]= {0};
+      for(int j = 0; j<= input.msglen-kommando;j++)
+      {
+    	  arg[j] = input.line_rx_buffer[j+kommando+2];
+      }
+
+      cmd.arguments = &arg;
       execute_command(&cmd);
       
       // Reset for next command
