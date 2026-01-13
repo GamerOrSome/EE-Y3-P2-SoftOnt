@@ -1,3 +1,4 @@
+
 /*
  * logic_layer.c
  *
@@ -302,7 +303,7 @@ int parse_script_line(char *line, struct LogicInterface *cmd)
  * @return 0 bij succes, -1 bij fout
  */
 int execute_command(struct LogicInterface *cmd)
-{
+{  
     ParsedArgs parsed;
     int result;
     int color;
