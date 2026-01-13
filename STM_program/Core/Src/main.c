@@ -82,6 +82,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -133,13 +134,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  // Start with boot screen
-
   API_clearscreen(VGA_COL_BLACK);
-
   HAL_Delay(3000);
-
   for(int i = 10; i < 240; i++)
   {
     API_draw_line(1, i, 319, i, i, 1, 0);
@@ -147,7 +143,7 @@ int main(void)
   API_draw_bitmap(130, 90, 1);
   HAL_Delay(1000);
 
-  API_clearscreen(VGA_COL_BLACK);
+  API_clearscreen(VGA_COL_WHITE);
 
   while (1)
   {
