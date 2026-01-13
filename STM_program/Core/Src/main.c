@@ -141,7 +141,8 @@ int main(void)
     API_draw_line(1, i, 319, i, i, 1, 0);
   }
   API_draw_bitmap(130, 90, 1);
-  HAL_Delay(1000);
+
+  HAL_Delay(100);
 
   API_clearscreen(VGA_COL_WHITE);
 
@@ -182,7 +183,7 @@ int main(void)
     	}
       }
 
-      cmd.arguments_len = strnglgth - kommando;
+      cmd.argument_len = strnglgth - kommando;
       char arg[128]= {0};
       for(int j = 0; j<= input.msglen-kommando;j++)
       {
@@ -198,6 +199,7 @@ int main(void)
       memset((void*)input.line_rx_buffer, 0, LINE_BUFLEN);
     }
 
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
