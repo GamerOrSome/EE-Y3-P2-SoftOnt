@@ -12,9 +12,11 @@
 
 struct LogicInterface
 {
-    char function_name[6];
-    int num_arguments;
+    char function_name[15];
+    int arguments_len;
     char *arguments; 
 };
+
+int execute_command(struct LogicInterface *cmd);
 
 #endif /* LOGIC_LAYER_H_ */
