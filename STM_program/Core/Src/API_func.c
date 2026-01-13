@@ -383,7 +383,7 @@ int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 
 int API_clearscreen(int color)
 {
-    if (color < 0 || color > 255)
+    if (color < 0 || color > 256)
     {
         return -EINVAL;
     }
