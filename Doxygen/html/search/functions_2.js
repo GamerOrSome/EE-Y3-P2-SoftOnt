@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['debugmon_5fhandler_0',['DebugMon_Handler',['../stm32f4xx__it_8h.html#adbdfb05858cc36fc520974df37ec3cb0',1,'DebugMon_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#adbdfb05858cc36fc520974df37ec3cb0',1,'DebugMon_Handler(void):&#160;stm32f4xx_it.c']]]
+  ['busfault_5fhandler_0',['BusFault_Handler',['../stm32f4xx__it_8h.html#a850cefb17a977292ae5eb4cafa9976c3',1,'BusFault_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#a850cefb17a977292ae5eb4cafa9976c3',1,'BusFault_Handler(void):&#160;stm32f4xx_it.c']]]
 ];

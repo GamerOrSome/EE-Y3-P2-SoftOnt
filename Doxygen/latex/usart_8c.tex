@@ -1,0 +1,59 @@
+\doxysection{C\+:/\+Git/\+EE-\/\+Y3-\/\+P2-\/\+Soft\+Ont/\+STM\+\_\+program/\+Core/\+Src/usart.c File Reference}
+\hypertarget{usart_8c}{}\label{usart_8c}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/usart.c@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/usart.c}}
+{\ttfamily \#include "{}usart.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{usart_8c_a052088fe5bb3f807a4b2502e664fd4fd}{MX\+\_\+\+USART2\+\_\+\+UART\+\_\+\+Init}} (void)
+\item 
+void \mbox{\hyperlink{usart_8c_a62a25476866998c7aadfb5c0864fa349}{HAL\+\_\+\+UART\+\_\+\+Msp\+Init}} (UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}uart\+Handle)
+\item 
+void \mbox{\hyperlink{usart_8c_a94cd2c58add4f2549895a03bf267622e}{HAL\+\_\+\+UART\+\_\+\+Msp\+De\+Init}} (UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}uart\+Handle)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+UART\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{usart_8c_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{usart_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{usart_8c_a94cd2c58add4f2549895a03bf267622e}\index{usart.c@{usart.c}!HAL\_UART\_MspDeInit@{HAL\_UART\_MspDeInit}}
+\index{HAL\_UART\_MspDeInit@{HAL\_UART\_MspDeInit}!usart.c@{usart.c}}
+\doxysubsubsection{\texorpdfstring{HAL\_UART\_MspDeInit()}{HAL\_UART\_MspDeInit()}}
+{\footnotesize\ttfamily \label{usart_8c_a94cd2c58add4f2549895a03bf267622e} 
+void HAL\+\_\+\+UART\+\_\+\+Msp\+De\+Init (\begin{DoxyParamCaption}\item[{UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{uart\+Handle}{}\end{DoxyParamCaption})}
+
+USART2 GPIO Configuration PA2 -\/-\/-\/-\/-\/-\/\texorpdfstring{$>$}{>} USART2\+\_\+\+TX PA3 -\/-\/-\/-\/-\/-\/\texorpdfstring{$>$}{>} USART2\+\_\+\+RX\Hypertarget{usart_8c_a62a25476866998c7aadfb5c0864fa349}\index{usart.c@{usart.c}!HAL\_UART\_MspInit@{HAL\_UART\_MspInit}}
+\index{HAL\_UART\_MspInit@{HAL\_UART\_MspInit}!usart.c@{usart.c}}
+\doxysubsubsection{\texorpdfstring{HAL\_UART\_MspInit()}{HAL\_UART\_MspInit()}}
+{\footnotesize\ttfamily \label{usart_8c_a62a25476866998c7aadfb5c0864fa349} 
+void HAL\+\_\+\+UART\+\_\+\+Msp\+Init (\begin{DoxyParamCaption}\item[{UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{uart\+Handle}{}\end{DoxyParamCaption})}
+
+USART2 GPIO Configuration PA2 -\/-\/-\/-\/-\/-\/\texorpdfstring{$>$}{>} USART2\+\_\+\+TX PA3 -\/-\/-\/-\/-\/-\/\texorpdfstring{$>$}{>} USART2\+\_\+\+RX\Hypertarget{usart_8c_a052088fe5bb3f807a4b2502e664fd4fd}\index{usart.c@{usart.c}!MX\_USART2\_UART\_Init@{MX\_USART2\_UART\_Init}}
+\index{MX\_USART2\_UART\_Init@{MX\_USART2\_UART\_Init}!usart.c@{usart.c}}
+\doxysubsubsection{\texorpdfstring{MX\_USART2\_UART\_Init()}{MX\_USART2\_UART\_Init()}}
+{\footnotesize\ttfamily \label{usart_8c_a052088fe5bb3f807a4b2502e664fd4fd} 
+void MX\+\_\+\+USART2\+\_\+\+UART\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{usart_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{usart_8c_aa9479c261d65eecedd3d9582f7f0f89c}\index{usart.c@{usart.c}!huart2@{huart2}}
+\index{huart2@{huart2}!usart.c@{usart.c}}
+\doxysubsubsection{\texorpdfstring{huart2}{huart2}}
+{\footnotesize\ttfamily \label{usart_8c_aa9479c261d65eecedd3d9582f7f0f89c} 
+UART\+\_\+\+Handle\+Type\+Def huart2}
+
+File Name \+: \doxylink{usart_8c}{USART.\+c} Description \+: This file provides code for the configuration of the USART instances.
+
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+\doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2025 STMicroelectronics. All rights reserved.\end{center} }
+
+This software component is licensed by ST under BSD 3-\/Clause license, the "{}\+License"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+BSD-\/3-\/\+Clause 

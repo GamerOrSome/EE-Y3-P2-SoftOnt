@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Softont 2025: STM_program/Core/Src/main.c File Reference</title>
+<title>Softont 2025: C:/Git/EE-Y3-P2-SoftOnt/STM_program/Core/Src/main.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,14 +95,20 @@ $(function(){initNavTree('main_8c.html','',''); });
 <p>: Main program body  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
-<code>#include &quot;usb_host.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="dma_8h_source.html">dma.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tim_8h_source.html">tim.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="usart_8h_source.html">usart.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gpio_8h_source.html">gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_a_p_i__func_8h_source.html">API_func.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a6bac225908d39cd36055eb038aa79c0b" id="r_a6bac225908d39cd36055eb038aa79c0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bac225908d39cd36055eb038aa79c0b">USART_PRINTF</a>&#160;&#160;&#160;int fputc(int <a class="el" href="#a0523c05685d59544dca911cb6a3db77d">ch</a>, FILE *f)</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a70af21c671abfcc773614a9a4f63d920" id="r_a70af21c671abfcc773614a9a4f63d920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a> (void)</td></tr>
 <tr class="memdesc:a70af21c671abfcc773614a9a4f63d920"><td class="mdescLeft">&#160;</td><td class="mdescRight">System Clock Configuration.  <br /></td></tr>
-<tr class="memitem:a601fe6dca9df9023275eef4d1cc49432" id="r_a601fe6dca9df9023275eef4d1cc49432"><td class="memItemLeft" align="right" valign="top"><a id="a601fe6dca9df9023275eef4d1cc49432" name="a601fe6dca9df9023275eef4d1cc49432"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MX_USB_HOST_Process</b> (void)</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The application entry point.  <br /></td></tr>
 <tr class="memitem:a1730ffe1e560465665eb47d9264826f9" id="r_a1730ffe1e560465665eb47d9264826f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a> (void)</td></tr>
@@ -110,19 +116,34 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>MX_USB_HOST_Process</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:af7b2c26e44dadaaa798a5c3d82914ba7" id="r_af7b2c26e44dadaaa798a5c3d82914ba7"><td class="memItemLeft" align="right" valign="top"><a id="af7b2c26e44dadaaa798a5c3d82914ba7" name="af7b2c26e44dadaaa798a5c3d82914ba7"></a>
-I2C_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hi2c1</b></td></tr>
-<tr class="memitem:a42cb7a8588778f08bf78b1cb4757169c" id="r_a42cb7a8588778f08bf78b1cb4757169c"><td class="memItemLeft" align="right" valign="top"><a id="a42cb7a8588778f08bf78b1cb4757169c" name="a42cb7a8588778f08bf78b1cb4757169c"></a>
-I2S_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hi2s3</b></td></tr>
-<tr class="memitem:a9c6222bae4d0328dd843ae099623b40b" id="r_a9c6222bae4d0328dd843ae099623b40b"><td class="memItemLeft" align="right" valign="top"><a id="a9c6222bae4d0328dd843ae099623b40b" name="a9c6222bae4d0328dd843ae099623b40b"></a>
-SPI_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hspi1</b></td></tr>
+<tr class="memitem:a0d0c46791672d829075326a134858672" id="r_a0d0c46791672d829075326a134858672"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structinput__vars.html">input_vars</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d0c46791672d829075326a134858672">input</a></td></tr>
+<tr class="memitem:a945cd2261a2991d2fd051aa21bbd46a0" id="r_a945cd2261a2991d2fd051aa21bbd46a0"><td class="memItemLeft" align="right" valign="top">volatile char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a945cd2261a2991d2fd051aa21bbd46a0">container</a> [1024]</td></tr>
+<tr class="memitem:aed71a558a0fc065e11b9c3c8fc2e2ad6" id="r_aed71a558a0fc065e11b9c3c8fc2e2ad6"><td class="memItemLeft" align="right" valign="top">volatile int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed71a558a0fc065e11b9c3c8fc2e2ad6">temp</a></td></tr>
+<tr class="memitem:aebcfb1663ad4c68bf6386e05f4d990d3" id="r_aebcfb1663ad4c68bf6386e05f4d990d3"><td class="memItemLeft" align="right" valign="top">volatile int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebcfb1663ad4c68bf6386e05f4d990d3">key</a></td></tr>
+<tr class="memitem:a1a7dab423912a84e2df34e6b03af3553" id="r_a1a7dab423912a84e2df34e6b03af3553"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a7dab423912a84e2df34e6b03af3553">USART_PRINTF</a></td></tr>
+<tr class="memitem:a0523c05685d59544dca911cb6a3db77d" id="r_a0523c05685d59544dca911cb6a3db77d"><td class="memItemLeft" align="right" valign="top">return&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0523c05685d59544dca911cb6a3db77d">ch</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>: Main program body </p>
 <dl class="section attention"><dt>Attention</dt><dd></dd></dl>
-<p>Copyright (c) 2025 STMicroelectronics. All rights reserved.</p>
-<p>This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-IS. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<h2><center>&copy; Copyright (c) 2020 STMicroelectronics. All rights reserved.</center></h2>
+<p>This software component is licensed by ST under BSD 3-Clause license, the "License"; You may not use this file except in compliance with the License. You may obtain a copy of the License at: opensource.org/licenses/BSD-3-Clause </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a6bac225908d39cd36055eb038aa79c0b" name="a6bac225908d39cd36055eb038aa79c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bac225908d39cd36055eb038aa79c0b">&#9670;&#160;</a></span>USART_PRINTF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USART_PRINTF&#160;&#160;&#160;int fputc(int <a class="el" href="#a0523c05685d59544dca911cb6a3db77d">ch</a>, FILE *f)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a1730ffe1e560465665eb47d9264826f9" name="a1730ffe1e560465665eb47d9264826f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1730ffe1e560465665eb47d9264826f9">&#9670;&#160;</a></span>Error_Handler()</h2>
 
@@ -201,6 +222,95 @@ SPI_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hspi1</b
 
 </div>
 </div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a0523c05685d59544dca911cb6a3db77d" name="a0523c05685d59544dca911cb6a3db77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0523c05685d59544dca911cb6a3db77d">&#9670;&#160;</a></span>ch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">return ch</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a945cd2261a2991d2fd051aa21bbd46a0" name="a945cd2261a2991d2fd051aa21bbd46a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a945cd2261a2991d2fd051aa21bbd46a0">&#9670;&#160;</a></span>container</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile char container[1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d0c46791672d829075326a134858672" name="a0d0c46791672d829075326a134858672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d0c46791672d829075326a134858672">&#9670;&#160;</a></span>input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structinput__vars.html">input_vars</a> input</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aebcfb1663ad4c68bf6386e05f4d990d3" name="aebcfb1663ad4c68bf6386e05f4d990d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebcfb1663ad4c68bf6386e05f4d990d3">&#9670;&#160;</a></span>key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile int key</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed71a558a0fc065e11b9c3c8fc2e2ad6" name="aed71a558a0fc065e11b9c3c8fc2e2ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed71a558a0fc065e11b9c3c8fc2e2ad6">&#9670;&#160;</a></span>temp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile int temp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a7dab423912a84e2df34e6b03af3553" name="a1a7dab423912a84e2df34e6b03af3553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a7dab423912a84e2df34e6b03af3553">&#9670;&#160;</a></span>USART_PRINTF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">USART_PRINTF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">    HAL_UART_Transmit(&amp;<a class="code hl_variable" href="usart_8h.html#aa9479c261d65eecedd3d9582f7f0f89c">huart2</a>, (uint8_t *)&amp;<a class="code hl_variable" href="#a0523c05685d59544dca911cb6a3db77d">ch</a>, 1, 0xFFFF)</div>
+<div class="ttc" id="amain_8c_html_a0523c05685d59544dca911cb6a3db77d"><div class="ttname"><a href="#a0523c05685d59544dca911cb6a3db77d">ch</a></div><div class="ttdeci">return ch</div><div class="ttdef"><b>Definition</b> main.c:203</div></div>
+<div class="ttc" id="ausart_8h_html_aa9479c261d65eecedd3d9582f7f0f89c"><div class="ttname"><a href="usart_8h.html#aa9479c261d65eecedd3d9582f7f0f89c">huart2</a></div><div class="ttdeci">UART_HandleTypeDef huart2</div><div class="ttdef"><b>Definition</b> usart.c:27</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -214,7 +324,7 @@ SPI_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hspi1</b
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>STM_program</b></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="main_8c.html">main.c</a></li>
+    <li class="navelem"><a href="dir_6de768dd7fa7c80afc11c70a67dec5e4.html">STM_program</a></li><li class="navelem"><a href="dir_5bc99e1b9e0ceeff81cb06bbdd1202ea.html">Core</a></li><li class="navelem"><a href="dir_580b585b75e649b0e110edda4942032a.html">Src</a></li><li class="navelem"><a href="main_8c.html">main.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
   </ul>
 </div>

@@ -101,11 +101,6 @@ int main(void)
 
   UB_VGA_Screen_Init(); // Init VGA-Screen
 
-  API_clearscreen(VGA_COL_WHITE);
-  UB_VGA_SetPixel(10,10,10);
-  UB_VGA_SetPixel(0,0,0x00);
-  UB_VGA_SetPixel(319,0,0x00);
-
   int i;
 
   for(i = 0; i < LINE_BUFLEN; i++)
@@ -128,18 +123,112 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_Delay(1501);
   while (1)
   {
-	  if(input.command_execute_flag == TRUE)
-	  {
-		  // Do some stuff
-		  printf("yes\n");
-		  colorTest = ~colorTest; // Toggle screen color
-		  UB_VGA_FillScreen(colorTest);
+	HAL_Delay(1500);
+    API_clearscreen(VGA_COL_BLACK);
 
-		  // When finished reset the flag
-		  input.command_execute_flag = FALSE;
-	  }
+    for(int i = 10; i < 240; i++)
+    {
+      API_draw_line(1, i, 319, i, i, 1, 0);
+    }
+    API_draw_bitmap(130, 90, 1);
+    HAL_Delay(1000);
+
+    API_clearscreen(VGA_COL_WHITE);
+
+    API_draw_text(30, 60, VGA_COL_RED, "Test VoOr dEfAulT aA bB cC", "default", 8, 0, 32);
+    API_draw_text(30, 80, VGA_COL_BLUE, "Test VoOr minecraft", "Minecraft", 8, 1, 34);
+    API_draw_text(30, 100, VGA_COL_BLUE, "Test VoOr minecraft 2", "Minecraft", 16, 1, 36);
+    API_draw_text(30, 120, VGA_COL_BLUE, "Test VoOr Arial", "Arial", 8, 1, 30);
+    API_draw_text(30, 140, VGA_COL_BLUE, "Test VoOr Arial 2", "Arial", 16, 1, 32);
+    API_draw_bitmap(220, 10, 60);
+    for(int i = 0; i < 100; i++)
+    {
+      API_draw_text(30, 160, VGA_COL_RED, "Gratis koffie", "SGA", 16, 1, 0);
+      HAL_Delay(200);
+      API_draw_text(30, 160, VGA_COL_GREEN, "Gratis koffie", "SGA", 16, 1, 0);
+      HAL_Delay(200);
+      API_draw_text(30, 160, VGA_COL_BLUE, "Gratis koffie", "SGA", 16, 1, 0);
+      HAL_Delay(200);
+    }
+    HAL_Delay(200);
+  
+   for(int j = 0; j < 1000; j++)
+   {
+     API_clearscreen(VGA_COL_BLACK);
+     for(int i = 0; i < 14; i++)
+     {
+       API_draw_bitmap(0, 0, i+3);
+       HAL_Delay(100);
+     }
+     API_clearscreen(VGA_COL_BLACK);
+     for(int i = 0; i < 42; i++)
+     {
+       API_draw_bitmap(0, 0, i+17);
+       HAL_Delay(100);
+     }
+     API_clearscreen(VGA_COL_BLACK);
+     HAL_Delay(100);
+     API_draw_bitmap(70, 20, 59);
+     HAL_Delay(100);
+   }
+    API_clearscreen(VGA_COL_WHITE);
+
+    API_draw_line(5, 5, 5, 100, VGA_COL_BLUE, 1, 0);
+    UB_VGA_SetPixel(5, 5, VGA_COL_BLACK);
+    UB_VGA_SetPixel(5, 100, VGA_COL_BLACK);
+
+    API_draw_line(5, 5, 100, 5, VGA_COL_BLUE, 1, 0);
+    UB_VGA_SetPixel(5, 5, VGA_COL_BLACK);
+    UB_VGA_SetPixel(100, 5, VGA_COL_BLACK);
+
+    API_draw_line(10, 10, 100, 100, VGA_COL_BLACK, 1, 0);
+    UB_VGA_SetPixel(10, 10, VGA_COL_RED);
+    UB_VGA_SetPixel(100, 100, VGA_COL_RED);
+
+    API_draw_line(50, 10, 140, 100, VGA_COL_RED, 3, 0);
+    UB_VGA_SetPixel(50, 10, VGA_COL_BLACK);
+    UB_VGA_SetPixel(140, 100, VGA_COL_BLACK);
+
+    API_draw_line(90, 50, 20, 60, VGA_COL_MAGENTA, 5, 0);
+    UB_VGA_SetPixel(90, 50, VGA_COL_BLACK);
+    UB_VGA_SetPixel(20, 60, VGA_COL_BLACK);
+
+    API_draw_line(120, 30, 250, 10, VGA_COL_GREEN, 7, 0);
+    UB_VGA_SetPixel(120, 30, VGA_COL_BLACK);
+    UB_VGA_SetPixel(250, 10, VGA_COL_BLACK);
+
+    API_draw_line(200, 200, 200, 200, VGA_COL_GREEN, 7, 0);
+    UB_VGA_SetPixel(200, 200, VGA_COL_BLACK);
+
+    HAL_Delay(5000);
+
+    API_clearscreen(VGA_COL_WHITE);
+    API_draw_bitmap(0, 0, 1);
+    API_draw_bitmap(70, 0, 2);
+
+    HAL_Delay(5000);
+
+    API_clearscreen(VGA_COL_WHITE);
+
+
+    API_draw_rectangle(50, 50, 150, 90, VGA_COL_BLUE, 0, 0, 0 );
+
+    UB_VGA_SetPixel(50, 50, VGA_COL_BLACK);
+    UB_VGA_SetPixel(200, 50, VGA_COL_BLACK);
+    UB_VGA_SetPixel(200, 140, VGA_COL_BLACK);
+    UB_VGA_SetPixel(50, 140, VGA_COL_BLACK);
+
+    API_draw_rectangle(50, 150, 130, 80, VGA_COL_RED, 1, 0, 0 );
+
+    UB_VGA_SetPixel(50, 150, VGA_COL_BLACK);
+    UB_VGA_SetPixel(180, 150, VGA_COL_BLACK);
+    UB_VGA_SetPixel(180, 230, VGA_COL_BLACK);
+    UB_VGA_SetPixel(50, 230, VGA_COL_BLACK);
+
+    HAL_Delay(5000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

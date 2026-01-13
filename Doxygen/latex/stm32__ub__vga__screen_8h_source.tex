@@ -1,0 +1,137 @@
+\doxysection{stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h}
+\hypertarget{stm32__ub__vga__screen_8h_source}{}\label{stm32__ub__vga__screen_8h_source}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/ub\_lib/stm32\_ub\_vga\_screen.h@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/ub\_lib/stm32\_ub\_vga\_screen.h}}
+\mbox{\hyperlink{stm32__ub__vga__screen_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File\ \ \ \ \ :\ stm32\_ub\_vga\_screen.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ \_\_STM32F4\_UB\_VGA\_SCREEN\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ \_\_STM32F4\_UB\_VGA\_SCREEN\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Includes}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ color\ designation}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 8bit\ color\ (R3G3B2)}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Red\ \ \ (3bit)\ -\/>\ Bit7-\/Bit5}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Green\ (3bit)\ -\/>\ Bit4-\/Bit2}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Blue\ \ (2bit)\ -\/>\ Bit1-\/Bit0}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_BLACK\ \ \ \ \ \ \ \ \ \ 0x00}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_BLUE\ \ \ \ \ \ \ \ \ \ \ 0x03}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_GREEN\ \ \ \ \ \ \ \ \ \ 0x1C}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_RED\ \ \ \ \ \ \ \ \ \ \ \ 0xE0}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_WHITE\ \ \ \ \ \ \ \ \ \ 0xFF}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_CYAN\ \ \ \ \ \ \ \ \ \ \ 0x1F}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_MAGENTA\ \ \ \ \ \ \ \ 0xE3}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ \ VGA\_COL\_YELLOW\ \ \ \ \ \ \ \ \ 0xFC}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ define\ the\ VGA\_display}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ VGA\_DISPLAY\_X\ \ \ 320}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ VGA\_DISPLAY\_Y\ \ \ 240}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ VGA\ Structure}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00048\ \ \ uint16\_t\ \mbox{\hyperlink{struct_v_g_a__t_a88c84d6a39870a48a456e4bec88f3e66}{hsync\_cnt}};\ \ \ \textcolor{comment}{//\ counter}}
+\DoxyCodeLine{00049\ \ \ uint32\_t\ \mbox{\hyperlink{struct_v_g_a__t_aba4ef9cb071c5e654b8a8f39666327d6}{start\_adr}};\ \ \ \textcolor{comment}{//\ start\_adres}}
+\DoxyCodeLine{00050\ \ \ uint32\_t\ \mbox{\hyperlink{struct_v_g_a__t_ab42f066d0707696981de59459364cd50}{dma2\_cr\_reg}};\ \textcolor{comment}{//\ Register\ constant\ CR-\/Register}}
+\DoxyCodeLine{00051\ \}\mbox{\hyperlink{struct_v_g_a__t}{VGA\_t}};}
+\DoxyCodeLine{00052\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_v_g_a__t}{VGA\_t}}\ \mbox{\hyperlink{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a}{VGA}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ Display\ RAM}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{extern}\ uint8\_t\ \mbox{\hyperlink{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8}{VGA\_RAM1}}[(\mbox{\hyperlink{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}{VGA\_DISPLAY\_X}}+1)*\mbox{\hyperlink{stm32__ub__vga__screen_8h_a9c3e46882b624fe1887d0ec6171d771b}{VGA\_DISPLAY\_Y}}];}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ Timer-\/1}}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ Function\ \ =\ Pixelclock\ (Speed\ for\ \ DMA\ Transfer)}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ basefreq\ =\ 2*APB2\ (APB2=84MHz)\ =>\ TIM\_CLK=168MHz}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Frq\ \ \ \ \ \ \ =\ 168MHz/1/12\ =\ 14MHz}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ VGA\_TIM1\_PERIODE\ \ \ \ \ \ 11}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ VGA\_TIM1\_PRESCALE\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ Timer-\/2}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ Function\ \ =\ CH4\ :\ HSync-\/Signal\ on\ PB11}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ CH3\ :\ Trigger\ point\ for\ DMA\ start}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ basefreq\ =\ 2*APB1\ (APB1=48MHz)\ =>\ TIM\_CLK=84MHz}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ Frq\ \ \ \ \ \ \ =\ 84MHz/1/2668\ =\ 31,48kHz\ =>\ T\ =\ 31,76us}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ 1TIC\ \ \ \ \ \ =\ 11,90ns}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ \ VGA\_TIM2\_HSYNC\_PERIODE\ \ \ 2667}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ \ VGA\_TIM2\_HSYNC\_PRESCALE\ \ \ \ \ 0}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ \ VGA\_TIM2\_HSYNC\_IMP\ \ \ \ \ \ \ \ 320\ \ }\textcolor{comment}{//\ HSync-\/length\ (3,81us)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ \ VGA\_TIM2\_HTRIGGER\_START\ \ \ 480\ \ }\textcolor{comment}{//\ HSync+BackPorch\ (5,71us)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ \ VGA\_TIM2\_DMA\_DELAY\ \ \ \ \ \ \ \ \ 37\ \ }\textcolor{comment}{//\ ease\ the\ delay\ when\ DMA\ START\ (Optimization\ =\ none)}}
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ \#define\ \ VGA\_TIM2\_DMA\_DELAY\ \ \ \ \ \ \ \ \ 30\ \ //\ ease\ the\ delay\ when\ DMA\ START\ (Optimization\ =\ -\/O1)}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ VSync-\/Signal}}
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ Trigger\ \ \ =\ Timer2\ Update\ (f=31,48kHz\ =>\ T\ =\ 31,76us)}}
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ 1TIC\ \ \ \ \ \ =\ 31,76us}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ \ VGA\_VSYNC\_PERIODE\ \ \ \ \ \ \ \ \ 525}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ \ VGA\_VSYNC\_IMP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ \ VGA\_VSYNC\_BILD\_START\ \ \ \ \ \ \ 36}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ \ VGA\_VSYNC\_BILD\_STOP\ \ \ \ \ \ \ 514\ \ \ }\textcolor{comment}{//\ (16,38ms)}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ Adress\ from\ PORTE\ (Reg\ ODR)\ callback\ DMA}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ (see\ Page\ 53+204\ of\ the\ Manual)}}
+\DoxyCodeLine{00109\ \textcolor{comment}{//}}
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ Data-\/Bit0\ =>\ PE8}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ Data-\/Bit7\ =>\ PE15}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ VGA\_GPIOE\_BASE\_ADR\ \ \ \ \ ((uint32\_t)0x40021000)\ }\textcolor{comment}{//\ ADR\ from\ Port-\/E}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ VGA\_GPIO\_ODR\_OFFSET\ \ \ \ ((uint32\_t)0x00000014)\ }\textcolor{comment}{//\ ADR\ from\ Register\ ODR}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ VGA\_GPIO\_BYTE\_OFFSET\ \ \ ((uint32\_t)0x00000001)\ }\textcolor{comment}{//\ Data\ for\ 8bit}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ VGA\_GPIOE\_ODR\_ADDRESS\ \ \ (VGA\_GPIOE\_BASE\_ADR\ |\ VGA\_GPIO\_ODR\_OFFSET\ |\ VGA\_GPIO\_BYTE\_OFFSET)}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ Define\ for\ black\ on\ PE8\ -\/\ PE15}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ VGA\_GPIO\_HINIBBLE\ \ ((uint16\_t)0xFF00)\ }\textcolor{comment}{//\ GPIO\_Pin\_8\ to\ GPIO\_Pin\_15}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ Global\ Function\ call}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00126\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm32__ub__vga__screen_8h_aa63128722f952ece5176141e8a99b6c1}{UB\_VGA\_Screen\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm32__ub__vga__screen_8h_a8afc87fd0f1737d58c7ee92629be9c92}{UB\_VGA\_FillScreen}}(uint8\_t\ color);}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm32__ub__vga__screen_8h_a1fd52b52c87572b4bfad9637ec34e621}{UB\_VGA\_SetPixel}}(uint16\_t\ xp,\ uint16\_t\ yp,\ uint8\_t\ color);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_STM32F4\_UB\_VGA\_SCREEN\_H}}
+
+\end{DoxyCode}
