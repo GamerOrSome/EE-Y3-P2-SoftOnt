@@ -23,7 +23,7 @@ void setup()
   myFont = createFont("arial" , 9); //creates custom font which allows numbers to be printed
   textFont(myFont);
   
-  myPort = new Serial(this, "com10", 115200);
+  myPort = new Serial(this, "COM10", 115200);
   
   toggle = new boolean[9];
   coord = new int[8];
@@ -102,7 +102,8 @@ void draw()
         text(coord[coord_stage], 180, 373);
         break;
       case 6:
-        String msg = "lijn," + coord[0] + "," + coord[1] + "," + coord[2] + coord[3] + "," + "rood" + "," + coord[5] + "\n";
+        String msg = "lijn," + coord[0] + "," + coord[1] + "," + coord[2] + "," + coord[3] + "," + "rood" + "," + coord[5] + "\n\r";
+        print(msg);
         myPort.write(msg);
         coord_stage = 0;
         toggle[0] = false;
@@ -181,8 +182,11 @@ void draw()
         text(coord[coord_stage], 180, 373);
         break;
       case 6:
+        String msg = "recht," + coord[0] + "," + coord[1] + "," + coord[2] + "," + coord[3] + "," + "blauw" + "," + coord[5] + "\n\r";
+        print(msg);
+        myPort.write(msg);
         coord_stage = 0;
-        toggle[1] = false;
+        toggle[0] = false;
         lock = false;
         break;
     }
