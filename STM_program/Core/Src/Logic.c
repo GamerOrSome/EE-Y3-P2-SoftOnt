@@ -2,7 +2,7 @@
  * logic_layer.c
  *
  * Created on: 27 Nov 2025
- * Author: jeremy
+ * Author: jeremy , Victor
  *
  * Beschrijving: Logic layer implementatie voor script parsing en executie
  */
@@ -16,10 +16,7 @@
 #include <string.h>
 #include <ctype.h>
 
-
-// ============================================================================
-// DEFINES EN CONSTANTEN
-// ============================================================================
+//defines
 
 #define MAX_ARGS 12
 #define MAX_TOKEN_LEN 50
@@ -31,10 +28,7 @@
 #define FONT_VET        1
 #define FONT_CURSIEF    2
 
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
-
+//typedefs
 // Struct voor color mapping
 typedef struct
 {
@@ -50,10 +44,15 @@ typedef struct
     int arg_count;
 } ParsedArgs;
 
-// ============================================================================
-// LOOKUP TABLES
-// ============================================================================
 
+/**
+ * Kleur lookup tabel
+ * @param name Kleur naam als string
+ * @param value Kleur code als integer'
+ * @param VGA_COL_... definities uit stm32_ub_vga_screen.h
+ 
+ * @return Kleur code of VGA_COL_BLACK als niet gevonden
+ */
 static const ColorMap COLOR_TABLE[] =
 {
     {"zwart",        VGA_COL_BLUE},
@@ -74,15 +73,9 @@ static const ColorMap COLOR_TABLE[] =
 };
 
 #define COLOR_TABLE_SIZE (sizeof(COLOR_TABLE) / sizeof(ColorMap))
-
-// ============================================================================
-// HELPER FUNCTIES
-// ============================================================================
-/*
- * Function: to_lowercase
- * Returnvalue: void
- * Arguments: char *str - string om te converteren
- * Beschrijving: Converteer string naar lowercase in-place
+/**
+ * Converteer string naar lowercase
+ * @param str In/uit parameter: de string die geconverteerd wordt
  */
 static void to_lowercase(char *str)
 {
@@ -92,11 +85,10 @@ static void to_lowercase(char *str)
         str[i] = tolower((unsigned char)str[i]);
 }
 
-/*
- * Function: trim_whitespace
- * Returnvalue: char* - pointer naar getrimde string
- * Arguments: char *str - string om te trimmen
- * Beschrijving: Verwijder leading en trailing whitespace
+/**
+ * Trim whitespace from a string
+ * @param str In/uit parameter: de string die geconverteerd wordt
+ * @return Pointer naar de trimmed string
  */
 static char* trim_whitespace(char *str)
 {
@@ -120,13 +112,10 @@ static char* trim_whitespace(char *str)
     return str;
 }
 
-/*
- * Function: parse_color
- * Returnvalue: int - kleurcode
- * Arguments: char *color_str - kleurnaam
- * Beschrijving: Converteer kleurnaam naar kleurcode
- *
- * Voorbeeld: "rood" -> COLOR_ROOD (7)
+/**
+ * Converteer kleurnaam naar kleurcode
+ * @param color_str Kleurnaam als string
+ * @return Kleurcode of VGA_COL_BLACK als niet gevonden
  */
 int parse_color(char *color_str)
 {
@@ -152,11 +141,10 @@ int parse_color(char *color_str)
     return VGA_COL_BLACK;
 }
 
-/*
- * Function: parse_font_style
- * Returnvalue: int - font style code
- * Arguments: char *style_str - style naam
- * Beschrijving: Converteer font style naam naar code
+/**
+ * Converteer font style naam naar code
+ * @param style_str Font style naam als string
+ * @return Font style code of FONT_NORMAAL als niet gevonden
  */
 int parse_font_style(char *style_str)
 {
@@ -177,16 +165,13 @@ int parse_font_style(char *style_str)
         return FONT_NORMAAL;
 }
 
-/*
- * Function: parse_arguments
- * Returnvalue: int - 0 bij success, -1 bij error
- * Arguments:
- *   - char *args_str: string met alle argumenten
- *   - ParsedArgs *parsed: output struct met geparsede args
- * Beschrijving: Parse argument string naar integers en strings
- *
- * Deze functie doet het "zware werk" van argument parsing
+/**
+ * Parse argumenten string naar ParsedArgs struct
+ * @param args_str In parameter: de argumenten string
+ * @param parsed Out parameter: de geparseerde argumenten
+ * @return 0 bij succes, -1 bij fout
  */
+
 static int parse_arguments(char *args_str, ParsedArgs *parsed)
 {
     char *token;
@@ -232,23 +217,12 @@ static int parse_arguments(char *args_str, ParsedArgs *parsed)
     return 0;
 }
 
-// ============================================================================
-// MAIN PARSER FUNCTIES
-// ============================================================================
 
-/*
- * Function: parse_script_line
- * Returnvalue: int - 0 bij success, error code anders
- * Arguments:
- *   - char *line: input script regel
- *   - struct LogicInterface *cmd: output parsed commando
- * Beschrijving: Parse een script regel naar LogicInterface struct
- *
- * Voorbeeld:
- *   Input:  "lijn, 10, 20, 100, 50, rood, 2"
- *   Output: cmd->function_name = "lijn"
- *           cmd->arguments = "10,20,100,50,rood,2"
- *           cmd->num_arguments = 7
+/**
+ * Parse een script regel naar LogicInterface struct
+ * @param line In parameter: de regel die geanalyseerd wordt
+ * @param cmd Out parameter: de struct met de geanalyseerde commando's
+ * @return 0 bij succes, -1 bij fout
  */
 int parse_script_line(char *line, struct LogicInterface *cmd)
 {
@@ -320,17 +294,12 @@ int parse_script_line(char *line, struct LogicInterface *cmd)
     return 0;
 }
 
-// ============================================================================
-// COMMAND EXECUTION FUNCTIES
-// ============================================================================
-
-/*
- * Function: execute_command
- * Returnvalue: int - API return code (0 = success)
- * Arguments: struct LogicInterface *cmd
- * Beschrijving: Voert geparsed commando uit via API calls
- *
- * Dit is de "main switch" die bepaalt welke API functie aangeroepen wordt
+/** 
+ * Executeer een commando
+ * @param cmd In parameter: het commando dat uitgevoerd moet worden
+ * @param parsed Geparste argumenten
+ * @param result Uit parameter: de return waarde van de API functie
+ * @return 0 bij succes, -1 bij fout
  */
 int execute_command(struct LogicInterface *cmd)
 {
@@ -346,9 +315,6 @@ int execute_command(struct LogicInterface *cmd)
     if (parse_arguments(cmd->arguments, &parsed) != 0)
         return -1;
     
-    // ========================================================================
-    // COMMANDO MATCHING met strcmp
-    // ========================================================================
     
     // LIJN: lijn, x1, y1, x2, y2, kleur, dikte
     if (strcmp(cmd->function_name, "lijn") == 0)
@@ -488,13 +454,9 @@ int execute_command(struct LogicInterface *cmd)
     return result;
 }
 
-/*
- * Function: free_command
- * Returnvalue: void
- * Arguments: struct LogicInterface *cmd
- * Beschrijving: Geeft dynamisch gealloceerd geheugen vrij
- *
- * BELANGRIJK: roep dit ALTIJD aan na gebruik van parse_script_line!
+/**
+ * Free geheugen gealloceerd voor command arguments
+ * @param cmd In/uit parameter: de LogicInterface struct
  */
 void free_command(struct LogicInterface *cmd)
 {
