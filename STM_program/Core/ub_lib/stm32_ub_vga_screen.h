@@ -21,21 +21,21 @@
 // Green (3bit) -> Bit4-Bit2
 // Blue  (2bit) -> Bit1-Bit0
 //--------------------------------------------------------------
-#define  VGA_COL_BLACK          00000000
-#define  VGA_COL_BLUE           00000011
-#define  VGA_COL_LIGHTBLUE      00011111
-#define  VGA_COL_GREEN          00011100
-#define  VGA_COL_LIGHTGREEN     01111100
-#define  VGA_COL_CYAN           00011011
-#define  VGA_COL_LIGHTCYAN      00011111
-#define  VGA_COL_RED            11100000
-#define  VGA_COL_LIGHTRED       11101010
-#define  VGA_COL_MAGENTA        11101110
-#define  VGA_COL_LIGHTMAGENTA   11100011
-#define  VGA_COL_BROWN          01101000
-#define  VGA_COL_YELLOW         11111100
-#define  VGA_COL_GRAY           10010010
-#define  VGA_COL_WHITE          11111111
+#define  VGA_COL_BLACK          0b00000000
+#define  VGA_COL_BLUE           0b00000011
+#define  VGA_COL_LIGHTBLUE      0b00011111
+#define  VGA_COL_GREEN          0b00011100
+#define  VGA_COL_LIGHTGREEN     0b01111100
+#define  VGA_COL_CYAN           0b00011011
+#define  VGA_COL_LIGHTCYAN      0b00011111
+#define  VGA_COL_RED            0b11100000
+#define  VGA_COL_LIGHTRED       0b11101010
+#define  VGA_COL_MAGENTA        0b11101110
+#define  VGA_COL_LIGHTMAGENTA   0b11100011
+#define  VGA_COL_BROWN          0b01101000
+#define  VGA_COL_YELLOW         0b11111100
+#define  VGA_COL_GRAY           0b10010010
+#define  VGA_COL_WHITE          0b11111111
 
 
 

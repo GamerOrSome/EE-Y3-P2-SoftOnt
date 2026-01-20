@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "Logic_layer.h"
 #include "API_func.h"
+#include "stm32_ub_vga_screen.h"
 #include <string.h>
 
 /* One byte buffer for interrupt reception */
@@ -141,9 +142,12 @@ int main(void)
     API_draw_line(1, i, 319, i, i, 1, 0);
   }
   API_draw_bitmap(130, 90, 1);
+
   HAL_Delay(1000);
 
   API_clearscreen(VGA_COL_WHITE);
+ 
+  HAL_Delay(100);
 
   while (1)
   {
@@ -154,7 +158,8 @@ int main(void)
       HAL_UART_Transmit(&huart2, (uint8_t*)input.line_rx_buffer, input.char_counter, HAL_MAX_DELAY);
       HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, HAL_MAX_DELAY);
       
-      struct LogicInterface cmd;
+      struct LogicInterface cmd = {0};
+      memset(&cmd, 0, sizeof(cmd));
       int postcmd = 0;
 
       uint32_t kommando = 0;
@@ -177,12 +182,12 @@ int main(void)
     		{
     			cmd.function_name[i] = input.line_rx_buffer[i];
     		}
-    		cmd.function_name[kommando+1] = '\n';
+
     		break;
     	}
       }
 
-      cmd.arguments_len = strnglgth - kommando;
+      cmd.argument_len = strnglgth - kommando;
       char arg[128]= {0};
       for(int j = 0; j<= input.msglen-kommando;j++)
       {
@@ -198,6 +203,7 @@ int main(void)
       memset((void*)input.line_rx_buffer, 0, LINE_BUFLEN);
     }
 
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

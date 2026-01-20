@@ -72,6 +72,7 @@ void UB_VGA_FillScreen(uint8_t color)
       UB_VGA_SetPixel(xp, yp, color);
     }
   }
+  return;
 }
 
 
@@ -88,4 +89,5 @@ void UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color)
 
   // Write pixel to ram
   VGA_RAM1[(yp * (VGA_DISPLAY_X + 1)) + xp] = color;
+  return;
 }

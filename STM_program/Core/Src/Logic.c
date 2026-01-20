@@ -261,9 +261,9 @@ int parse_script_line(char *line, struct LogicInterface *cmd)
     // Converteer functienaam naar lowercase
     to_lowercase(func_name);
 
-    // Kopieer functienaam (max 5 chars)
-    strncpy(cmd->function_name, func_name, 5);
-    cmd->function_name[5] = '\0';
+    // Kopieer functienaam (max 15 chars to handle longer commands)
+    strncpy(cmd->function_name, func_name, sizeof(cmd->function_name) - 1);
+    cmd->function_name[sizeof(cmd->function_name) - 1] = '\0';
 
     // Alloceer geheugen voor argumenten
     args_len = strlen(args_str);
