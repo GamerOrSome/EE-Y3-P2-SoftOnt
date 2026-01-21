@@ -160,11 +160,9 @@ int main(void)
       
       struct LogicInterface cmd = {0};
       memset(&cmd, 0, sizeof(cmd));
-      int postcmd = 0;
 
       uint32_t kommando = 0;
       uint32_t strnglgth = 0;
-      uint32_t cmdlength = 0;
 
       for (int j = 0; j < input.msglen+1; j++)
       {
