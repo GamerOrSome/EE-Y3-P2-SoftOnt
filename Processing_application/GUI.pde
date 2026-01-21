@@ -9,11 +9,14 @@ int rec_height = 70;    //height of the boxes
 int spacer = 80;        //space inbetween the boxes vertical
 int spacer2 = 210;      //space between de boxes horizontally
 int rounded = 10;       //radius of the rounded edges of the boxes
+
 int coord[];            //array die coordinaten data opslaat
 int coord_stage = 0;    //wordt gebruikt om te kijken in welke stage de code is  
 boolean [] toggle;      //array die kijkt welk commando momenteel aanstaat
 boolean lock;           //boolean om die gebruikt wordt om de input van toggle to locken
+
 PFont myFont;           //costom font in processing code
+
 String kleur = "";      //string voor het opslaan van de gekozen kleur
 String tekst = "";      //string voor het opslaan van de gekozen tekst
 String fontnaam = "";   //string voor het opslaan van de gekozen font
@@ -42,20 +45,24 @@ void draw()
   if(lock == false)              //kijkt of de lock waarde false is en of er geen commandos geselcteerd zijn
   {
     background(#78BEED);         //zorgt dat de achtergrond blauw gekleurd is
+
     for(int i = 0; i < 5; i++)   //deze for loop zorgt dat alle rechthoeken op het scherm worden getekend
     {
       fill(255, 0, 0);
       rect(xpos, ypos + (i * spacer), rec_width, rec_height, rounded);
     }
+    
+    //tekent de tekst in de rechthoeken
     fill(0, 0, 0);
     textSize(50);
-    text("lijn", 170, 65, 200, 200);
+    text("lijn", 170, 65, 200, 200);    
     textSize(30);
     text("rechthoek", 135, 152, 200, 200);
     textSize(50);
     text("tekst", 150, 225, 200, 200);
     text("bitmap", 130, 300, 200, 200);
     text("clear", 150, 380, 200, 200);
+
     for(int i = 0; i < 4; i++)   //cleared de waardes van zowel de coord array en de strings
     {
       coord[i] = 0;
@@ -65,11 +72,12 @@ void draw()
     fontnaam = "";
     fontstijl = "";
   }
+
   if(toggle[0] == true)
   {
     switch(coord_stage)
     {
-      case 0:
+      case 0: //lijn X1
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -80,7 +88,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 1:
+      case 1: //lijn Y1
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -91,7 +99,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 2:
+      case 2: //lijn X2
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -102,7 +110,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 3:
+      case 3: //lijn Y2
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -113,7 +121,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 4:
+      case 4: //lijn kleur
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -124,7 +132,7 @@ void draw()
         textSize(20);
         text(kleur, 180, 373);
         break;
-      case 5:
+      case 5: //lijn dikte
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -135,7 +143,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 6:
+      case 6: //verzenden lijn data
         String msg = "lijn," + coord[0] + "," + coord[1] + "," + coord[2] + "," + coord[3] + "," + kleur + "," + coord[5] + "\r\n";  //voegt alle waardes samen naar 1 string
         //myPort.write(msg);  //stuurt de string via de seriele port
         println(msg);         //print de string voor debugging
@@ -149,7 +157,7 @@ void draw()
   {
     switch(coord_stage)
     {
-      case 0:
+      case 0: //rechthoek X1
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -160,7 +168,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 1:
+      case 1: //rechthoek Y1
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -171,7 +179,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 2:
+      case 2: //rechthoek X2
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -182,7 +190,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 3:
+      case 3: //rechthoek Y2
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -193,7 +201,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 4:
+      case 4: //rechthoek kleur
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -204,7 +212,7 @@ void draw()
         textSize(20);
         text(kleur, 180, 373);
         break;
-      case 5:
+      case 5: //rechthoek filled
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -215,7 +223,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 6:
+      case 6: //verzenden rechthoek data
         String msg = "rechthoek," + coord[0] + "," + coord[1] + "," + coord[2] + "," + coord[3] + "," + kleur + "," + coord[5] + "\r\n";
         //myPort.write(msg);
         println(msg);
@@ -228,7 +236,7 @@ void draw()
   {
     switch(coord_stage)
     {
-      case 0:
+      case 0: //tekst X1
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -239,7 +247,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 1:
+      case 1: //tekst Y1
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -250,7 +258,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 2:
+      case 2: //tekst kleur
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -261,7 +269,7 @@ void draw()
         textSize(20);
         text(kleur, 180, 373);
         break;
-      case 3:
+      case 3: //tekst inhoud
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -272,7 +280,7 @@ void draw()
         textSize(20);
         text(tekst, 180, 373);
         break;
-      case 4:
+      case 4: //tekst font
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -283,7 +291,7 @@ void draw()
         textSize(20);
         text(fontnaam, 180, 373);
         break;
-      case 5:
+      case 5: //tekst fontsize
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -294,7 +302,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 6:
+      case 6: //tekst fontstijl
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -305,7 +313,7 @@ void draw()
         textSize(20);
         text(fontstijl, 180, 373);
         break;
-      case 7:
+      case 7: //verzenden tekst data
         String msg = "tekst," + coord[0] + "," + coord[1] + "," + kleur + "," + tekst + "," + fontnaam + "," + coord[5] + "," + fontstijl + "\r\n";
         //myPort.write(msg);
         println(msg);
@@ -318,7 +326,7 @@ void draw()
   {
     switch(coord_stage)
     {
-      case 0:
+      case 0: //bitmap nr
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -329,7 +337,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 1:
+      case 1: //bitmap X pos
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -340,7 +348,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 2:
+      case 2: //bitmap Y pos
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -351,7 +359,7 @@ void draw()
         textSize(20);
         text(coord[coord_stage], 180, 373);
         break;
-      case 3:
+      case 3: //verzenden bitmap data
         String msg = "bitmap," + coord[0] + "," + coord[1] + "," + coord[2] + "," + "\r\n";
         //myPort.write(msg);
         println(msg);
@@ -364,7 +372,7 @@ void draw()
   {
     switch(coord_stage)
     {
-      case 0:
+      case 0: //clearscherm kleur
         background(#0078DE);
         fill(#000000);
         textSize(40);
@@ -375,7 +383,7 @@ void draw()
         textSize(20);
         text(kleur, 180, 373);
         break;
-      case 1:
+      case 1: //verzenden clearscherm data
         String msg = "clearscherm," + kleur + "\r\n";
         //myPort.write(msg);
         println(msg);
@@ -428,6 +436,7 @@ void keyPressed() {
       lock = false;
     }
   }
+
   if(key == BACKSPACE)  //kijkt of backspace wordt ingerukt zodat de momenteel geselcteerde positie van de array of string wordt gereset
   {
     coord[coord_stage] = 0;
@@ -451,10 +460,12 @@ void keyPressed() {
       fontstijl += "";
     }
   }
+
   if(key == ENTER)  //kijkt of enter wordt ingerukt om de ingevoerde waarde op te slaan in de array en door te gaan naar de volgende stap
   {
     coord_stage = coord_stage + 1;
   }
+  
   if((key >= '0' && key <= '9') || (key >= 'a' && key <= 'z'))  //kijkt of 0 t/m 9 en a t/m z worden ingerukt
   {
     if(toggle[0] == true && coord_stage == 4 ||
