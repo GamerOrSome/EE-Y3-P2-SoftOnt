@@ -30,7 +30,7 @@ void setup()
   myFont = createFont("arial" , 9); //maakt de custom font aan zodat er nummers geprint kunnen worden
   textFont(myFont);
   
-  //myPort = new Serial(this, "com11", 115200); //initialissert de seriele port
+  myPort = new Serial(this, "com11", 115200); //initialissert de seriele port
   
   toggle = new boolean[5];    //hier worden de hoeveelheid commandos geinitaliseerd kan vergroot worden indien meer gewenste commandos
   coord = new int[7];         //geeft aan hoeveel posities erzijn binnen de coord array indien er meer dan 7 posities aan coordinaten en dergelijk nodig zijn moet dit vergroot worden
@@ -63,7 +63,7 @@ void draw()
     text("bitmap", 130, 300, 200, 200);
     text("clear", 150, 380, 200, 200);
 
-    for(int i = 0; i < 4; i++)   //cleared de waardes van zowel de coord array en de strings
+    for(int i = 0; i < 7; i++)   //cleared de waardes van zowel de coord array en de strings
     {
       coord[i] = 0;
     }
@@ -145,7 +145,7 @@ void draw()
         break;
       case 6: //verzenden lijn data
         String msg = "lijn," + coord[0] + "," + coord[1] + "," + coord[2] + "," + coord[3] + "," + kleur + "," + coord[5] + "\r\n";  //voegt alle waardes samen naar 1 string
-        //myPort.write(msg);  //stuurt de string via de seriele port
+        myPort.write(msg);  //stuurt de string via de seriele port
         println(msg);         //print de string voor debugging
         coord_stage = 0;
         toggle[0] = false;
@@ -225,10 +225,10 @@ void draw()
         break;
       case 6: //verzenden rechthoek data
         String msg = "rechthoek," + coord[0] + "," + coord[1] + "," + coord[2] + "," + coord[3] + "," + kleur + "," + coord[5] + "\r\n";
-        //myPort.write(msg);
+        myPort.write(msg);
         println(msg);
         coord_stage = 0;
-        toggle[0] = false;
+        toggle[1] = false;
         lock = false;
         break;
     }
@@ -315,7 +315,7 @@ void draw()
         break;
       case 7: //verzenden tekst data
         String msg = "tekst," + coord[0] + "," + coord[1] + "," + kleur + "," + tekst + "," + fontnaam + "," + coord[5] + "," + fontstijl + "\r\n";
-        //myPort.write(msg);
+        myPort.write(msg);
         println(msg);
         coord_stage = 0;
         toggle[2] = false;
@@ -361,7 +361,7 @@ void draw()
         break;
       case 3: //verzenden bitmap data
         String msg = "bitmap," + coord[0] + "," + coord[1] + "," + coord[2] + "," + "\r\n";
-        //myPort.write(msg);
+        myPort.write(msg);
         println(msg);
         coord_stage = 0;
         toggle[3] = false;
@@ -385,7 +385,7 @@ void draw()
         break;
       case 1: //verzenden clearscherm data
         String msg = "clearscherm," + kleur + "\r\n";
-        //myPort.write(msg);
+        myPort.write(msg);
         println(msg);
         coord_stage = 0;
         toggle[4] = false;
