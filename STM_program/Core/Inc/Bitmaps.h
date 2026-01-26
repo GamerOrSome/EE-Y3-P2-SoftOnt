@@ -1,7 +1,14 @@
+/*
+ * Bitmaps.h
+ *
+ * Created on: 19 Jan 2026
+ * Author: Victor
+ *
+  * Beschrijving: Bitmaps voor de STM32F407G-DISC1 */
+
 #ifndef BITMAPS_H
 #define BITMAPS_H
 
-#include <stdint.h>
 #define NUM_BITMAPS 6
 
 
