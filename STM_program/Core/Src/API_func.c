@@ -174,6 +174,14 @@ int API_draw_rectangle(int x, int y, int width, int height, int color, int fille
 int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 {
     uint8_t *bitmap_data;
+
+    if(bm_nr < 0 || bm_nr >= NUM_BITMAPS)
+    {
+        return -EINVAL;
+    }
+
+    bitmapdata = bitmap_array[bm_nr];
+
     switch (bm_nr)
     {
     case 1:
