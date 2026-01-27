@@ -11,6 +11,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QLabel,
     QHBoxLayout,
+    QListWidget,
 )
 from PyQt6.QtGui import QPixmap, QImage
 import re
@@ -110,6 +111,9 @@ def combine_bitmaps_to_file(png_files, output_file):
         f.write("#ifndef BITMAPS_H\n")
         f.write("#define BITMAPS_H\n\n")
         f.write("#include <stdint.h>\n\n")
+        
+        # Write define for total number of bitmaps
+        f.write(f"#define NUM_BITMAPS {len(bitmaps)}\n\n")
 
         # Write all bitmap arrays
         for filename_base, width, height, bitmap_data in bitmaps:
@@ -127,6 +131,17 @@ def combine_bitmaps_to_file(png_files, output_file):
                     f.write("\n")
 
             f.write("\n};\n\n")
+
+        # Write array of pointers to all bitmap data
+        f.write("// Array of pointers to all bitmap data\n")
+        f.write("const uint8_t* const bitmap_array[NUM_BITMAPS] = {\n")
+        for i, (filename_base, _, _, _) in enumerate(bitmaps):
+            var_name = f"{filename_base}_bitmap_data"
+            f.write(f"    {var_name}")
+            if i < len(bitmaps) - 1:
+                f.write(",")
+            f.write("\n")
+        f.write("};\n\n")
 
         f.write("#endif // BITMAPS_H\n")
 
@@ -302,7 +317,20 @@ def combine_multiple_bitmaps(parent=None):
         return
 
     try:
-        combine_bitmaps_to_file(png_paths, save_path)
+        # Convert all images to bitmap data
+        bitmaps = []
+        for png_file in png_paths:
+            filename_base, width, height, bitmap_data = png_to_bitmap_data(png_file)
+            var_name = f"{filename_base}_bitmap_data"
+            bitmaps.append((var_name, width, height, bitmap_data))
+        
+        # Show reorder dialog
+        reordered_bitmaps = show_reorder_dialog_for_bitmaps(parent, bitmaps)
+        if reordered_bitmaps is None:
+            return  # User cancelled
+        
+        # Write the combined header file with reordered bitmaps
+        write_combined_header(save_path, reordered_bitmaps)
         show_file_contents_dialog(parent, save_path)
     except Exception as e:
         QMessageBox.critical(parent, "Error", f"Failed to combine images:\n{e}")
@@ -318,29 +346,259 @@ def load_bitmap_dialog(parent=None):
     if header_path:
         show_file_contents_dialog(parent, header_path)
 
+def parse_combined_header(header_file):
+    """Parse a combined header file and extract bitmap information.
+    Returns a list of tuples: (var_name, width, height, bitmap_data)."""
+    try:
+        with open(header_file, 'r') as f:
+            content = f.read()
+        
+        bitmaps = []
+        # Pattern to match bitmap array declarations with comments
+        pattern = r'//\s*(\w+)\s*\((\d+)x(\d+)\)\s*\nconst uint8_t (\w+)\[(\d+)\]\s*=\s*\{([^}]+)\}'
+        
+        matches = re.finditer(pattern, content, re.MULTILINE)
+        
+        for match in matches:
+            name_base = match.group(1)
+            width = int(match.group(2))
+            height = int(match.group(3))
+            var_name = match.group(4)
+            array_size = int(match.group(5))
+            hex_data = match.group(6)
+            
+            # Extract hex values
+            hex_values = re.findall(r'0x([0-9A-Fa-f]{2})', hex_data)
+            bitmap_data = [int(h, 16) for h in hex_values]
+            
+            bitmaps.append((var_name, width, height, bitmap_data))
+        
+        return bitmaps
+    except Exception as e:
+        raise Exception(f"Failed to parse combined header file: {e}")
+
+def write_combined_header(output_file, bitmaps):
+    """Write a combined header file with the given bitmaps.
+    bitmaps: list of tuples (var_name, width, height, bitmap_data)"""
+    with open(output_file, 'w', newline='\n') as f:
+        f.write("#ifndef BITMAPS_H\n")
+        f.write("#define BITMAPS_H\n\n")
+        f.write("#include <stdint.h>\n\n")
+        
+        # Write define for total number of bitmaps
+        f.write(f"#define NUM_BITMAPS {len(bitmaps)}\n\n")
+
+        # Write all bitmap arrays
+        for var_name, width, height, bitmap_data in bitmaps:
+            name_base = var_name.replace('_bitmap_data', '')
+            f.write(f"// {name_base} ({width}x{height})\n")
+            f.write(f"const uint8_t {var_name}[{len(bitmap_data)}] = {{\n")
+
+            for i, byte in enumerate(bitmap_data):
+                if i % 16 == 0:
+                    f.write("    ")
+                f.write(f"0x{byte:02X}")
+                if i < len(bitmap_data) - 1:
+                    f.write(", ")
+                if (i + 1) % 16 == 0:
+                    f.write("\n")
+
+            f.write("\n};\n\n")
+
+        # Write array of pointers to all bitmap data
+        f.write("// Array of pointers to all bitmap data\n")
+        f.write("const uint8_t* const bitmap_array[NUM_BITMAPS] = {\n")
+        for i, (var_name, _, _, _) in enumerate(bitmaps):
+            f.write(f"    {var_name}")
+            if i < len(bitmaps) - 1:
+                f.write(",")
+            f.write("\n")
+        f.write("};\n\n")
+
+        f.write("#endif // BITMAPS_H\n")
+
+def show_reorder_dialog_for_bitmaps(parent, bitmaps):
+    """Show a dialog to reorder bitmaps before saving.
+    bitmaps: list of tuples (var_name, width, height, bitmap_data)
+    Returns: reordered list of bitmaps, or None if cancelled."""
+    
+    # Create a copy so we don't modify the original
+    bitmaps = list(bitmaps)
+    
+    dlg = QDialog(parent)
+    dlg.setWindowTitle("Reorder Bitmaps")
+    dlg.resize(400, 500)
+    layout = QVBoxLayout(dlg)
+    
+    label = QLabel("Reorder bitmaps (select and use buttons to move):", dlg)
+    layout.addWidget(label)
+    
+    list_widget = QListWidget(dlg)
+    for var_name, width, height, _ in bitmaps:
+        # Display the variable name and dimensions
+        display_name = var_name.replace('_bitmap_data', '')
+        list_widget.addItem(f"{display_name} ({width}x{height})")
+    layout.addWidget(list_widget)
+    
+    # Buttons for moving items
+    btn_layout = QHBoxLayout()
+    btn_up = QPushButton("Move Up", dlg)
+    btn_down = QPushButton("Move Down", dlg)
+    btn_layout.addWidget(btn_up)
+    btn_layout.addWidget(btn_down)
+    layout.addLayout(btn_layout)
+    
+    def move_up():
+        current_row = list_widget.currentRow()
+        if current_row > 0:
+            item = list_widget.takeItem(current_row)
+            list_widget.insertItem(current_row - 1, item)
+            list_widget.setCurrentRow(current_row - 1)
+            # Also swap in bitmaps list
+            bitmaps[current_row], bitmaps[current_row - 1] = bitmaps[current_row - 1], bitmaps[current_row]
+    
+    def move_down():
+        current_row = list_widget.currentRow()
+        if current_row < list_widget.count() - 1 and current_row >= 0:
+            item = list_widget.takeItem(current_row)
+            list_widget.insertItem(current_row + 1, item)
+            list_widget.setCurrentRow(current_row + 1)
+            # Also swap in bitmaps list
+            bitmaps[current_row], bitmaps[current_row + 1] = bitmaps[current_row + 1], bitmaps[current_row]
+    
+    btn_up.clicked.connect(move_up)
+    btn_down.clicked.connect(move_down)
+    
+    # OK/Cancel buttons
+    action_layout = QHBoxLayout()
+    btn_ok = QPushButton("OK", dlg)
+    btn_cancel = QPushButton("Cancel", dlg)
+    action_layout.addWidget(btn_ok)
+    action_layout.addWidget(btn_cancel)
+    layout.addLayout(action_layout)
+    
+    btn_ok.clicked.connect(dlg.accept)
+    btn_cancel.clicked.connect(dlg.reject)
+    
+    result = dlg.exec()
+    if result == QDialog.DialogCode.Accepted:
+        return bitmaps
+    else:
+        return None
+
+def reorder_bitmaps_dialog(parent=None):
+    """Load a combined header file and reorder the bitmaps."""
+    header_path, _ = QFileDialog.getOpenFileName(
+        parent,
+        "Select combined .h file to reorder",
+        "",
+        "C Header Files (*.h);;All Files (*)"
+    )
+    if not header_path:
+        return
+    
+    try:
+        bitmaps = parse_combined_header(header_path)
+        if not bitmaps:
+            QMessageBox.warning(parent, "No Bitmaps", "No bitmaps found in the header file.")
+            return
+    except Exception as e:
+        QMessageBox.critical(parent, "Error", f"Failed to parse header file:\n{e}")
+        return
+    
+    # Create reorder dialog
+    dlg = QDialog(parent)
+    dlg.setWindowTitle(f"Reorder Bitmaps - {os.path.basename(header_path)}")
+    dlg.resize(400, 500)
+    layout = QVBoxLayout(dlg)
+    
+    label = QLabel("Reorder bitmaps (select and use buttons to move):", dlg)
+    layout.addWidget(label)
+    
+    list_widget = QListWidget(dlg)
+    for var_name, width, height, _ in bitmaps:
+        # Display the variable name and dimensions
+        display_name = var_name.replace('_bitmap_data', '')
+        list_widget.addItem(f"{display_name} ({width}x{height})")
+    layout.addWidget(list_widget)
+    
+    # Buttons for moving items
+    btn_layout = QHBoxLayout()
+    btn_up = QPushButton("Move Up", dlg)
+    btn_down = QPushButton("Move Down", dlg)
+    btn_layout.addWidget(btn_up)
+    btn_layout.addWidget(btn_down)
+    layout.addLayout(btn_layout)
+    
+    def move_up():
+        current_row = list_widget.currentRow()
+        if current_row > 0:
+            item = list_widget.takeItem(current_row)
+            list_widget.insertItem(current_row - 1, item)
+            list_widget.setCurrentRow(current_row - 1)
+            # Also swap in bitmaps list
+            bitmaps[current_row], bitmaps[current_row - 1] = bitmaps[current_row - 1], bitmaps[current_row]
+    
+    def move_down():
+        current_row = list_widget.currentRow()
+        if current_row < list_widget.count() - 1 and current_row >= 0:
+            item = list_widget.takeItem(current_row)
+            list_widget.insertItem(current_row + 1, item)
+            list_widget.setCurrentRow(current_row + 1)
+            # Also swap in bitmaps list
+            bitmaps[current_row], bitmaps[current_row + 1] = bitmaps[current_row + 1], bitmaps[current_row]
+    
+    btn_up.clicked.connect(move_up)
+    btn_down.clicked.connect(move_down)
+    
+    # Save/Cancel buttons
+    action_layout = QHBoxLayout()
+    btn_save = QPushButton("Save Reordered File", dlg)
+    btn_cancel = QPushButton("Cancel", dlg)
+    action_layout.addWidget(btn_save)
+    action_layout.addWidget(btn_cancel)
+    layout.addLayout(action_layout)
+    
+    def save_reordered():
+        try:
+            # Write the reordered header file
+            write_combined_header(header_path, bitmaps)
+            QMessageBox.information(dlg, "Success", f"Bitmaps reordered and saved to:\n{header_path}")
+            dlg.accept()
+        except Exception as e:
+            QMessageBox.critical(dlg, "Error", f"Failed to save reordered file:\n{e}")
+    
+    btn_save.clicked.connect(save_reordered)
+    btn_cancel.clicked.connect(dlg.reject)
+    
+    dlg.exec()
+
 def main_menu():
     app = QApplication(sys.argv)
 
     dlg = QDialog()
     dlg.setWindowTitle("PNG to Bitmap Converter")
-    dlg.resize(320, 220)
+    dlg.resize(320, 260)
     layout = QVBoxLayout(dlg)
 
     btn_convert = QPushButton("Convert Single PNG to .h", dlg)
     btn_batch = QPushButton("Batch Convert Multiple PNGs", dlg)
     btn_combine = QPushButton("Combine Multiple PNGs into 1 .h", dlg)
+    btn_reorder = QPushButton("Reorder Bitmaps in .h File", dlg)
     btn_load = QPushButton("Load and show .h bitmap", dlg)
     btn_exit = QPushButton("Exit", dlg)
 
     layout.addWidget(btn_convert)
     layout.addWidget(btn_batch)
     layout.addWidget(btn_combine)
+    layout.addWidget(btn_reorder)
     layout.addWidget(btn_load)
     layout.addWidget(btn_exit)
 
     btn_convert.clicked.connect(lambda: pick_and_convert(dlg))
     btn_batch.clicked.connect(lambda: batch_convert(dlg))
     btn_combine.clicked.connect(lambda: combine_multiple_bitmaps(dlg))
+    btn_reorder.clicked.connect(lambda: reorder_bitmaps_dialog(dlg))
     btn_load.clicked.connect(lambda: load_bitmap_dialog(dlg))
     btn_exit.clicked.connect(dlg.accept)
 
