@@ -13,8 +13,8 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, i
         }
     }
 
-    uint16_t (*ascii_char_index)[4];
-    uint8_t *ascii_bitmap_data;
+    const uint16_t (*ascii_char_index)[4];
+    const uint8_t *ascii_bitmap_data;
 
     // Find matching font
     const FontInfo* selected_font = NULL;
@@ -174,8 +174,12 @@ int API_draw_rectangle(int x, int y, int width, int height, int color, int fille
 int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 {
     const uint8_t *bitmap_data;
+<<<<<<< HEAD
 
     if(bm_nr < 0 || bm_nr >= NUM_BITMAPS)
+=======
+    switch (bm_nr)
+>>>>>>> main
     {
         return -EINVAL;
     }
