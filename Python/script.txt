@@ -1,0 +1,22 @@
+clearscherm,zwart
+lijn,1,1,100,100,rood,4
+lijn,100,1,100,1,groen,3
+clearscherm,wit
+rechthoek,10,10,300,200,zwart,1
+rechthoek,10,10,150,100,lichtblauw,0
+rechthoek,160,110,150,100,geel,1
+clearscherm,zwart
+tekst,10,20,  wit,the quick brown fox jumps over the lazy dog, consolas, 1, normaal
+tekst,10,100, magenta,the quick brown fox jumps over the lazy dog, arial, 2, vet
+tekst,10,200, lichtcyaan,the quick brown fox jumps over the lazy dog, consolas, 1, cursief
+clearscherm,wit
+
+bitmap,0,50,50
+clearscherm,wit
+bitmap,1,50,50
+clearscherm,wit
+bitmap,2,50,50
+clearscherm,bruin
+bitmap,3,50,50
+clearscherm,wit
+tekst,10,10,groen,all done, consolas, 2, vet
