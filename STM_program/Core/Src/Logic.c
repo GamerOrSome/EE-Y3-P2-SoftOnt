@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <errno.h>
 
 //defines
 
@@ -170,7 +171,7 @@ int parse_font_style(char *style_str)
  * Parse argumenten string naar ParsedArgs struct
  * @param args_str In parameter: de argumenten string
  * @param parsed Out parameter: de geparseerde argumenten
- * @return 0 bij succes, -1 bij fout
+ * @return 0 bij succes, errno waarde bij fout
  */
 
 static int parse_arguments(char *args_str, ParsedArgs *parsed)
@@ -180,7 +181,7 @@ static int parse_arguments(char *args_str, ParsedArgs *parsed)
     int idx = 0;
 
     if (args_str == NULL || parsed == NULL)
-        return -1;
+        return -EINVAL;
 
     // Initialiseer parsed struct
     parsed->arg_count = 0;
@@ -223,7 +224,7 @@ static int parse_arguments(char *args_str, ParsedArgs *parsed)
  * Parse een script regel naar LogicInterface struct
  * @param line In parameter: de regel die geanalyseerd wordt
  * @param cmd Out parameter: de struct met de geanalyseerde commando's
- * @return 0 bij succes, -1 bij fout
+ * @return 0 bij succes, errno waarde bij fout
  */
 int parse_script_line(char *line, struct LogicInterface *cmd)
 {
@@ -235,7 +236,7 @@ int parse_script_line(char *line, struct LogicInterface *cmd)
     
     // Input validatie
     if (line == NULL || cmd == NULL)
-        return -1;
+        return -EINVAL;
     
     // Kopieer input
     strncpy(temp_line, line, MAX_LINE_LEN - 1);
@@ -270,7 +271,7 @@ int parse_script_line(char *line, struct LogicInterface *cmd)
     cmd->arguments = (char *)malloc(args_len + 1);
     
     if (cmd->arguments == NULL)
-        return -1; // Memory allocation failed
+        return -ENOMEM; // Memory allocation failed
 
     strcpy(cmd->arguments, args_str);
     
@@ -300,7 +301,7 @@ int parse_script_line(char *line, struct LogicInterface *cmd)
  * @param cmd In parameter: het commando dat uitgevoerd moet worden
  * @param parsed Geparste argumenten
  * @param result Uit parameter: de return waarde van de API functie
- * @return 0 bij succes, -1 bij fout
+ * @return 0 bij succes, errno waarde bij fout
  */
 int execute_command(struct LogicInterface *cmd)
 {  
@@ -310,18 +311,18 @@ int execute_command(struct LogicInterface *cmd)
 
     // Input validatie
     if (cmd == NULL)
-        return -1;
+        return -EINVAL;
     
     // Parse argumenten
     if (parse_arguments(cmd->arguments, &parsed) != 0)
-        return -1;
+        return -EINVAL;
     
     
     // LIJN: lijn, x1, y1, x2, y2, kleur, dikte
     if (strcmp(cmd->function_name, "lijn") == 0)
     {
         if (parsed.arg_count < 6)
-            return -1;
+            return -EINVAL;
         
         color = parse_color(parsed.str_args[4]);
         result = API_draw_line(
@@ -339,7 +340,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "recht") == 0)
     {
         if (parsed.arg_count < 6)
-            return -1;
+            return -EINVAL;
 
         color = parse_color(parsed.str_args[4]);
         result = API_draw_rectangle(
@@ -358,7 +359,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "tekst") == 0)
     {
         if (parsed.arg_count < 7)
-            return -1;
+            return -EINVAL;
 
         color = parse_color(parsed.str_args[2]);
         int fontstyle = parse_font_style(parsed.str_args[6]);
@@ -379,7 +380,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "bitmap") == 0)
     {
         if (parsed.arg_count < 3)
-            return -1;
+            return -EINVAL;
 
         result = API_draw_bitmap(
             parsed.int_args[1],  // x_lup
@@ -392,7 +393,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "clear") == 0)
     {
         if (parsed.arg_count < 1)
-            return -1;
+            return -EINVAL;
 
         color = parse_color(parsed.str_args[0]);
         result = API_clearscreen(color);
@@ -402,7 +403,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "cirkel") == 0)
     {
         if (parsed.arg_count < 4)
-            return -1;
+            return -EINVAL;
 
         color = parse_color(parsed.str_args[3]);
         result = API_draw_circle(
@@ -418,7 +419,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "figuur") == 0)
     {
         if (parsed.arg_count < 11)
-            return -1;
+            return -EINVAL;
 
         color = parse_color(parsed.str_args[10]);
         result = API_draw_figure(
@@ -441,7 +442,7 @@ int execute_command(struct LogicInterface *cmd)
     else if (strcmp(cmd->function_name, "wacht") == 0)
     {
         if (parsed.arg_count < 1)
-            return -1;
+            return -EINVAL;
 
         result = API_wait(parsed.int_args[0]);
     }
@@ -449,7 +450,7 @@ int execute_command(struct LogicInterface *cmd)
     // Onbekend commando
     else
     {
-        result = -1;
+        result = -ENOTSUP;
     }
     
     return result;
