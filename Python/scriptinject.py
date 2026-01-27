@@ -6,7 +6,7 @@ from pathlib import Path
 myport = serial.Serial(
     port='COM10',
     baudrate=115200,
-    timeout=1
+    timeout=10
 )
 
 time.sleep(2) 
@@ -19,12 +19,15 @@ with open('Python/script.txt', "r", encoding="utf-8") as f:
             # Send command with CRLF terminator
             myport.write((command + "\r\n").encode("utf-8"))
             
-            # Read response from STM32
-            time.sleep(0.2)  # Increased delay to allow STM32 to process
+            # Wait for echo response (command + \r\n)
+            echo = myport.readline().decode("utf-8", errors="ignore").strip()
+            
+            # Wait for actual response (OK or ERR:...)
             response = myport.readline().decode("utf-8", errors="ignore").strip()
             
             # Print the command and response
             print(f"Sent: {command}")
+            print(f"Echo: {echo}")
             print(f"Response: {response}")
             
             # Check if there was an error
@@ -32,5 +35,6 @@ with open('Python/script.txt', "r", encoding="utf-8") as f:
                 print(f"ERROR detected: {response}")
             elif response == "OK":
                 print("Command executed successfully")
+            else:
+                print(f"Unexpected response: {response}")
             print("-" * 50)
-            time.sleep(1)  # Short delay before sending the next command
