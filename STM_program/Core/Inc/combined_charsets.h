@@ -2443,14 +2443,14 @@ typedef struct {
 } FontInfo;
 
 const FontInfo available_fonts[8] = {
-    {"Default", 1, 95, Default_index, Default_data},
-    {"Arial", 1, 95, Arial_index, Arial_data},
-    {"Arial", 2, 95, Arial_2_index, Arial_2_data},
-    {"Consolas", 1, 95, Consolas_index, Consolas_data},
-    {"Consolas", 2, 95, Consolas_2_index, Consolas_2_data},
-    {"Minecraft", 1, 95, Minecraft_index, Minecraft_data},
-    {"Minecraft", 2, 95, Minecraft_2_index, Minecraft_2_data},
-    {"SGA", 2, 95, SGA_index, SGA_data}
+    {"default", 1, 95, Default_index, Default_data},
+    {"arial", 1, 95, Arial_index, Arial_data},
+    {"arial", 2, 95, Arial_2_index, Arial_2_data},
+    {"consolas", 1, 95, Consolas_index, Consolas_data},
+    {"consolas", 2, 95, Consolas_2_index, Consolas_2_data},
+    {"minecraft", 1, 95, Minecraft_index, Minecraft_data},
+    {"minecraft", 2, 95, Minecraft_2_index, Minecraft_2_data},
+    {"sga", 2, 95, SGA_index, SGA_data}
 };
 
 #define NUM_FONTS 8
