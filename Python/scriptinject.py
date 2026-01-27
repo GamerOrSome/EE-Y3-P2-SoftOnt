@@ -13,6 +13,7 @@ time.sleep(2)
 
 with open('Python/script.txt', "r", encoding="utf-8") as f:
     for line in f:
+        time.sleep(0.1)  # Small delay to ensure proper timing
         # Strip any existing line endings and add proper CRLF
         command = line.strip()
         if command:  # Skip empty lines
