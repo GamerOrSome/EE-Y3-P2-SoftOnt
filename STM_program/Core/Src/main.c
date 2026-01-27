@@ -142,7 +142,7 @@ int main(void)
   {
     API_draw_line(1, i, 319, i, i, 1, 0);
   }
-  API_draw_bitmap(130, 90, 0);
+  API_draw_bitmap(130, 90, 7);
 
   HAL_Delay(1000);
 
