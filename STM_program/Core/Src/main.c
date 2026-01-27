@@ -30,6 +30,7 @@
 #include "API_func.h"
 #include "stm32_ub_vga_screen.h"
 #include <string.h>
+#include <errno.h>
 
 /* One byte buffer for interrupt reception */
 uint8_t rx;
@@ -193,8 +194,30 @@ int main(void)
       }
 
       cmd.arguments = arg;
-      execute_command(&cmd);
+      int ret = 0;
+      ret = execute_command(&cmd);
+      if (ret != 0)
+      {
+        HAL_UART_Transmit(&huart2, "ERR:", 4, HAL_MAX_DELAY);
+        // Handle negative errno values (from API_func.c)
+        if (ret == -EINVAL) {
+          HAL_UART_Transmit(&huart2, "EINVAL", 6, HAL_MAX_DELAY);
+        } else if (ret == -ENOTSUP) {
+          HAL_UART_Transmit(&huart2, "ENOTSUP", 7, HAL_MAX_DELAY);
+        } else if (ret == -ENOMEM) {
+          HAL_UART_Transmit(&huart2, "ENOMEM", 6, HAL_MAX_DELAY);
+        }
+        // Handle unknown return values (from Logic.c)
+        else {
+          HAL_UART_Transmit(&huart2, "UNKNOWN", 7, HAL_MAX_DELAY);
+        }
+      } else {
+        HAL_UART_Transmit(&huart2, "OK", 2, HAL_MAX_DELAY);
+      }
+
+      HAL_UART_Transmit(&huart2, "\r\n", 2, HAL_MAX_DELAY);
       
+
       // Reset for next command
       input.char_counter = 0;
       input.command_execute_flag = FALSE;
