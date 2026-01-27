@@ -173,7 +173,7 @@ int API_draw_rectangle(int x, int y, int width, int height, int color, int fille
 
 int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 {
-    uint8_t *bitmap_data;
+    const uint8_t *bitmap_data;
 
     if(bm_nr < 0 || bm_nr >= NUM_BITMAPS)
     {
@@ -181,32 +181,6 @@ int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
     }
 
     bitmap_data = bitmap_array[bm_nr];
-
-    switch (bm_nr)
-    {
-    case 1:
-        bitmap_data = angry;
-        break;
-    case 2:
-        bitmap_data = smile;
-        break;
-    case 3:
-        bitmap_data = down;
-        break;
-    case 4:
-        bitmap_data = left;
-        break;
-    case 5:
-        bitmap_data = up;
-        break;
-    case 6:
-        bitmap_data = right;
-        break;
-  
-    default:
-        return -EINVAL;
-        break;
-    }
 
     int bitmap_height = bitmap_data[1];
     int bitmap_width = bitmap_data[0];
