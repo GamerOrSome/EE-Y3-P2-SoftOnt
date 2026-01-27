@@ -160,11 +160,9 @@ int main(void)
       
       struct LogicInterface cmd = {0};
       memset(&cmd, 0, sizeof(cmd));
-      int postcmd = 0;
 
       uint32_t kommando = 0;
       uint32_t strnglgth = 0;
-      uint32_t cmdlength = 0;
 
       for (int j = 0; j < input.msglen+1; j++)
       {
@@ -194,7 +192,7 @@ int main(void)
     	  arg[j] = input.line_rx_buffer[j+kommando+2];
       }
 
-      cmd.arguments = &arg;
+      cmd.arguments = arg;
       execute_command(&cmd);
       
       // Reset for next command
