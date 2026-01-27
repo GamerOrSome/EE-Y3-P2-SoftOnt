@@ -192,7 +192,7 @@ int main(void)
     	  arg[j] = input.line_rx_buffer[j+kommando+2];
       }
 
-      cmd.arguments = &arg;
+      cmd.arguments = arg;
       execute_command(&cmd);
       
       // Reset for next command
