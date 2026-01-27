@@ -179,8 +179,9 @@ def text_to_bitmap(text, font_size=20, font_name=None, padding=10, fixed_width=N
     if fixed_width is not None or fixed_height is not None:
         # For fixed dimensions, horizontally center but align to baseline (bottom)
         x_pos = (width - text_width) // 2 - bbox_left
-        # Align to bottom (baseline alignment) instead of vertical centering
-        y_pos = height - text_height - bbox_top - 1  # -1 to move down by one pixel
+        # Align to bottom - let descenders extend to the bottom edge
+        # bbox[3] is the bottom of the text including descenders
+        y_pos = height - bbox[3]
     else:
         x_pos = padding - bbox_left
         y_pos = padding - bbox_top
@@ -1134,11 +1135,11 @@ def convert_ttf_folder_to_charset(parent=None):
     # Font size selector
     form_layout = QFormLayout()
     
-    spin_size = QSpinBox(dlg)
-    spin_size.setMinimum(6)
-    spin_size.setMaximum(128)
-    spin_size.setValue(16)
-    form_layout.addRow("Font Size:", spin_size)
+    label_sizes = QLabel("Font Sizes (comma-separated):", dlg)
+    entry_sizes = QTextEdit(dlg)
+    entry_sizes.setPlainText("16")
+    entry_sizes.setMaximumHeight(50)
+    form_layout.addRow(label_sizes, entry_sizes)
     
     # Padding selector
     spin_padding = QSpinBox(dlg)
@@ -1168,7 +1169,21 @@ def convert_ttf_folder_to_charset(parent=None):
     layout.addLayout(btn_layout)
     
     def on_generate_all():
-        font_size = spin_size.value()
+        # Parse font sizes from comma-separated input
+        sizes_text = entry_sizes.toPlainText().strip()
+        try:
+            font_sizes = [int(s.strip()) for s in sizes_text.split(',') if s.strip()]
+            if not font_sizes:
+                QMessageBox.warning(dlg, "Invalid Input", "Please enter at least one valid font size.")
+                return
+            for size in font_sizes:
+                if size < 6 or size > 128:
+                    QMessageBox.warning(dlg, "Invalid Size", f"Font size {size} is out of range (6-128).")
+                    return
+        except ValueError:
+            QMessageBox.warning(dlg, "Invalid Input", "Please enter valid numbers separated by commas (e.g., 12, 16, 24).")
+            return
+        
         padding = spin_padding.value()
         use_uniform_height = uniform_height_check.isChecked()
         use_monospace = monospace_check.isChecked()
@@ -1187,98 +1202,99 @@ def convert_ttf_folder_to_charset(parent=None):
             failed = []
             
             for ttf_path in ttf_files:
-                try:
-                    font_name = os.path.basename(ttf_path)
-                    
-                    # Load font
-                    font = ImageFont.truetype(ttf_path, font_size)
-                    
-                    # First pass: determine maximum dimensions if uniform sizing is requested
-                    max_width = 0
-                    max_height = 0
-                    
-                    if use_uniform_height or use_monospace:
+                for font_size in font_sizes:
+                    try:
+                        font_name = os.path.basename(ttf_path)
+                        
+                        # Load font
+                        font = ImageFont.truetype(ttf_path, font_size)
+                        
+                        # First pass: determine maximum dimensions if uniform sizing is requested
+                        max_width = 0
+                        max_height = 0
+                        
+                        if use_uniform_height or use_monospace:
+                            for ascii_code in range(32, 127):
+                                char = chr(ascii_code)
+                                _, w, h, _ = text_to_bitmap(char, font_size, ttf_path, padding=padding)
+                                max_width = max(max_width, w)
+                                max_height = max(max_height, h)
+                        
+                        # Determine fixed dimensions
+                        fixed_width = max_width if use_monospace else None
+                        fixed_height = max_height if use_uniform_height else None
+                        
+                        # Generate all ASCII characters
+                        all_bitmaps = []
+                        all_data = []
+                        char_index_table = []
+                        offset = 0
+                        
                         for ascii_code in range(32, 127):
                             char = chr(ascii_code)
-                            _, w, h, _ = text_to_bitmap(char, font_size, ttf_path, padding=padding)
-                            max_width = max(max_width, w)
-                            max_height = max(max_height, h)
-                    
-                    # Determine fixed dimensions
-                    fixed_width = max_width if use_monospace else None
-                    fixed_height = max_height if use_uniform_height else None
-                    
-                    # Generate all ASCII characters
-                    all_bitmaps = []
-                    all_data = []
-                    char_index_table = []
-                    offset = 0
-                    
-                    for ascii_code in range(32, 127):
-                        char = chr(ascii_code)
-                        text_sanitized, width, height, bitmap_data = text_to_bitmap(
-                            char, font_size, ttf_path, padding=padding,
-                            fixed_width=fixed_width, fixed_height=fixed_height
-                        )
-                        all_bitmaps.append((char, ascii_code, text_sanitized, width, height, bitmap_data))
+                            text_sanitized, width, height, bitmap_data = text_to_bitmap(
+                                char, font_size, ttf_path, padding=padding,
+                                fixed_width=fixed_width, fixed_height=fixed_height
+                            )
+                            all_bitmaps.append((char, ascii_code, text_sanitized, width, height, bitmap_data))
+                            
+                            # Store offset and size for this character
+                            char_index_table.append((ascii_code, width, height, offset))
+                            
+                            # Add bitmap data to single array (skip first 2 bytes which are width/height)
+                            all_data.extend(bitmap_data[2:])
+                            offset += len(bitmap_data[2:])
                         
-                        # Store offset and size for this character
-                        char_index_table.append((ascii_code, width, height, offset))
+                        # Save charset file
+                        font_basename = os.path.splitext(os.path.basename(ttf_path))[0]
+                        output_file = os.path.join(output_dir, f"{font_basename}_size{font_size}.h")
                         
-                        # Add bitmap data to single array (skip first 2 bytes which are width/height)
-                        all_data.extend(bitmap_data[2:])
-                        offset += len(bitmap_data[2:])
-                    
-                    # Save charset file
-                    font_basename = os.path.splitext(os.path.basename(ttf_path))[0]
-                    output_file = os.path.join(output_dir, f"{font_basename}_size{font_size}.h")
-                    
-                    with open(output_file, 'w', newline='\n') as f:
-                        f.write("#ifndef ASCII_CHARSET_H\n")
-                        f.write("#define ASCII_CHARSET_H\n\n")
-                        f.write("#include <stdint.h>\n\n")
-                        f.write(f"// ASCII Character Set from {font_name} (Size: {font_size}px)\n")
-                        f.write(f"// All characters (ASCII 32-126) stored in single array\n")
-                        f.write(f"// Total characters: {len(all_bitmaps)}\n\n")
-                        
-                        # Write character index table
-                        f.write("// Character Index Table: [ASCII code, width, height, offset in data array]\n")
-                        f.write(f"const uint16_t ascii_char_index[{len(char_index_table)}][4] = {{\n")
-                        for i, (ascii_code, width, height, offset) in enumerate(char_index_table):
-                            f.write(f"    {{{ascii_code}, {width}, {height}, {offset}}}")
-                            if i < len(char_index_table) - 1:
-                                f.write(",")
-                            # Add character as comment
-                            if ascii_code == 32:
-                                f.write(f"  // SPACE\n")
-                            else:
-                                f.write(f"  // '{chr(ascii_code)}'\n")
-                        f.write("};\n\n")
-                        
-                        # Write all bitmap data in single array
-                        f.write(f"// Bitmap data for all characters (1-bit monochrome)\n")
-                        f.write(f"const uint8_t ascii_bitmap_data[{len(all_data)}] = {{\n")
-                        
-                        for i, byte in enumerate(all_data):
-                            if i % 16 == 0:
-                                f.write("    ")
-                            f.write(f"0x{byte:02X}")
-                            if i < len(all_data) - 1:
-                                f.write(", ")
-                            if (i + 1) % 16 == 0:
+                        with open(output_file, 'w', newline='\n') as f:
+                            f.write("#ifndef ASCII_CHARSET_H\n")
+                            f.write("#define ASCII_CHARSET_H\n\n")
+                            f.write("#include <stdint.h>\n\n")
+                            f.write(f"// ASCII Character Set from {font_name} (Size: {font_size}px)\n")
+                            f.write(f"// All characters (ASCII 32-126) stored in single array\n")
+                            f.write(f"// Total characters: {len(all_bitmaps)}\n\n")
+                            
+                            # Write character index table
+                            f.write("// Character Index Table: [ASCII code, width, height, offset in data array]\n")
+                            f.write(f"const uint16_t ascii_char_index[{len(char_index_table)}][4] = {{\n")
+                            for i, (ascii_code, width, height, offset) in enumerate(char_index_table):
+                                f.write(f"    {{{ascii_code}, {width}, {height}, {offset}}}")
+                                if i < len(char_index_table) - 1:
+                                    f.write(",")
+                                # Add character as comment
+                                if ascii_code == 32:
+                                    f.write(f"  // SPACE\n")
+                                else:
+                                    f.write(f"  // '{chr(ascii_code)}'\n")
+                            f.write("};\n\n")
+                            
+                            # Write all bitmap data in single array
+                            f.write(f"// Bitmap data for all characters (1-bit monochrome)\n")
+                            f.write(f"const uint8_t ascii_bitmap_data[{len(all_data)}] = {{\n")
+                            
+                            for i, byte in enumerate(all_data):
+                                if i % 16 == 0:
+                                    f.write("    ")
+                                f.write(f"0x{byte:02X}")
+                                if i < len(all_data) - 1:
+                                    f.write(", ")
+                                if (i + 1) % 16 == 0:
+                                    f.write("\n")
+                            if len(all_data) % 16 != 0:
                                 f.write("\n")
-                        if len(all_data) % 16 != 0:
-                            f.write("\n")
-                        f.write("};\n\n")
-                        f.write("#endif // ASCII_CHARSET_H\n")
+                            f.write("};\n\n")
+                            f.write("#endif // ASCII_CHARSET_H\n")
+                        
+                        successful += 1
                     
-                    successful += 1
-                    
-                except Exception as e:
-                    failed.append((font_name, str(e)))
+                    except Exception as e:
+                        failed.append((f"{font_name} (size {font_size})", str(e)))
             
             # Show results
-            result_msg = f"Successfully converted {successful} of {len(ttf_files)} font(s)\n"
+            result_msg = f"Successfully converted {successful} of {len(ttf_files) * len(font_sizes)} font/size combination(s)\n"
             if failed:
                 result_msg += f"\nFailed to convert:\n"
                 for name, error in failed[:5]:  # Show first 5 failures
