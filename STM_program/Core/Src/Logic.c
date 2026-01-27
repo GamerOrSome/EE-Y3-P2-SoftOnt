@@ -56,7 +56,7 @@ typedef struct
  */
 static const ColorMap COLOR_TABLE[] =
 {
-    {"zwart",        VGA_COL_BLUE},
+    {"zwart",        VGA_COL_BLACK},
     {"blauw",        VGA_COL_BLUE},
     {"lichtblauw",   VGA_COL_LIGHTBLUE},
     {"groen",        VGA_COL_GREEN},
@@ -336,7 +336,7 @@ int execute_command(struct LogicInterface *cmd)
     }
     
     // RECHTHOEK: rechthoek, x, y, breedte, hoogte, kleur, gevuld
-    else if (strcmp(cmd->function_name, "recht") == 0)
+    else if (strcmp(cmd->function_name, "rechthoek") == 0)
     {
         if (parsed.arg_count < 6)
             return -1;
@@ -389,7 +389,7 @@ int execute_command(struct LogicInterface *cmd)
     }
 
     // CLEARSCHERM: clearscherm, kleur
-    else if (strcmp(cmd->function_name, "clear") == 0)
+    else if (strcmp(cmd->function_name, "clearscherm") == 0)
     {
         if (parsed.arg_count < 1)
             return -1;
@@ -453,17 +453,4 @@ int execute_command(struct LogicInterface *cmd)
     }
     
     return result;
-}
-
-/**
- * Free geheugen gealloceerd voor command arguments
- * @param cmd In/uit parameter: de LogicInterface struct
- */
-void free_command(struct LogicInterface *cmd)
-{
-    if (cmd != NULL && cmd->arguments != NULL)
-    {
-        free(cmd->arguments);
-        cmd->arguments = NULL;
-    }
 }
