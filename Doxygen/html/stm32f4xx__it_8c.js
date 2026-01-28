@@ -12,8 +12,6 @@ var stm32f4xx__it_8c =
     [ "TIM2_IRQHandler", "stm32f4xx__it_8c.html#a38ad4725462bdc5e86c4ead4f04b9fc2", null ],
     [ "UsageFault_Handler", "stm32f4xx__it_8c.html#a1d98923de2ed6b7309b66f9ba2971647", null ],
     [ "USART2_IRQHandler", "stm32f4xx__it_8c.html#a0ca6fd0e6f77921dd1123539857ba0a8", null ],
-    [ "hdma_tim1_up", "stm32f4xx__it_8c.html#a66e79e362967e621b35e4adc5a9239c1", null ],
     [ "htim1", "stm32f4xx__it_8c.html#a25fc663547539bc49fecc0011bd76ab5", null ],
-    [ "htim2", "stm32f4xx__it_8c.html#a2c80fd5510e2990a59a5c90d745c716c", null ],
     [ "huart2", "stm32f4xx__it_8c.html#aa9479c261d65eecedd3d9582f7f0f89c", null ]
 ];

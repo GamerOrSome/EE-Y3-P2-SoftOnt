@@ -1,0 +1,185 @@
+\begin{theindex}
+
+  \item {\_sbrk}
+    \subitem {sysmem.c}, \hyperpage{102}
+
+  \indexspace
+
+  \item {API\_clearscreen}
+    \subitem {API\_func.c}, \hyperpage{85}
+  \item {API\_draw\_bitmap}
+    \subitem {API\_func.c}, \hyperpage{86}
+  \item {API\_draw\_circle}
+    \subitem {API\_func.c}, \hyperpage{86}
+  \item {API\_draw\_figure}
+    \subitem {API\_func.c}, \hyperpage{87}
+  \item {API\_draw\_line}
+    \subitem {API\_func.c}, \hyperpage{88}
+  \item {API\_draw\_rectangle}
+    \subitem {API\_func.c}, \hyperpage{88}
+  \item {API\_draw\_text}
+    \subitem {API\_func.c}, \hyperpage{89}
+  \item {API\_func.c}
+    \subitem {API\_clearscreen}, \hyperpage{85}
+    \subitem {API\_draw\_bitmap}, \hyperpage{86}
+    \subitem {API\_draw\_circle}, \hyperpage{86}
+    \subitem {API\_draw\_figure}, \hyperpage{87}
+    \subitem {API\_draw\_line}, \hyperpage{88}
+    \subitem {API\_draw\_rectangle}, \hyperpage{88}
+    \subitem {API\_draw\_text}, \hyperpage{89}
+    \subitem {API\_repeat\_commands}, \hyperpage{89}
+    \subitem {API\_wait}, \hyperpage{90}
+  \item {API\_repeat\_commands}
+    \subitem {API\_func.c}, \hyperpage{89}
+  \item {API\_wait}
+    \subitem {API\_func.c}, \hyperpage{90}
+
+  \indexspace
+
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/API\_func.h}, 
+		\hyperpage{17}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/Bitmaps.h}, 
+		\hyperpage{18}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/combined\_charsets.h}, 
+		\hyperpage{41}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/dma.h}, 
+		\hyperpage{69}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/gpio.h}, 
+		\hyperpage{70}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/Logic\_layer.h}, 
+		\hyperpage{70}, \hyperpage{72}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/main.h}, 
+		\hyperpage{73}, \hyperpage{75}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/stm32f4xx\_hal\_conf.h}, 
+		\hyperpage{76}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/stm32f4xx\_it.h}, 
+		\hyperpage{81}, \hyperpage{83}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/tim.h}, 
+		\hyperpage{83}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/usart.h}, 
+		\hyperpage{84}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/API\_func.c}, 
+		\hyperpage{84}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/Logic.c}, 
+		\hyperpage{90}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/main.c}, 
+		\hyperpage{93}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/stm32f4xx\_it.c}, 
+		\hyperpage{97}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/syscalls.c}, 
+		\hyperpage{99}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/sysmem.c}, 
+		\hyperpage{101}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/system\_stm32f4xx.c}, 
+		\hyperpage{102}
+  \item {C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/ub\_lib/stm32\_ub\_vga\_screen.h}, 
+		\hyperpage{104}
+  \item {CMSIS}, \hyperpage{7}
+  \item {ColorMap}, \hyperpage{15}
+
+  \indexspace
+
+  \item {Error\_Handler}
+    \subitem {main.c}, \hyperpage{95}
+    \subitem {main.h}, \hyperpage{75}
+  \item {execute\_command}
+    \subitem {Logic.c}, \hyperpage{92}
+    \subitem {Logic\_layer.h}, \hyperpage{72}
+
+  \indexspace
+
+  \item {FontInfo}, \hyperpage{15}
+
+  \indexspace
+
+  \item {HSE\_VALUE}
+    \subitem {STM32F4xx\_System\_Private\_Includes}, \hyperpage{9}
+  \item {HSI\_VALUE}
+    \subitem {STM32F4xx\_System\_Private\_Includes}, \hyperpage{9}
+  \item {htim1}
+    \subitem {stm32f4xx\_it.c}, \hyperpage{98}
+  \item {huart2}
+    \subitem {main.c}, \hyperpage{96}
+    \subitem {stm32f4xx\_it.c}, \hyperpage{98}
+
+  \indexspace
+
+  \item {input\_vars}, \hyperpage{15}
+
+  \indexspace
+
+  \item {Logic.c}
+    \subitem {execute\_command}, \hyperpage{92}
+    \subitem {parse\_color}, \hyperpage{92}
+    \subitem {parse\_font\_style}, \hyperpage{92}
+    \subitem {parse\_script\_line}, \hyperpage{92}
+  \item {Logic\_layer.h}
+    \subitem {execute\_command}, \hyperpage{72}
+  \item {LogicInterface}, \hyperpage{16}
+
+  \indexspace
+
+  \item {main}
+    \subitem {main.c}, \hyperpage{95}
+  \item {main.c}
+    \subitem {Error\_Handler}, \hyperpage{95}
+    \subitem {huart2}, \hyperpage{96}
+    \subitem {main}, \hyperpage{95}
+    \subitem {SystemClock\_Config}, \hyperpage{95}
+    \subitem {UART\_ReadStringEcho}, \hyperpage{95}
+    \subitem {USART\_PRINTF}, \hyperpage{96}
+  \item {main.h}
+    \subitem {Error\_Handler}, \hyperpage{75}
+
+  \indexspace
+
+  \item {parse\_color}
+    \subitem {Logic.c}, \hyperpage{92}
+  \item {parse\_font\_style}
+    \subitem {Logic.c}, \hyperpage{92}
+  \item {parse\_script\_line}
+    \subitem {Logic.c}, \hyperpage{92}
+  \item {ParsedArgs}, \hyperpage{16}
+
+  \indexspace
+
+  \item {stm32f4xx\_it.c}
+    \subitem {htim1}, \hyperpage{98}
+    \subitem {huart2}, \hyperpage{98}
+  \item {Stm32f4xx\_system}, \hyperpage{8}
+  \item {STM32F4xx\_System\_Private\_Defines}, \hyperpage{10}
+    \subitem {VECT\_TAB\_OFFSET}, \hyperpage{10}
+  \item {STM32F4xx\_System\_Private\_FunctionPrototypes}, 
+		\hyperpage{11}
+  \item {STM32F4xx\_System\_Private\_Functions}, \hyperpage{11}
+    \subitem {SystemCoreClockUpdate}, \hyperpage{12}
+    \subitem {SystemInit}, \hyperpage{13}
+  \item {STM32F4xx\_System\_Private\_Includes}, \hyperpage{9}
+    \subitem {HSE\_VALUE}, \hyperpage{9}
+    \subitem {HSI\_VALUE}, \hyperpage{9}
+  \item {STM32F4xx\_System\_Private\_Macros}, \hyperpage{10}
+  \item {STM32F4xx\_System\_Private\_TypesDefinitions}, \hyperpage{9}
+  \item {STM32F4xx\_System\_Private\_Variables}, \hyperpage{11}
+  \item {sysmem.c}
+    \subitem {\_sbrk}, \hyperpage{102}
+  \item {SystemClock\_Config}
+    \subitem {main.c}, \hyperpage{95}
+  \item {SystemCoreClockUpdate}
+    \subitem {STM32F4xx\_System\_Private\_Functions}, \hyperpage{12}
+  \item {SystemInit}
+    \subitem {STM32F4xx\_System\_Private\_Functions}, \hyperpage{13}
+
+  \indexspace
+
+  \item {UART\_ReadStringEcho}
+    \subitem {main.c}, \hyperpage{95}
+  \item {USART\_PRINTF}
+    \subitem {main.c}, \hyperpage{96}
+
+  \indexspace
+
+  \item {VECT\_TAB\_OFFSET}
+    \subitem {STM32F4xx\_System\_Private\_Defines}, \hyperpage{10}
+  \item {VGA\_t}, \hyperpage{16}
+
+\end{theindex}

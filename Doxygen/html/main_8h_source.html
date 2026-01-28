@@ -113,7 +113,7 @@ $(function(){initNavTree('main_8h_source.html','',''); });
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &quot;string.h&quot;</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="stm32__ub__vga__screen_8h.html">stm32_ub_vga_screen.h</a>&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;stm32_ub_vga_screen.h&quot;</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/* USER CODE END Includes */</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
@@ -140,54 +140,54 @@ $(function(){initNavTree('main_8h_source.html','',''); });
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">/* USER CODE END EFP */</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">/* Private defines -----------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="main_8h.html#afce59ab8a15e4e45d9cedeb5dc55b011">   68</a></span><span class="preprocessor">#define VGA_BLUE0_Pin GPIO_PIN_8</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="main_8h.html#a2722cd50a9fc0395b9bd2a9c0a63616d">   69</a></span><span class="preprocessor">#define VGA_BLUE0_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="main_8h.html#ace86cd9443e38482b1c9047d2bda9d53">   70</a></span><span class="preprocessor">#define VGA_BLUE1_Pin GPIO_PIN_9</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="main_8h.html#a5cca972dc3a9d50ce777fc2f7f059216">   71</a></span><span class="preprocessor">#define VGA_BLUE1_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="main_8h.html#a29c43dfa97b36b72be4b6ca5bb7ff4a6">   72</a></span><span class="preprocessor">#define VGA_GREEN0_Pin GPIO_PIN_10</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="main_8h.html#a5a24ea26bc7dbd63897ffc1fbdbf8ab5">   73</a></span><span class="preprocessor">#define VGA_GREEN0_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="main_8h.html#aaaa1d5ed4c7fd52d79e8333db1f6e537">   74</a></span><span class="preprocessor">#define VGA_GREEN1_Pin GPIO_PIN_11</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="main_8h.html#a78f0e07612092c681c14352e19b1dd43">   75</a></span><span class="preprocessor">#define VGA_GREEN1_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="main_8h.html#ac2f87d2cf75997714c82cb9be451197a">   76</a></span><span class="preprocessor">#define VGA_GREEN2_Pin GPIO_PIN_12</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="main_8h.html#a5c10cbc9b32d68e5c3088e74f3ee05c2">   77</a></span><span class="preprocessor">#define VGA_GREEN2_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="main_8h.html#ad3d846a5a27fa75304ea5ce870960c37">   78</a></span><span class="preprocessor">#define VGA_RED0_Pin GPIO_PIN_13</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="main_8h.html#a552b19928fd600986ffc171338db615b">   79</a></span><span class="preprocessor">#define VGA_RED0_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="main_8h.html#a9d54b348bb6ffa3167c71d2f86d4811d">   80</a></span><span class="preprocessor">#define VGA_RED1_Pin GPIO_PIN_14</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="main_8h.html#ae502de8ecdd4df88011b699a9dbf28cc">   81</a></span><span class="preprocessor">#define VGA_RED1_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="main_8h.html#a2ec813b2d822799b429bbe47cdb857cb">   82</a></span><span class="preprocessor">#define VGA_RED2_Pin GPIO_PIN_15</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="main_8h.html#aa6826e79d9f1d59b40fb522130498485">   83</a></span><span class="preprocessor">#define VGA_RED2_GPIO_Port GPIOE</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="main_8h.html#abf863824d250041fbda99d9f0c66e7cf">   84</a></span><span class="preprocessor">#define VGA_HSYNC_Pin GPIO_PIN_11</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="main_8h.html#a6161041bb0da5ba16ca384f54d15731a">   85</a></span><span class="preprocessor">#define VGA_HSYNC_GPIO_Port GPIOB</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="main_8h.html#ac91699501dec0d81f250f5a5a7a94d1a">   86</a></span><span class="preprocessor">#define VGA_VSYNC_Pin GPIO_PIN_12</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="main_8h.html#ab677279ccb99792d911b6ce225340fce">   87</a></span><span class="preprocessor">#define VGA_VSYNC_GPIO_Port GPIOB</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define VGA_BLUE0_Pin GPIO_PIN_8</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define VGA_BLUE0_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#define VGA_BLUE1_Pin GPIO_PIN_9</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#define VGA_BLUE1_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#define VGA_GREEN0_Pin GPIO_PIN_10</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#define VGA_GREEN0_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#define VGA_GREEN1_Pin GPIO_PIN_11</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define VGA_GREEN1_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define VGA_GREEN2_Pin GPIO_PIN_12</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#define VGA_GREEN2_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#define VGA_RED0_Pin GPIO_PIN_13</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#define VGA_RED0_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#define VGA_RED1_Pin GPIO_PIN_14</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#define VGA_RED1_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#define VGA_RED2_Pin GPIO_PIN_15</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#define VGA_RED2_GPIO_Port GPIOE</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#define VGA_HSYNC_Pin GPIO_PIN_11</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#define VGA_HSYNC_GPIO_Port GPIOB</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#define VGA_VSYNC_Pin GPIO_PIN_12</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#define VGA_VSYNC_GPIO_Port GPIOB</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">/* USER CODE BEGIN Private defines */</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="main_8h.html#a0e3eff829ed19518d75bb7d21a0ca3f6">   90</a></span><span class="preprocessor">#define BYTE_BUFLEN      1</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="main_8h.html#ad1cc016cd2d60fbb1dd56e7e09ecc00c">   91</a></span><span class="preprocessor">#define LINE_BUFLEN      1024</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="main_8h.html#a3b81478c7058ceb6ed610ce8e2ca3822">   92</a></span><span class="preprocessor">#define CARRIAGE_RETURN  13 </span><span class="comment">/* carriage return char \r */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="main_8h.html#a3c2cad5489953de23c5733e6e696a93e">   93</a></span><span class="preprocessor">#define LINE_FEED        10 </span><span class="comment">/* linefeed char \n        */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#define BYTE_BUFLEN      1</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#define LINE_BUFLEN      1024</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#define CARRIAGE_RETURN  13 </span><span class="comment">/* carriage return char \r */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#define LINE_FEED        10 </span><span class="comment">/* linefeed char \n        */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="main_8h.html#aa93f0eb578d23995850d61f7d61c55c1">   95</a></span><span class="preprocessor">#define FALSE   0x00</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="main_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">   96</a></span><span class="preprocessor">#define TRUE    0xFF</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#define FALSE   0x00</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#define TRUE    0xFF</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">/* Struct&#39;s ------------------------------------------------------------------*/</span></div>
 <div class="foldopen" id="foldopen00099" data-start="{" data-end="};">
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structinput__vars.html">   99</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structinput__vars.html#af4609bb085358efd2c579581687dd0dd">  101</a></span>    uint8_t <a class="code hl_variable" href="structinput__vars.html#af4609bb085358efd2c579581687dd0dd">byte_buffer_rx</a>[<a class="code hl_define" href="main_8h.html#a0e3eff829ed19518d75bb7d21a0ca3f6">BYTE_BUFLEN</a>];    <span class="comment">// Store the rx byte from the USART2</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structinput__vars.html#a6c85e260e4ebdde7fb865beef06cf8e4">  102</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="structinput__vars.html#a6c85e260e4ebdde7fb865beef06cf8e4">line_rx_buffer</a>[<a class="code hl_define" href="main_8h.html#ad1cc016cd2d60fbb1dd56e7e09ecc00c">LINE_BUFLEN</a>];       <span class="comment">// Buffer to hold all the bytes from rx USART2</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structinput__vars.html#a75abdd82008755b562c9120ae7073822">  103</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structinput__vars.html#a75abdd82008755b562c9120ae7073822">msglen</a>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structinput__vars.html#a99f97ed01363d434fd3543a4116ef785">  104</a></span>    <span class="keyword">volatile</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="structinput__vars.html#a99f97ed01363d434fd3543a4116ef785">char_counter</a>;              <span class="comment">// Counter for line_rx_buffer</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structinput__vars.html#a51a2504c9f07cc08434253e3644088b0">  105</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="structinput__vars.html#a51a2504c9f07cc08434253e3644088b0">command_execute_flag</a>;              <span class="comment">/* Set = whole transmission is received, ready for processing \</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    uint8_t byte_buffer_rx[BYTE_BUFLEN];    <span class="comment">// Store the rx byte from the USART2</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">char</span> line_rx_buffer[LINE_BUFLEN];       <span class="comment">// Buffer to hold all the bytes from rx USART2</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">int</span> msglen;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">volatile</span> <span class="keywordtype">int</span> char_counter;              <span class="comment">// Counter for line_rx_buffer</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">char</span> command_execute_flag;              <span class="comment">/* Set = whole transmission is received, ready for processing \</span></div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">                                               Reset = still receiving*/</span></div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}<a class="code hl_struct" href="structinput__vars.html">input_vars</a>;</div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">extern</span> <a class="code hl_struct" href="structinput__vars.html">input_vars</a> <a class="code hl_variable" href="main_8h.html#a0d0c46791672d829075326a134858672">input</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">extern</span> <a class="code hl_struct" href="structinput__vars.html">input_vars</a> input;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">/* Globals -------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="main_8h.html#a945cd2261a2991d2fd051aa21bbd46a0">container</a>[1024];</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="main_8h.html#aed71a558a0fc065e11b9c3c8fc2e2ad6">temp</a>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="main_8h.html#aebcfb1663ad4c68bf6386e05f4d990d3">key</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keywordtype">char</span> container[1024];</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keywordtype">int</span> temp;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keywordtype">int</span> key;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">/* USER CODE END Private defines */</span></div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
@@ -198,27 +198,15 @@ $(function(){initNavTree('main_8h_source.html','',''); });
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#endif </span><span class="comment">/* __MAIN_H */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/</span></div>
-<div class="ttc" id="amain_8h_html_a0d0c46791672d829075326a134858672"><div class="ttname"><a href="main_8h.html#a0d0c46791672d829075326a134858672">input</a></div><div class="ttdeci">input_vars input</div><div class="ttdef"><b>Definition</b> main.c:49</div></div>
-<div class="ttc" id="amain_8h_html_a0e3eff829ed19518d75bb7d21a0ca3f6"><div class="ttname"><a href="main_8h.html#a0e3eff829ed19518d75bb7d21a0ca3f6">BYTE_BUFLEN</a></div><div class="ttdeci">#define BYTE_BUFLEN</div><div class="ttdef"><b>Definition</b> main.h:90</div></div>
-<div class="ttc" id="amain_8h_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">This function is executed in case of error occurrence.</div><div class="ttdef"><b>Definition</b> main.c:212</div></div>
-<div class="ttc" id="amain_8h_html_a945cd2261a2991d2fd051aa21bbd46a0"><div class="ttname"><a href="main_8h.html#a945cd2261a2991d2fd051aa21bbd46a0">container</a></div><div class="ttdeci">volatile char container[1024]</div><div class="ttdef"><b>Definition</b> main.c:51</div></div>
-<div class="ttc" id="amain_8h_html_ad1cc016cd2d60fbb1dd56e7e09ecc00c"><div class="ttname"><a href="main_8h.html#ad1cc016cd2d60fbb1dd56e7e09ecc00c">LINE_BUFLEN</a></div><div class="ttdeci">#define LINE_BUFLEN</div><div class="ttdef"><b>Definition</b> main.h:91</div></div>
-<div class="ttc" id="amain_8h_html_aebcfb1663ad4c68bf6386e05f4d990d3"><div class="ttname"><a href="main_8h.html#aebcfb1663ad4c68bf6386e05f4d990d3">key</a></div><div class="ttdeci">volatile int key</div><div class="ttdef"><b>Definition</b> main.c:53</div></div>
-<div class="ttc" id="amain_8h_html_aed71a558a0fc065e11b9c3c8fc2e2ad6"><div class="ttname"><a href="main_8h.html#aed71a558a0fc065e11b9c3c8fc2e2ad6">temp</a></div><div class="ttdeci">volatile int temp</div><div class="ttdef"><b>Definition</b> main.c:52</div></div>
-<div class="ttc" id="astm32__ub__vga__screen_8h_html"><div class="ttname"><a href="stm32__ub__vga__screen_8h.html">stm32_ub_vga_screen.h</a></div></div>
+<div class="ttc" id="amain_8h_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">This function is executed in case of error occurrence.</div><div class="ttdef"><b>Definition</b> main.c:339</div></div>
 <div class="ttc" id="astructinput__vars_html"><div class="ttname"><a href="structinput__vars.html">input_vars</a></div><div class="ttdef"><b>Definition</b> main.h:100</div></div>
-<div class="ttc" id="astructinput__vars_html_a51a2504c9f07cc08434253e3644088b0"><div class="ttname"><a href="structinput__vars.html#a51a2504c9f07cc08434253e3644088b0">input_vars::command_execute_flag</a></div><div class="ttdeci">char command_execute_flag</div><div class="ttdef"><b>Definition</b> main.h:105</div></div>
-<div class="ttc" id="astructinput__vars_html_a6c85e260e4ebdde7fb865beef06cf8e4"><div class="ttname"><a href="structinput__vars.html#a6c85e260e4ebdde7fb865beef06cf8e4">input_vars::line_rx_buffer</a></div><div class="ttdeci">char line_rx_buffer[LINE_BUFLEN]</div><div class="ttdef"><b>Definition</b> main.h:102</div></div>
-<div class="ttc" id="astructinput__vars_html_a75abdd82008755b562c9120ae7073822"><div class="ttname"><a href="structinput__vars.html#a75abdd82008755b562c9120ae7073822">input_vars::msglen</a></div><div class="ttdeci">int msglen</div><div class="ttdef"><b>Definition</b> main.h:103</div></div>
-<div class="ttc" id="astructinput__vars_html_a99f97ed01363d434fd3543a4116ef785"><div class="ttname"><a href="structinput__vars.html#a99f97ed01363d434fd3543a4116ef785">input_vars::char_counter</a></div><div class="ttdeci">volatile int char_counter</div><div class="ttdef"><b>Definition</b> main.h:104</div></div>
-<div class="ttc" id="astructinput__vars_html_af4609bb085358efd2c579581687dd0dd"><div class="ttname"><a href="structinput__vars.html#af4609bb085358efd2c579581687dd0dd">input_vars::byte_buffer_rx</a></div><div class="ttdeci">uint8_t byte_buffer_rx[BYTE_BUFLEN]</div><div class="ttdef"><b>Definition</b> main.h:101</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_6de768dd7fa7c80afc11c70a67dec5e4.html">STM_program</a></li><li class="navelem"><a href="dir_5bc99e1b9e0ceeff81cb06bbdd1202ea.html">Core</a></li><li class="navelem"><a href="dir_434819a8ab11733eef4553ecf4b1c12e.html">Inc</a></li><li class="navelem"><a href="main_8h.html">main.h</a></li>
+    <li class="navelem"><b>STM_program</b></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><a href="main_8h.html">main.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
   </ul>
 </div>

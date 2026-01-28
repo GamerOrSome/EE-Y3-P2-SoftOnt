@@ -10,11 +10,23 @@
 {\ttfamily \#include "{}tim.\+h"{}}\newline
 {\ttfamily \#include "{}usart.\+h"{}}\newline
 {\ttfamily \#include "{}gpio.\+h"{}}\newline
+{\ttfamily \#include "{}Logic\+\_\+layer.\+h"{}}\newline
 {\ttfamily \#include "{}API\+\_\+func.\+h"{}}\newline
+{\ttfamily \#include "{}stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+Include dependency graph for main.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c__incl}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{main_8c_a6bac225908d39cd36055eb038aa79c0b}{USART\+\_\+\+PRINTF}}~int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE \texorpdfstring{$\ast$}{*}f)
+\Hypertarget{main_8c_a6bac225908d39cd36055eb038aa79c0b}\label{main_8c_a6bac225908d39cd36055eb038aa79c0b} 
+\#define {\bfseries USART\+\_\+\+PRINTF}~int fputc(int ch, FILE \texorpdfstring{$\ast$}{*}f)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -23,22 +35,43 @@ void \mbox{\hyperlink{main_8c_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+
 \begin{DoxyCompactList}\small\item\em System Clock Configuration. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
 \begin{DoxyCompactList}\small\item\em The application entry point. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_aea55089d27af8dc4870a4e77803e8118}{UART\+\_\+\+Read\+String\+Echo}} (UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}huart, char \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t max\+Len)
+\begin{DoxyCompactList}\small\item\em Reads a string from UART and sends it back. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Handler}} (void)
 \begin{DoxyCompactList}\small\item\em This function is executed in case of error occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} \mbox{\hyperlink{main_8c_a0d0c46791672d829075326a134858672}{input}}
+\Hypertarget{main_8c_aa2146da9811399cd856abaef0c545957}\label{main_8c_aa2146da9811399cd856abaef0c545957} 
+uint8\+\_\+t {\bfseries rx}
 \item 
-volatile char \mbox{\hyperlink{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}{container}} \mbox{[}1024\mbox{]}
+UART\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}}
 \item 
-volatile int \mbox{\hyperlink{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}{temp}}
+\Hypertarget{main_8c_a0d0c46791672d829075326a134858672}\label{main_8c_a0d0c46791672d829075326a134858672} 
+\mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} {\bfseries input}
 \item 
-volatile int \mbox{\hyperlink{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}{key}}
+\Hypertarget{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}\label{main_8c_a945cd2261a2991d2fd051aa21bbd46a0} 
+volatile char {\bfseries container} \mbox{[}1024\mbox{]}
+\item 
+\Hypertarget{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}\label{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6} 
+volatile int {\bfseries temp}
+\item 
+\Hypertarget{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}\label{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3} 
+volatile int {\bfseries key}
+\item 
+\Hypertarget{main_8c_a574675f8b196fc10cd1b6a1c33b9c0e6}\label{main_8c_a574675f8b196fc10cd1b6a1c33b9c0e6} 
+uint8\+\_\+t {\bfseries rx\+Char}
+\item 
+\Hypertarget{main_8c_a137df3a7fa162328f9754bd8235953ba}\label{main_8c_a137df3a7fa162328f9754bd8235953ba} 
+char {\bfseries uart\+Buffer} \mbox{[}128\mbox{]}
+\item 
+\Hypertarget{main_8c_a97ee67dc4d8f0e2d1ada8b3c43ee7967}\label{main_8c_a97ee67dc4d8f0e2d1ada8b3c43ee7967} 
+uint16\+\_\+t {\bfseries uart\+Index} = 0
 \item 
 \mbox{\hyperlink{main_8c_a1a7dab423912a84e2df34e6b03af3553}{USART\+\_\+\+PRINTF}}
 \item 
-return \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}
+\Hypertarget{main_8c_a0523c05685d59544dca911cb6a3db77d}\label{main_8c_a0523c05685d59544dca911cb6a3db77d} 
+return {\bfseries ch}
 \end{DoxyCompactItemize}
 
 
@@ -51,17 +84,6 @@ return \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}
 \doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2020 STMicroelectronics. All rights reserved.\end{center} }
 
 This software component is licensed by ST under BSD 3-\/Clause license, the "{}\+License"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+BSD-\/3-\/\+Clause 
-
-\label{doc-define-members}
-\Hypertarget{main_8c_doc-define-members}
-\doxysubsection{Macro Definition Documentation}
-\Hypertarget{main_8c_a6bac225908d39cd36055eb038aa79c0b}\index{main.c@{main.c}!USART\_PRINTF@{USART\_PRINTF}}
-\index{USART\_PRINTF@{USART\_PRINTF}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{USART\_PRINTF}{USART\_PRINTF}}
-{\footnotesize\ttfamily \label{main_8c_a6bac225908d39cd36055eb038aa79c0b} 
-\#define USART\+\_\+\+PRINTF~int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE \texorpdfstring{$\ast$}{*}f)}
-
-
 
 \label{doc-func-members}
 \Hypertarget{main_8c_doc-func-members}
@@ -115,42 +137,49 @@ Configure the main internal regulator output voltage
 
 Initializes the RCC Oscillators according to the specified parameters in the RCC\+\_\+\+Osc\+Init\+Type\+Def structure.
 
-Initializes the CPU, AHB and APB buses clocks
+Initializes the CPU, AHB and APB buses clocks\Hypertarget{main_8c_aea55089d27af8dc4870a4e77803e8118}\index{main.c@{main.c}!UART\_ReadStringEcho@{UART\_ReadStringEcho}}
+\index{UART\_ReadStringEcho@{UART\_ReadStringEcho}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{UART\_ReadStringEcho()}{UART\_ReadStringEcho()}}
+{\footnotesize\ttfamily \label{main_8c_aea55089d27af8dc4870a4e77803e8118} 
+uint16\+\_\+t UART\+\_\+\+Read\+String\+Echo (\begin{DoxyParamCaption}\item[{UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{huart}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{max\+Len}{}\end{DoxyParamCaption})}
+
+
+
+Reads a string from UART and sends it back. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em huart} & UART handle \\
+\hline
+{\em buffer} & Pointer to buffer to store received string \\
+\hline
+{\em max\+Len} & Maximum length of string to receive \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Number} & of characters received \\
+\hline
+\end{DoxyRetVals}
+
 
 \label{doc-var-members}
 \Hypertarget{main_8c_doc-var-members}
 \doxysubsection{Variable Documentation}
-\Hypertarget{main_8c_a0523c05685d59544dca911cb6a3db77d}\index{main.c@{main.c}!ch@{ch}}
-\index{ch@{ch}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{ch}{ch}}
-{\footnotesize\ttfamily \label{main_8c_a0523c05685d59544dca911cb6a3db77d} 
-return ch}
+\Hypertarget{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}\index{main.c@{main.c}!huart2@{huart2}}
+\index{huart2@{huart2}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{huart2}{huart2}}
+{\footnotesize\ttfamily \label{main_8c_aa9479c261d65eecedd3d9582f7f0f89c} 
+UART\+\_\+\+Handle\+Type\+Def huart2\hspace{0.3cm}{\ttfamily [extern]}}
 
-\Hypertarget{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}\index{main.c@{main.c}!container@{container}}
-\index{container@{container}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{container}{container}}
-{\footnotesize\ttfamily \label{main_8c_a945cd2261a2991d2fd051aa21bbd46a0} 
-volatile char container\mbox{[}1024\mbox{]}}
+File Name \+: USART.\+c Description \+: This file provides code for the configuration of the USART instances.
 
-\Hypertarget{main_8c_a0d0c46791672d829075326a134858672}\index{main.c@{main.c}!input@{input}}
-\index{input@{input}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{input}{input}}
-{\footnotesize\ttfamily \label{main_8c_a0d0c46791672d829075326a134858672} 
-\mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} input}
+\begin{DoxyAttention}{Attention}
 
-\Hypertarget{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}\index{main.c@{main.c}!key@{key}}
-\index{key@{key}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{key}{key}}
-{\footnotesize\ttfamily \label{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3} 
-volatile int key}
+\end{DoxyAttention}
+\doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2026 STMicroelectronics. All rights reserved.\end{center} }
 
-\Hypertarget{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}\index{main.c@{main.c}!temp@{temp}}
-\index{temp@{temp}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{temp}{temp}}
-{\footnotesize\ttfamily \label{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6} 
-volatile int temp}
-
-\Hypertarget{main_8c_a1a7dab423912a84e2df34e6b03af3553}\index{main.c@{main.c}!USART\_PRINTF@{USART\_PRINTF}}
+This software component is licensed by ST under BSD 3-\/Clause license, the "{}\+License"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+BSD-\/3-\/\+Clause \Hypertarget{main_8c_a1a7dab423912a84e2df34e6b03af3553}\index{main.c@{main.c}!USART\_PRINTF@{USART\_PRINTF}}
 \index{USART\_PRINTF@{USART\_PRINTF}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{USART\_PRINTF}{USART\_PRINTF}}
 {\footnotesize\ttfamily \label{main_8c_a1a7dab423912a84e2df34e6b03af3553} 
@@ -159,6 +188,6 @@ USART\+\_\+\+PRINTF}
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ HAL\_UART\_Transmit(\&\mbox{\hyperlink{usart_8h_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}},\ (uint8\_t\ *)\&\mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}},\ 1,\ 0xFFFF)}
+\DoxyCodeLine{\ \ \ \ HAL\_UART\_Transmit(\&huart2,\ (uint8\_t\ *)\&ch,\ 1,\ 0xFFFF)}
 
 \end{DoxyCode}

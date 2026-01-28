@@ -1,12 +1,12 @@
 
-/*
- * logic_layer.c
- *
- * Created on: 27 Nov 2025
- * Author: jeremy , Victor
- *
- * Beschrijving: Logic layer implementatie voor script parsing en executie
- */
+/**
+  ******************************************************************************
+  * @file           : Logic.c
+  * @brief          : Logic layer implementatie om uart commando's te parsen en uit te voeren via API_func.
+  ******************************************************************************
+  */
+
+//Includes
 
 #include "logic_layer.h"
 #include "API_func.h"

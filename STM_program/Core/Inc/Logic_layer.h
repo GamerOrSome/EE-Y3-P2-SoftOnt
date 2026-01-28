@@ -1,9 +1,10 @@
-/*
- * API_func.h
- *
- *  Created on: 27 Nov 2025
- *      Author: Victor, Jeremy
- */
+/**
+  ******************************************************************************
+  * @file           : Logic_layer.h
+  * @brief          : Header voor Logic_layer.c file.
+  *                   In dit bestand word de logic functie en struct gedefinieerd. 
+  ******************************************************************************
+  */
 
 #ifndef LOGIC_LAYER_H_
 #define LOGIC_LAYER_H_

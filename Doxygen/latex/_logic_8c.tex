@@ -1,0 +1,136 @@
+\doxysection{C\+:/\+Git/\+EE-\/\+Y3-\/\+P2-\/\+Soft\+Ont/\+STM\+\_\+program/\+Core/\+Src/\+Logic.c File Reference}
+\hypertarget{_logic_8c}{}\label{_logic_8c}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/Logic.c@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Src/Logic.c}}
+
+
+\+: Logic layer implementatie om uart commando\textquotesingle{}s te parsen en uit te voeren via API\+\_\+func.  
+
+
+{\ttfamily \#include "{}logic\+\_\+layer.\+h"{}}\newline
+{\ttfamily \#include "{}API\+\_\+func.\+h"{}}\newline
+{\ttfamily \#include "{}stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+Include dependency graph for Logic.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_logic_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_color_map}{Color\+Map}}
+\item 
+struct \mbox{\hyperlink{struct_parsed_args}{Parsed\+Args}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_logic_8c_a29b7451465deac204c5f7cb1f9c6e1fc}\label{_logic_8c_a29b7451465deac204c5f7cb1f9c6e1fc} 
+\#define {\bfseries MAX\+\_\+\+ARGS}~12
+\item 
+\Hypertarget{_logic_8c_a3f6d16dfdf7920e1e5f1dad5db5347f2}\label{_logic_8c_a3f6d16dfdf7920e1e5f1dad5db5347f2} 
+\#define {\bfseries MAX\+\_\+\+TOKEN\+\_\+\+LEN}~50
+\item 
+\Hypertarget{_logic_8c_a09a3b394b8602092d58347b791158062}\label{_logic_8c_a09a3b394b8602092d58347b791158062} 
+\#define {\bfseries MAX\+\_\+\+LINE\+\_\+\+LEN}~256
+\item 
+\Hypertarget{_logic_8c_a74742d229c6baf6374f4995c12cc7ebd}\label{_logic_8c_a74742d229c6baf6374f4995c12cc7ebd} 
+\#define {\bfseries FONT\+\_\+\+NORMAAL}~0
+\item 
+\Hypertarget{_logic_8c_a371199ea70c05b91403e325d0aae9b96}\label{_logic_8c_a371199ea70c05b91403e325d0aae9b96} 
+\#define {\bfseries FONT\+\_\+\+VET}~1
+\item 
+\Hypertarget{_logic_8c_aaa301a176f042b6e522f953bd721b7e5}\label{_logic_8c_aaa301a176f042b6e522f953bd721b7e5} 
+\#define {\bfseries FONT\+\_\+\+CURSIEF}~2
+\item 
+\Hypertarget{_logic_8c_a28f21052ebe259bfb63b2d127f01b5fd}\label{_logic_8c_a28f21052ebe259bfb63b2d127f01b5fd} 
+\#define {\bfseries COLOR\+\_\+\+TABLE\+\_\+\+SIZE}~(sizeof(COLOR\+\_\+\+TABLE) / sizeof(\mbox{\hyperlink{struct_color_map}{Color\+Map}}))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_logic_8c_a10d5e8c964d9eaf754a28d90586e8fcc}{parse\+\_\+color}} (char \texorpdfstring{$\ast$}{*}color\+\_\+str)
+\item 
+int \mbox{\hyperlink{_logic_8c_ac79b59e9ce6f90e0a155850d5e48b76e}{parse\+\_\+font\+\_\+style}} (char \texorpdfstring{$\ast$}{*}style\+\_\+str)
+\item 
+int \mbox{\hyperlink{_logic_8c_a1bab843b5fb74d39323bbd46a19df3a1}{parse\+\_\+script\+\_\+line}} (char \texorpdfstring{$\ast$}{*}line, struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}} \texorpdfstring{$\ast$}{*}cmd)
+\item 
+int \mbox{\hyperlink{_logic_8c_a72cdf38497732c52c1d3c8eb8359cc6f}{execute\+\_\+command}} (struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}} \texorpdfstring{$\ast$}{*}cmd)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Logic layer implementatie om uart commando\textquotesingle{}s te parsen en uit te voeren via API\+\_\+func. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{_logic_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_logic_8c_a72cdf38497732c52c1d3c8eb8359cc6f}\index{Logic.c@{Logic.c}!execute\_command@{execute\_command}}
+\index{execute\_command@{execute\_command}!Logic.c@{Logic.c}}
+\doxysubsubsection{\texorpdfstring{execute\_command()}{execute\_command()}}
+{\footnotesize\ttfamily \label{_logic_8c_a72cdf38497732c52c1d3c8eb8359cc6f} 
+int execute\+\_\+command (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}} \texorpdfstring{$\ast$}{*}}]{cmd}{}\end{DoxyParamCaption})}
+
+Executeer een commando 
+\begin{DoxyParams}{Parameters}
+{\em cmd} & In parameter\+: het commando dat uitgevoerd moet worden \\
+\hline
+{\em parsed} & Geparste argumenten \\
+\hline
+{\em result} & Uit parameter\+: de return waarde van de API functie \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 bij succes, errno waarde bij fout 
+\end{DoxyReturn}
+\Hypertarget{_logic_8c_a10d5e8c964d9eaf754a28d90586e8fcc}\index{Logic.c@{Logic.c}!parse\_color@{parse\_color}}
+\index{parse\_color@{parse\_color}!Logic.c@{Logic.c}}
+\doxysubsubsection{\texorpdfstring{parse\_color()}{parse\_color()}}
+{\footnotesize\ttfamily \label{_logic_8c_a10d5e8c964d9eaf754a28d90586e8fcc} 
+int parse\+\_\+color (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{color\+\_\+str}{}\end{DoxyParamCaption})}
+
+Converteer kleurnaam naar kleurcode 
+\begin{DoxyParams}{Parameters}
+{\em color\+\_\+str} & Kleurnaam als string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Kleurcode of VGA\+\_\+\+COL\+\_\+\+BLACK als niet gevonden 
+\end{DoxyReturn}
+\Hypertarget{_logic_8c_ac79b59e9ce6f90e0a155850d5e48b76e}\index{Logic.c@{Logic.c}!parse\_font\_style@{parse\_font\_style}}
+\index{parse\_font\_style@{parse\_font\_style}!Logic.c@{Logic.c}}
+\doxysubsubsection{\texorpdfstring{parse\_font\_style()}{parse\_font\_style()}}
+{\footnotesize\ttfamily \label{_logic_8c_ac79b59e9ce6f90e0a155850d5e48b76e} 
+int parse\+\_\+font\+\_\+style (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{style\+\_\+str}{}\end{DoxyParamCaption})}
+
+Converteer font style naam naar code 
+\begin{DoxyParams}{Parameters}
+{\em style\+\_\+str} & Font style naam als string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Font style code of FONT\+\_\+\+NORMAAL als niet gevonden 
+\end{DoxyReturn}
+\Hypertarget{_logic_8c_a1bab843b5fb74d39323bbd46a19df3a1}\index{Logic.c@{Logic.c}!parse\_script\_line@{parse\_script\_line}}
+\index{parse\_script\_line@{parse\_script\_line}!Logic.c@{Logic.c}}
+\doxysubsubsection{\texorpdfstring{parse\_script\_line()}{parse\_script\_line()}}
+{\footnotesize\ttfamily \label{_logic_8c_a1bab843b5fb74d39323bbd46a19df3a1} 
+int parse\+\_\+script\+\_\+line (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}} \texorpdfstring{$\ast$}{*}}]{cmd}{}\end{DoxyParamCaption})}
+
+Parse een script regel naar \doxylink{struct_logic_interface}{Logic\+Interface} struct 
+\begin{DoxyParams}{Parameters}
+{\em line} & In parameter\+: de regel die geanalyseerd wordt \\
+\hline
+{\em cmd} & Out parameter\+: de struct met de geanalyseerde commando\textquotesingle{}s \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 bij succes, errno waarde bij fout 
+\end{DoxyReturn}

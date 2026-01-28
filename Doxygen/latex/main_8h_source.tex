@@ -24,7 +24,7 @@
 \DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}string.h"{}}}
 \DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stm32__ub__vga__screen_8h}{stm32\_ub\_vga\_screen.h}}"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}stm32\_ub\_vga\_screen.h"{}}}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \textcolor{comment}{/*\ USER\ CODE\ END\ Includes\ */}}
 \DoxyCodeLine{00044\ }
@@ -84,19 +84,19 @@
 \DoxyCodeLine{00098\ \textcolor{comment}{/*\ Struct's\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
 \DoxyCodeLine{00099\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
 \DoxyCodeLine{00100\ \{}
-\DoxyCodeLine{00101\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structinput__vars_af4609bb085358efd2c579581687dd0dd}{byte\_buffer\_rx}}[\mbox{\hyperlink{main_8h_a0e3eff829ed19518d75bb7d21a0ca3f6}{BYTE\_BUFLEN}}];\ \ \ \ \textcolor{comment}{//\ Store\ the\ rx\ byte\ from\ the\ USART2}}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structinput__vars_a6c85e260e4ebdde7fb865beef06cf8e4}{line\_rx\_buffer}}[\mbox{\hyperlink{main_8h_ad1cc016cd2d60fbb1dd56e7e09ecc00c}{LINE\_BUFLEN}}];\ \ \ \ \ \ \ \textcolor{comment}{//\ Buffer\ to\ hold\ all\ the\ bytes\ from\ rx\ USART2}}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structinput__vars_a75abdd82008755b562c9120ae7073822}{msglen}};}
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structinput__vars_a99f97ed01363d434fd3543a4116ef785}{char\_counter}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Counter\ for\ line\_rx\_buffer}}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structinput__vars_a51a2504c9f07cc08434253e3644088b0}{command\_execute\_flag}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ =\ whole\ transmission\ is\ received,\ ready\ for\ processing\ \(\backslash\)}}
+\DoxyCodeLine{00101\ \ \ \ \ uint8\_t\ byte\_buffer\_rx[BYTE\_BUFLEN];\ \ \ \ \textcolor{comment}{//\ Store\ the\ rx\ byte\ from\ the\ USART2}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{char}\ line\_rx\_buffer[LINE\_BUFLEN];\ \ \ \ \ \ \ \textcolor{comment}{//\ Buffer\ to\ hold\ all\ the\ bytes\ from\ rx\ USART2}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{int}\ msglen;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ char\_counter;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Counter\ for\ line\_rx\_buffer}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{char}\ command\_execute\_flag;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ =\ whole\ transmission\ is\ received,\ ready\ for\ processing\ \(\backslash\)}}
 \DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Reset\ =\ still\ receiving*/}}
 \DoxyCodeLine{00107\ \}\mbox{\hyperlink{structinput__vars}{input\_vars}};}
-\DoxyCodeLine{00108\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structinput__vars}{input\_vars}}\ \mbox{\hyperlink{main_8h_a0d0c46791672d829075326a134858672}{input}};}
+\DoxyCodeLine{00108\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structinput__vars}{input\_vars}}\ input;}
 \DoxyCodeLine{00109\ }
 \DoxyCodeLine{00110\ \textcolor{comment}{/*\ Globals\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
-\DoxyCodeLine{00111\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{main_8h_a945cd2261a2991d2fd051aa21bbd46a0}{container}}[1024];}
-\DoxyCodeLine{00112\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8h_aed71a558a0fc065e11b9c3c8fc2e2ad6}{temp}};}
-\DoxyCodeLine{00113\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8h_aebcfb1663ad4c68bf6386e05f4d990d3}{key}};}
+\DoxyCodeLine{00111\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{char}\ container[1024];}
+\DoxyCodeLine{00112\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ temp;}
+\DoxyCodeLine{00113\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ key;}
 \DoxyCodeLine{00114\ }
 \DoxyCodeLine{00115\ \textcolor{comment}{/*\ USER\ CODE\ END\ Private\ defines\ */}}
 \DoxyCodeLine{00116\ }
