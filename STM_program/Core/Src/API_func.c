@@ -1,3 +1,12 @@
+/**
+  ******************************************************************************
+  * @file           : API_func.c
+  * @brief          : API functies om scherm aan te sturen via ub_lib.
+  ******************************************************************************
+  */
+
+//Includes
+
 #include <API_func.h>
 #include <Bitmaps.h>
 #include <combined_charsets.h>

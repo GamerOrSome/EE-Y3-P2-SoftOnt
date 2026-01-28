@@ -1,8 +1,70 @@
-\doxysection{C\+:/\+Git/\+EE-\/\+Y3-\/\+P2-\/\+Soft\+Ont/\+STM\+\_\+program/\+Core/\+LOGIC/\+Logic\+\_\+layer.h File Reference}
-\hypertarget{_logic__layer_8h}{}\label{_logic__layer_8h}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/LOGIC/Logic\_layer.h@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/LOGIC/Logic\_layer.h}}
+\doxysection{C\+:/\+Git/\+EE-\/\+Y3-\/\+P2-\/\+Soft\+Ont/\+STM\+\_\+program/\+Core/\+Inc/\+Logic\+\_\+layer.h File Reference}
+\hypertarget{_logic__layer_8h}{}\label{_logic__layer_8h}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/Logic\_layer.h@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/Logic\_layer.h}}
+
+
+\+: Header voor Logic\+\_\+layer.\+c file. In dit bestand word de logic functie en struct gedefinieerd.  
+
+
 {\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for Logic\+\_\+layer.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{_logic__layer_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_logic__layer_8h__dep__incl}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_logic__layer_8h_a72cdf38497732c52c1d3c8eb8359cc6f}{execute\+\_\+command}} (struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}} \texorpdfstring{$\ast$}{*}cmd)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Header voor Logic\+\_\+layer.\+c file. In dit bestand word de logic functie en struct gedefinieerd. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{_logic__layer_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_logic__layer_8h_a72cdf38497732c52c1d3c8eb8359cc6f}\index{Logic\_layer.h@{Logic\_layer.h}!execute\_command@{execute\_command}}
+\index{execute\_command@{execute\_command}!Logic\_layer.h@{Logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{execute\_command()}{execute\_command()}}
+{\footnotesize\ttfamily \label{_logic__layer_8h_a72cdf38497732c52c1d3c8eb8359cc6f} 
+int execute\+\_\+command (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct_logic_interface}{Logic\+Interface}} \texorpdfstring{$\ast$}{*}}]{cmd}{}\end{DoxyParamCaption})}
+
+//configuratie doorsturen naar de parser en hieruit de juiste api\textquotesingle{}s uitvoeren.
+
+
+\begin{DoxyParams}{Parameters}
+{\em struct} & Logic\+Interface\texorpdfstring{$\ast$}{*} cmd Pointer naar de \doxylink{struct_logic_interface}{Logic\+Interface} struct met commando informatie. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Statuscode (0 = succes, anders fout).
+\end{DoxyReturn}
+Executeer een commando 
+\begin{DoxyParams}{Parameters}
+{\em cmd} & In parameter\+: het commando dat uitgevoerd moet worden \\
+\hline
+{\em parsed} & Geparste argumenten \\
+\hline
+{\em result} & Uit parameter\+: de return waarde van de API functie \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 bij succes, errno waarde bij fout 
+\end{DoxyReturn}

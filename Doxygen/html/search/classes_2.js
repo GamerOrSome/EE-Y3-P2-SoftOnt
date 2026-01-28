@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vga_5ft_0',['VGA_t',['../struct_v_g_a__t.html',1,'']]]
+  ['input_5fvars_0',['input_vars',['../structinput__vars.html',1,'']]]
 ];

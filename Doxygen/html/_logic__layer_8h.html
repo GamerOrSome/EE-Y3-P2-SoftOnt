@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Softont 2025: C:/Git/EE-Y3-P2-SoftOnt/STM_program/Core/LOGIC/Logic_layer.h File Reference</title>
+<title>Softont 2025: C:/Git/EE-Y3-P2-SoftOnt/STM_program/Core/Inc/Logic_layer.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,14 +91,80 @@ $(function(){initNavTree('_logic__layer_8h.html','',''); });
   <div class="headertitle"><div class="title">Logic_layer.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>: Header voor Logic_layer.c file. In dit bestand word de logic functie en struct gedefinieerd.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for Logic_layer.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="_logic__layer_8h__incl.png" border="0" usemap="#a_c_1_2_git_2_e_e-_y3-_p2-_soft_ont_2_s_t_m__program_2_core_2_inc_2_logic__layer_8h" loading="lazy" alt=""/></div>
+<map name="a_c_1_2_git_2_e_e-_y3-_p2-_soft_ont_2_s_t_m__program_2_core_2_inc_2_logic__layer_8h" id="a_c_1_2_git_2_e_e-_y3-_p2-_soft_ont_2_s_t_m__program_2_core_2_inc_2_logic__layer_8h">
+<area shape="rect" title=": Header voor Logic_layer.c file. In dit bestand word de logic functie en struct gedefinieerd." alt="" coords="5,5,173,64"/>
+<area shape="rect" title=" " alt="" coords="57,112,121,139"/>
+<area shape="poly" title=" " alt="" coords="92,64,92,96,86,96,86,64"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="_logic__layer_8h__dep__incl.png" border="0" usemap="#a_c_1_2_git_2_e_e-_y3-_p2-_soft_ont_2_s_t_m__program_2_core_2_inc_2_logic__layer_8hdep" loading="lazy" alt=""/></div>
+<map name="a_c_1_2_git_2_e_e-_y3-_p2-_soft_ont_2_s_t_m__program_2_core_2_inc_2_logic__layer_8hdep" id="a_c_1_2_git_2_e_e-_y3-_p2-_soft_ont_2_s_t_m__program_2_core_2_inc_2_logic__layer_8hdep">
+<area shape="rect" title=": Header voor Logic_layer.c file. In dit bestand word de logic functie en struct gedefinieerd." alt="" coords="101,5,269,64"/>
+<area shape="rect" href="_logic_8c.html" title=": Logic layer implementatie om uart commando&#39;s te parsen en uit te voeren via API_func." alt="" coords="5,112,173,171"/>
+<area shape="poly" title=" " alt="" coords="150,77,117,113,113,110,147,74"/>
+<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="197,112,365,171"/>
+<area shape="poly" title=" " alt="" coords="223,74,257,110,253,113,220,77"/>
+</map>
+</div>
 </div>
 <p><a href="_logic__layer_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:LogicInterface" id="r_LogicInterface"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_logic_interface.html">LogicInterface</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a72cdf38497732c52c1d3c8eb8359cc6f" id="r_a72cdf38497732c52c1d3c8eb8359cc6f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72cdf38497732c52c1d3c8eb8359cc6f">execute_command</a> (struct <a class="el" href="struct_logic_interface.html">LogicInterface</a> *cmd)</td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>: Header voor Logic_layer.c file. In dit bestand word de logic functie en struct gedefinieerd. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a72cdf38497732c52c1d3c8eb8359cc6f" name="a72cdf38497732c52c1d3c8eb8359cc6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72cdf38497732c52c1d3c8eb8359cc6f">&#9670;&#160;</a></span>execute_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execute_command </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_logic_interface.html">LogicInterface</a> *</td>          <td class="paramname"><span class="paramname"><em>cmd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>//configuratie doorsturen naar de parser en hieruit de juiste api's uitvoeren.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">struct</td><td>LogicInterface* cmd Pointer naar de <a class="el" href="struct_logic_interface.html">LogicInterface</a> struct met commando informatie. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Statuscode (0 = succes, anders fout).</dd></dl>
+<p>Executeer een commando </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>In parameter: het commando dat uitgevoerd moet worden </td></tr>
+    <tr><td class="paramname">parsed</td><td>Geparste argumenten </td></tr>
+    <tr><td class="paramname">result</td><td>Uit parameter: de return waarde van de API functie </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 bij succes, errno waarde bij fout </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -112,7 +178,7 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_6de768dd7fa7c80afc11c70a67dec5e4.html">STM_program</a></li><li class="navelem"><a href="dir_5bc99e1b9e0ceeff81cb06bbdd1202ea.html">Core</a></li><li class="navelem"><a href="dir_528c80a2bbfc1e9b459e725400c8c685.html">LOGIC</a></li><li class="navelem"><a href="_logic__layer_8h.html">Logic_layer.h</a></li>
+    <li class="navelem"><b>STM_program</b></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><a href="_logic__layer_8h.html">Logic_layer.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
   </ul>
 </div>

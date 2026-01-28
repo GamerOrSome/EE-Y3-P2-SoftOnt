@@ -1,26 +1,24 @@
 \doxysection{Logic\+\_\+layer.\+h}
-\hypertarget{_logic__layer_8h_source}{}\label{_logic__layer_8h_source}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/LOGIC/Logic\_layer.h@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/LOGIC/Logic\_layer.h}}
+\hypertarget{_logic__layer_8h_source}{}\label{_logic__layer_8h_source}\index{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/Logic\_layer.h@{C:/Git/EE-\/Y3-\/P2-\/SoftOnt/STM\_program/Core/Inc/Logic\_layer.h}}
 \mbox{\hyperlink{_logic__layer_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
-\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ API\_func.h}}
-\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Created\ on:\ 27\ Nov\ 2025}}
-\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ jeremy}}
-\DoxyCodeLine{00006\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ LOGIC\_LAYER\_H\_}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ LOGIC\_LAYER\_H\_}}
-\DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string.h>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_logic_interface}{LogicInterface}}}
-\DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct_logic_interface_a5e57f68abd3e28df09087f3f85a06a24}{function\_name}}[6];}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_logic_interface_a1a414aefa6208279135dc7764aa076f6}{num\_arguments}};}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct_logic_interface_abc9ad84a154f6c7172069e0bccf4f743}{arguments}};\ }
-\DoxyCodeLine{00018\ \};}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ LOGIC\_LAYER\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ LOGIC\_LAYER\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ LOGIC\_LAYER\_H\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_logic_interface}{LogicInterface}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{char}\ function\_name[15];}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ argument\_len;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{char}\ *arguments;}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_logic__layer_8h_a72cdf38497732c52c1d3c8eb8359cc6f}{execute\_command}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct_logic_interface}{LogicInterface}}*\ cmd);}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ LOGIC\_LAYER\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

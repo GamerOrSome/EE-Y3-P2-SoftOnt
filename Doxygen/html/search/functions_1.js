@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['api_5fclearscreen_0',['API_clearscreen',['../_a_p_i__func_8h.html#ac5d34bcb0d84db1190d4b876a3f65944',1,'API_clearscreen(int color):&#160;API_func.c'],['../_a_p_i__func_8c.html#ac5d34bcb0d84db1190d4b876a3f65944',1,'API_clearscreen(int color):&#160;API_func.c']]],
-  ['api_5fdraw_5fbitmap_1',['API_draw_bitmap',['../_a_p_i__func_8h.html#a196d22f276d5b3398e9c43dea9ccd259',1,'API_draw_bitmap(int x_lup, int y_lup, int bm_nr):&#160;API_func.c'],['../_a_p_i__func_8c.html#a196d22f276d5b3398e9c43dea9ccd259',1,'API_draw_bitmap(int x_lup, int y_lup, int bm_nr):&#160;API_func.c']]],
-  ['api_5fdraw_5fcircle_2',['API_draw_circle',['../_a_p_i__func_8h.html#aa5074a066da892be2a162b9269f5e915',1,'API_draw_circle(int x, int y, int radius, int color, int reserved):&#160;API_func.c'],['../_a_p_i__func_8c.html#aa5074a066da892be2a162b9269f5e915',1,'API_draw_circle(int x, int y, int radius, int color, int reserved):&#160;API_func.c']]],
-  ['api_5fdraw_5ffigure_3',['API_draw_figure',['../_a_p_i__func_8h.html#a5eb24bcce2562a16e92e7abd78d504c1',1,'API_draw_figure(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3, int x_4, int y_4, int x_5, int y_5, int color, int reserved):&#160;API_func.c'],['../_a_p_i__func_8c.html#a5eb24bcce2562a16e92e7abd78d504c1',1,'API_draw_figure(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3, int x_4, int y_4, int x_5, int y_5, int color, int reserved):&#160;API_func.c']]],
-  ['api_5fdraw_5fline_4',['API_draw_line',['../_a_p_i__func_8h.html#a3fd40a7f05424ffe7b0ef94c8c7f7315',1,'API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved):&#160;API_func.c'],['../_a_p_i__func_8c.html#a3fd40a7f05424ffe7b0ef94c8c7f7315',1,'API_draw_line(int x_1, int y_1, int x_2, int y_2, int color, int weight, int reserved):&#160;API_func.c']]],
-  ['api_5fdraw_5frectangle_5',['API_draw_rectangle',['../_a_p_i__func_8h.html#a1ed75a19de88f6fdec9e78af4ea0eb48',1,'API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2):&#160;API_func.c'],['../_a_p_i__func_8c.html#a1ed75a19de88f6fdec9e78af4ea0eb48',1,'API_draw_rectangle(int x, int y, int width, int height, int color, int filled, int reserved, int reserved_2):&#160;API_func.c']]],
-  ['api_5fdraw_5ftext_6',['API_draw_text',['../_a_p_i__func_8h.html#a49a806ab1f245ac4914337f6d7999439',1,'API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved):&#160;API_func.c'],['../_a_p_i__func_8c.html#a49a806ab1f245ac4914337f6d7999439',1,'API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname, int fontsize, int fontstyle, int reserved):&#160;API_func.c']]],
-  ['api_5frepeat_5fcommands_7',['API_repeat_commands',['../_a_p_i__func_8h.html#a11c9ff0968578bc8dd32c0ade7e557c5',1,'API_repeat_commands(int nr_previous_commands, int iterations, int reserved):&#160;API_func.c'],['../_a_p_i__func_8c.html#a11c9ff0968578bc8dd32c0ade7e557c5',1,'API_repeat_commands(int nr_previous_commands, int iterations, int reserved):&#160;API_func.c']]],
-  ['api_5fwait_8',['API_wait',['../_a_p_i__func_8h.html#a20044ea68044596c2320e0205b0c4c9a',1,'API_wait(int msecs):&#160;API_func.c'],['../_a_p_i__func_8c.html#a20044ea68044596c2320e0205b0c4c9a',1,'API_wait(int msecs):&#160;API_func.c']]],
-  ['asm_9',['asm',['../sysmem_8c.html#a29ab1d8ef1e6fcd3e1cc9cb91c1623f1',1,'sysmem.c']]]
+  ['api_5fclearscreen_0',['API_clearscreen',['../_a_p_i__func_8c.html#ac5d34bcb0d84db1190d4b876a3f65944',1,'API_func.c']]],
+  ['api_5fdraw_5fbitmap_1',['API_draw_bitmap',['../_a_p_i__func_8c.html#a196d22f276d5b3398e9c43dea9ccd259',1,'API_func.c']]],
+  ['api_5fdraw_5fcircle_2',['API_draw_circle',['../_a_p_i__func_8c.html#aa5074a066da892be2a162b9269f5e915',1,'API_func.c']]],
+  ['api_5fdraw_5ffigure_3',['API_draw_figure',['../_a_p_i__func_8c.html#a5eb24bcce2562a16e92e7abd78d504c1',1,'API_func.c']]],
+  ['api_5fdraw_5fline_4',['API_draw_line',['../_a_p_i__func_8c.html#a3fd40a7f05424ffe7b0ef94c8c7f7315',1,'API_func.c']]],
+  ['api_5fdraw_5frectangle_5',['API_draw_rectangle',['../_a_p_i__func_8c.html#a1ed75a19de88f6fdec9e78af4ea0eb48',1,'API_func.c']]],
+  ['api_5fdraw_5ftext_6',['API_draw_text',['../_a_p_i__func_8c.html#a9e93b47b6b5cd048d3d0682d5bd79fa0',1,'API_func.c']]],
+  ['api_5frepeat_5fcommands_7',['API_repeat_commands',['../_a_p_i__func_8c.html#a11c9ff0968578bc8dd32c0ade7e557c5',1,'API_func.c']]],
+  ['api_5fwait_8',['API_wait',['../_a_p_i__func_8c.html#a20044ea68044596c2320e0205b0c4c9a',1,'API_func.c']]]
 ];

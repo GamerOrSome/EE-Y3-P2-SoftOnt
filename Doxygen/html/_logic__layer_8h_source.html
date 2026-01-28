@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Softont 2025: C:/Git/EE-Y3-P2-SoftOnt/STM_program/Core/LOGIC/Logic_layer.h Source File</title>
+<title>Softont 2025: C:/Git/EE-Y3-P2-SoftOnt/STM_program/Core/Inc/Logic_layer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,39 +91,35 @@ $(function(){initNavTree('_logic__layer_8h_source.html','',''); });
   <div class="headertitle"><div class="title">Logic_layer.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_logic__layer_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * API_func.h</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  Created on: 27 Nov 2025</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *      Author: jeremy</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef LOGIC_LAYER_H_</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define LOGIC_LAYER_H_</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="struct_logic_interface.html">   13</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_logic_interface.html">LogicInterface</a></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="struct_logic_interface.html#a5e57f68abd3e28df09087f3f85a06a24">   15</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="struct_logic_interface.html#a5e57f68abd3e28df09087f3f85a06a24">function_name</a>[6];</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_logic_interface.html#a1a414aefa6208279135dc7764aa076f6">   16</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_logic_interface.html#a1a414aefa6208279135dc7764aa076f6">num_arguments</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="struct_logic_interface.html#abc9ad84a154f6c7172069e0bccf4f743">   17</a></span>    <span class="keywordtype">char</span> *<a class="code hl_variable" href="struct_logic_interface.html#abc9ad84a154f6c7172069e0bccf4f743">arguments</a>; </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
+<a href="_logic__layer_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef LOGIC_LAYER_H_</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define LOGIC_LAYER_H_</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_logic_interface.html">   24</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_logic_interface.html">LogicInterface</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">char</span> function_name[15];</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">int</span> argument_len;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">char</span> *arguments;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
 </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif </span><span class="comment">/* LOGIC_LAYER_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astruct_logic_interface_html"><div class="ttname"><a href="struct_logic_interface.html">LogicInterface</a></div><div class="ttdef"><b>Definition</b> Logic_layer.h:14</div></div>
-<div class="ttc" id="astruct_logic_interface_html_a1a414aefa6208279135dc7764aa076f6"><div class="ttname"><a href="struct_logic_interface.html#a1a414aefa6208279135dc7764aa076f6">LogicInterface::num_arguments</a></div><div class="ttdeci">int num_arguments</div><div class="ttdef"><b>Definition</b> Logic_layer.h:16</div></div>
-<div class="ttc" id="astruct_logic_interface_html_a5e57f68abd3e28df09087f3f85a06a24"><div class="ttname"><a href="struct_logic_interface.html#a5e57f68abd3e28df09087f3f85a06a24">LogicInterface::function_name</a></div><div class="ttdeci">char function_name[6]</div><div class="ttdef"><b>Definition</b> Logic_layer.h:15</div></div>
-<div class="ttc" id="astruct_logic_interface_html_abc9ad84a154f6c7172069e0bccf4f743"><div class="ttname"><a href="struct_logic_interface.html#abc9ad84a154f6c7172069e0bccf4f743">LogicInterface::arguments</a></div><div class="ttdeci">char * arguments</div><div class="ttdef"><b>Definition</b> Logic_layer.h:17</div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">int</span> <a class="code hl_function" href="_logic__layer_8h.html#a72cdf38497732c52c1d3c8eb8359cc6f">execute_command</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="struct_logic_interface.html">LogicInterface</a>* cmd);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif </span><span class="comment">/* LOGIC_LAYER_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="a_logic__layer_8h_html_a72cdf38497732c52c1d3c8eb8359cc6f"><div class="ttname"><a href="_logic__layer_8h.html#a72cdf38497732c52c1d3c8eb8359cc6f">execute_command</a></div><div class="ttdeci">int execute_command(struct LogicInterface *cmd)</div><div class="ttdef"><b>Definition</b> Logic.c:306</div></div>
+<div class="ttc" id="astruct_logic_interface_html"><div class="ttname"><a href="struct_logic_interface.html">LogicInterface</a></div><div class="ttdef"><b>Definition</b> Logic_layer.h:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_6de768dd7fa7c80afc11c70a67dec5e4.html">STM_program</a></li><li class="navelem"><a href="dir_5bc99e1b9e0ceeff81cb06bbdd1202ea.html">Core</a></li><li class="navelem"><a href="dir_528c80a2bbfc1e9b459e725400c8c685.html">LOGIC</a></li><li class="navelem"><a href="_logic__layer_8h.html">Logic_layer.h</a></li>
+    <li class="navelem"><b>STM_program</b></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><a href="_logic__layer_8h.html">Logic_layer.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
   </ul>
 </div>
