@@ -142,7 +142,7 @@ int main(void)
   {
     API_draw_line(1, i, 319, i, i, 1, 0);
   }
-  API_draw_bitmap(130, 90, 1);
+  API_draw_bitmap(130, 90, 7);
 
   HAL_Delay(1000);
 
@@ -196,27 +196,27 @@ int main(void)
       cmd.arguments = arg;
       int ret = 0;
       ret = execute_command(&cmd);
-      if (ret != 0)
-      {
-        HAL_UART_Transmit(&huart2, "ERR:", 4, HAL_MAX_DELAY);
-        // Handle negative errno values (from API_func.c)
-        if (ret == -EINVAL) {
-          HAL_UART_Transmit(&huart2, "EINVAL", 6, HAL_MAX_DELAY);
-        } else if (ret == -ENOTSUP) {
-          HAL_UART_Transmit(&huart2, "ENOTSUP", 7, HAL_MAX_DELAY);
-        } else if (ret == -ENOMEM) {
-          HAL_UART_Transmit(&huart2, "ENOMEM", 6, HAL_MAX_DELAY);
-        }
-        // Handle unknown return values (from Logic.c)
-        else {
-          HAL_UART_Transmit(&huart2, "UNKNOWN", 7, HAL_MAX_DELAY);
-        }
-      } else {
-        HAL_UART_Transmit(&huart2, "OK", 2, HAL_MAX_DELAY);
-      }
-
-      HAL_UART_Transmit(&huart2, "\r\n", 2, HAL_MAX_DELAY);
       
+      char ret_str[20];
+      
+      switch(ret) {
+        case 0:
+          strcpy((char *)ret_str, "OK\r\n");
+          break;
+        case -EINVAL:
+          strcpy((char *)ret_str, "ERR:EINVAL\r\n");
+          break;
+        case -ENOTSUP:
+          strcpy((char *)ret_str, "ERR:ENOTSUP\r\n");
+          break;
+        case -ENOMEM:
+          strcpy((char *)ret_str, "ERR:ENOMEM\r\n");
+          break;
+        default:
+          strcpy((char *)ret_str, "ERR:UNKNOWN\r\n");
+          break;
+      }
+      HAL_UART_Transmit(&huart2, (uint8_t *)ret_str, strlen(ret_str), HAL_MAX_DELAY);
 
       // Reset for next command
       input.char_counter = 0;
