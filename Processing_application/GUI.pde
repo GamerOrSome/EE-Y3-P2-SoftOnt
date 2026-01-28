@@ -434,6 +434,7 @@ void keyPressed() {
     {
       toggle[i] = false;
       lock = false;
+      coord_stage = 0;
     }
   }
 
@@ -445,19 +446,19 @@ void keyPressed() {
        toggle[2] == true && coord_stage == 2 ||
        toggle[4] == true && coord_stage == 0)
     {
-      kleur += "";
+      kleur = "";
     }
     if(toggle[2] == true && coord_stage == 3)
     {
-      tekst += "";
+      tekst = "";
     }
     if(toggle[2] == true && coord_stage == 4)
     {
-      fontnaam += "";
+      fontnaam = "";
     }
     if(toggle[2] == true && coord_stage == 6)
     {
-      fontstijl += "";
+      fontstijl = "";
     }
   }
 
