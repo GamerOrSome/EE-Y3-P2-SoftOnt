@@ -1,0 +1,35 @@
+
+clearscherm,zwart
+lijn,1,1,100,100,rood,4
+lijn,100,1,100,1,groen,3
+clearscherm,wit
+rechthoek,10,10,300,200,zwart,1
+rechthoek,10,10,150,100,lichtblauw,0
+rechthoek,160,110,150,100,geel,1
+clearscherm,zwart
+wacht,1000
+tekst,10,20,  wit,the quick brown fox jumps over the lazy dog, consolas, 1, normaal
+tekst,10,100, magenta,the quick brown fox jumps over the lazy dog, arial, 2, vet
+tekst,10,200, lichtcyaan,the quick brown fox jumps over the lazy dog, consolas, 1, cursief
+
+clearscherm,wit
+bitmap,0,50,50
+clearscherm,wit
+bitmap,1,50,50
+clearscherm,wit
+bitmap,2,50,50
+clearscherm,bruin
+bitmap,3,50,50
+clearscherm,wit
+cirkel,120,160,25,groen
+
+clearscherm,magenta
+rechthoek,10,20,200,100,zwart, 1
+lijn,1,1,100,100,blauw,4
+tekst,10,50,groen,Beep boop ik ben een robot, consolas, 2, normaal
+wacht,2000
+clearscherm,zwart
+tekst,10,10,geel,Bijna klaar!!, consolas, 2, vet
+tekst,10,60,grijs,nu alleen nog de herhaalfunctie, arial, 1, cursief
+wacht,2000
+herhaal,9,4
